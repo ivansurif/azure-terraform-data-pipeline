@@ -1,0 +1,181 @@
+name: 'Terraform'
+
+on:
+  # push:
+  #   branches:
+  #   - master
+  pull_request:
+
+jobs:
+  
+  generate-matrix:
+    name: Generate matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+      - uses: kanga333/comment-hider@master
+        name: Hide bot comments
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set matrix
+        id: set-matrix
+        run: |
+          git fetch origin $GITHUB_BASE_REF --depth=1
+          DIFF=$( git diff --name-only origin/$GITHUB_BASE_REF $GITHUB_SHA | xargs -L1 dirname | uniq)
+          JSON="{\"include\":["
+          # Only add paths with terraform in it
+          while read path; do
+              if [[ "$path" == *"terraform"* ]]; then
+                  if [[ -d $path ]]; then
+                      HAS_TF=false
+                      for entry in "$path"/*.tf
+                      do
+                          if test -f "$entry"; then
+                              HAS_TF=true
+                          fi                
+                      done
+                      if [ "$HAS_TF" = true ]; then
+                          JSONline="{\"folder\": \"$path\"},"
+                          JSON="$JSON$JSONline"
+                      fi
+                  fi 
+              fi
+          done <<< "$DIFF"
+          if [[ $JSON == *, ]]; then
+              JSON="${JSON%?}"
+          fi
+          JSON="$JSON]}"
+          echo $JSON
+          echo "::set-output name=matrix::$( echo "$JSON" )"
+  plan:
+    name: Plan Terraform on "${{ matrix.folder }}"
+    environment: plan
+    needs: generate-matrix
+    strategy:
+      matrix: ${{fromJson(needs.generate-matrix.outputs.matrix)}}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ matrix.folder }}
+    env:
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    # Check that all Terraform configuration files adhere to a canonical format
+    - name: Terraform fmt
+      id: fmt
+      run: terraform fmt
+      continue-on-error: false
+
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      id: init
+      run: terraform init
+
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate -no-color
+
+    # Generate an execution plan for Terraform
+    - name: Terraform Plan
+      id: plan
+      run: terraform plan -no-color
+      continue-on-error: false
+
+    # Post Terraform plan as a comment to PR
+    - name: Post Terraform plan to PR
+      uses: actions/github-script@v2
+      env:
+        PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const output = `## Plan For \`${{ matrix.folder }}\`
+          #### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+          #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+          #### Terraform Validation 🤖${{ steps.validate.outputs.stdout }}
+          #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+
+          <details><summary>Show Plan</summary>
+
+          \`\`\`${process.env.PLAN}\`\`\`
+
+          </details>
+
+          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ matrix.folder }}\`, Workflow: \`${{ github.workflow }}\`*`;
+
+          github.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: output
+          })
+  apply:
+    environment: apply
+    name: Apply Terraform on "${{ matrix.folder }}"
+    needs: [generate-matrix, plan]
+    strategy:
+      matrix: ${{fromJson(needs.generate-matrix.outputs.matrix)}}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ matrix.folder }}
+    env:
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+    - name: Terraform Init
+      id: init
+      run: terraform init
+    - name: Terraform Apply
+      id: apply
+      run: terraform apply -auto-approve
+    - name: Post Terraform Apply to PR
+      uses: actions/github-script@v2
+      env:
+        APPLY: "terraform\n${{ steps.apply.outputs.stdout }}"
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const output = `## Apply For \`${{ matrix.folder }}\`
+          #### Terraform Apply \`${{ steps.apply.outcome }}\`
+
+          <details><summary>Show Applied Plan</summary>
+
+          \`\`\`${process.env.APPLY}\`\`\`
+
+          </details>
+
+          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ matrix.folder }}\`, Workflow: \`${{ github.workflow }}\`*`;
+
+          github.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: output
+          })
