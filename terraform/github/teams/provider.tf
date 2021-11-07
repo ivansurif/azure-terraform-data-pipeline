@@ -5,7 +5,7 @@ terraform {
     key                  = "github_teams"
 
     # Access Key set as environment variable ARM_ACCESS_KEY
-    
+
   }
   required_providers {
     github = {
