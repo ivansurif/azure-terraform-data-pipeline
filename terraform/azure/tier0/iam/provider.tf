@@ -1,8 +1,8 @@
 terraform {
   backend "azurerm" {
-    storage_account_name = module.project_vars.storage_account_name
+    storage_account_name = "cogniteskfcenittf"
     container_name       = "tfstate"
-    key                  = local.state_key
+    key                  = "tier0.iam"
 
     # Access Key set as environment variable ARM_ACCESS_KEY
     
