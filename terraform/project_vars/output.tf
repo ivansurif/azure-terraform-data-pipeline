@@ -1,4 +1,3 @@
-# When using Azure Storage Account, set the following
-output "storage_account_name" {
-  value = "cogniteskfcenitterraform"
+output "customer_name" {
+  value = "skf-cenit"
 }
