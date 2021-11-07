@@ -9,12 +9,12 @@ terraform {
   }
   required_providers {
     github = {
-      version = "2.4.1"
+      source = "integrations/github"
+      version = "4.17.0"
     }
   }
-  required_version = "~> 1.0.0"
 }
 
 provider "github" {
-  organization = "cognite-skf-cenit"
+    organization = "cognite-skf-cenit"
 }
