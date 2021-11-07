@@ -1,6 +1,6 @@
 terraform {
   backend "azurerm" {
-    storage_account_name = module.project_vars.storage_account_name
+    storage_account_name = local.storage_account_name
     container_name       = "tfstate"
     key                  = local.state_key
 
