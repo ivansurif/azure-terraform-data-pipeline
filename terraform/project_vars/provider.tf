@@ -1,6 +1,6 @@
 terraform {
   backend "azurerm" {
-    storage_account_name = "cogniteskfcenitterraform"
+    storage_account_name = "cogniteskfcenittf"
     container_name       = "tfstate"
     key                  = "project_vars"
 
