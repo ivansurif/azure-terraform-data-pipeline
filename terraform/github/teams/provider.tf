@@ -16,5 +16,4 @@ terraform {
 }
 
 provider "github" {
-    organization = "cognite-skf-cenit"
 }
