@@ -1,9 +1,9 @@
 # Create a team
-resource "github_team" "team_test" {
-  name        = "test-team"
-  description = "Test Team creation"
-  privacy     = "closed"
-}
+# resource "github_team" "team_test" {
+#   name        = "test-team"
+#   description = "Test Team creation"
+#   privacy     = "closed"
+# }
 
 # Add a user member to a team
 # resource "github_team_membership" "team_noc_employee_write_membership" {
