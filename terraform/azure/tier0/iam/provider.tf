@@ -1,15 +1,15 @@
 terraform {
   backend "azurerm" {
-    storage_account_name = module.project_vars.storage_account_name
+    storage_account_name = "cogniteskfcenittf"
     container_name       = "tfstate"
-    key                  = local.state_key
+    key                  = "azure.tier0.iam"
 
     # Access Key set as environment variable ARM_ACCESS_KEY
-    
+
   }
   required_providers {
     azurerm = {
-      source = "hashicorp/azurerm"
+      source  = "hashicorp/azurerm"
       version = "2.82.0"
     }
   }
@@ -21,5 +21,6 @@ provider "azurerm" {
   # ARM_CLIENT_SECRET
   # ARM_SUBSCRIPTION_ID
   # ARM_TENANT_ID
+
   features {}
 }
