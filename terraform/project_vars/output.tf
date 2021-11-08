@@ -2,16 +2,8 @@ output "customer_name" {
   value = "skf-cenit"
 }
 
-output "github_users" {
- value = toset([
-      "Scott Melhop",
-      "Joel Sirefelt",
-      "Igor Suchilov",
-      "Ivan Surif"
-  ])
-}
 
-output "user_map" {
+output "github_users" {
   value = {
     "scott.melhop@cognitedata.com" = {
       "github_account" = "scottmelhop"

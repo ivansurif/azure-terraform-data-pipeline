@@ -1,6 +1,6 @@
 # Add a user to the organization
 resource "github_membership" "membership_for_noc" {
-  for_each = module.project_vars.user_map
+  for_each = module.project_vars.github_users
 
   username = each.value.github_account
   role     = each.value.org_member
