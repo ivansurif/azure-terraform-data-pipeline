@@ -70,6 +70,8 @@ jobs:
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
       ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
+      GITHUB_OWNER: ${{ secrets.GH_OWNER }}
 
     steps:
 
@@ -156,7 +158,7 @@ jobs:
       run: terraform init
     - name: Terraform Apply
       id: apply
-      run: terraform apply -auto-approve
+      run: terraform apply -auto-approve -no-color
     - name: Post Terraform Apply to PR
       uses: actions/github-script@v2
       env:
