@@ -1,12 +1,12 @@
 terraform {
-#   backend "azurerm" {
-#     storage_account_name = "cogniteskfcenittf"
-#     container_name       = "tfstate"
-#     key                  = "azure.tier0.iam"
+  backend "azurerm" {
+    storage_account_name = "cogniteskfcenittf"
+    container_name       = "tfstate"
+    key                  = "azure.tier0.iam"
 
-#     # Access Key set as environment variable ARM_ACCESS_KEY
+    # Access Key set as environment variable ARM_ACCESS_KEY
 
-#   }
+  }
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
