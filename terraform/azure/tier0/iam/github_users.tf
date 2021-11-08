@@ -7,10 +7,14 @@ locals {
   
 }
 
-resource "azuread_app_role_assignment" "example" {
-  for_each = module.project_vars.github_users
-  app_role_id         = local.app_roles["User"]
-  principal_object_id = local.users[each.key]
-  resource_object_id  = data.azuread_service_principal.github_enterprise.object_id
+# resource "azuread_app_role_assignment" "example" {
+#   for_each = module.project_vars.github_users
+#   app_role_id         = local.app_roles["User"]
+#   principal_object_id = local.users[each.key]
+#   resource_object_id  = data.azuread_service_principal.github_enterprise.object_id
+# }
+
+output "name" {
+  value = data.azuread_service_principal.github_enterprise
 }
 
