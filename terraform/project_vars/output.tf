@@ -12,7 +12,7 @@ output "github_users" {
     }
 
     "joel.sirefelt@cognitedata.com" = {
-      "github_account" = ""
+      "github_account" = "CogJoel"
       "org_member"     = "member"
     }
 
