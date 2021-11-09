@@ -12,8 +12,9 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "2.82.0"
     }
-    required_version = ">= 0.14"
   }
+
+  required_version = ">= 0.14"
 }
 
 provider "azurerm" {
