@@ -13,6 +13,8 @@ terraform {
       version = "2.82.0"
     }
   }
+
+  required_version = ">= 0.14"
 }
 
 provider "azurerm" {
@@ -21,6 +23,7 @@ provider "azurerm" {
   # ARM_CLIENT_SECRET
   # ARM_SUBSCRIPTION_ID
   # ARM_TENANT_ID
+  skip_provider_registration = true
 
   features {}
 }
