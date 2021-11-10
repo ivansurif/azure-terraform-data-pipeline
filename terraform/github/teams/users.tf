@@ -11,6 +11,11 @@ locals {
       "org_member"     = "member"
     }
 
+    "kelvin.sundli@cognitedata.com" = {
+      "github_account" = "ks93"
+      "org_member"     = "member"
+    }
+
     "joel.sirefelt@cognitedata.com" = {
       "github_account"  = "CogJoel"
       "org_member"      = "member"
