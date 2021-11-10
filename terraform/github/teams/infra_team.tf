@@ -20,7 +20,7 @@ locals {
 
 resource "github_team_repository" "infra_team_push_repos_membership" {
   for_each   = toset(local.infra_repos)
-  team_id    = github_team.infra_team_push
+  team_id    = github_team.infra_team_push.id
   repository = each.value
   permission = "push"
 }
