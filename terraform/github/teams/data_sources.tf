@@ -11,8 +11,9 @@ locals {
     }
 
     "joel.sirefelt@cognitedata.com" = {
-      "github_account" = "CogJoel"
-      "org_member"     = "member"
+      "github_account"  = "CogJoel"
+      "org_member"      = "member"
+      "infra_team_push" = "member"
     }
 
     "scott.melhop@cognitedata.com" = {
@@ -21,13 +22,15 @@ locals {
     }
 
     "ivan.surif@cognitedata.com" = {
-      "github_account" = "ivansurif"
-      "org_member"     = "member"
+      "github_account"  = "ivansurif"
+      "org_member"      = "member"
+      "infra_team_push" = "member"
     }
 
     "igor.suchilov@cognitedata.com" = {
-      "github_account" = "igors-cognite"
-      "org_member"     = "member"
+      "github_account"  = "igors-cognite"
+      "org_member"      = "member"
+      "infra_team_push" = "member"
     }
   }
 }
