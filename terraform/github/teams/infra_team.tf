@@ -1,6 +1,6 @@
 resource "github_team" "infra_team_push" {
-  name        = "test-team"
-  description = "Test Team creation"
+  name        = "infra-team-push"
+  description = "Infrastructure Maintainers"
   privacy     = "closed"
 }
 
