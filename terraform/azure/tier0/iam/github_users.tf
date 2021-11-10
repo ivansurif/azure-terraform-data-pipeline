@@ -10,6 +10,7 @@ locals {
     "scott.melhop@cognitedata.com",
     "ivan.surif@cognitedata.com",
     "igor.suchilov@cognitedata.com",
+    "hakon.treider@cognitedata.com",
   ]
 
 }
