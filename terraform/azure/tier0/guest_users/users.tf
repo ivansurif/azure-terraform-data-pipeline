@@ -1,6 +1,7 @@
 locals {
   guest_users = {
-    "Håkon Treider" : "hakon.treider@cognitedata.com"
+    "Håkon Treider" : "hakon.treider@cognitedata.com",
+    "Kelvin Sundli" : "kelvin.sundli@cognitedata.com",
   }
 }
 
