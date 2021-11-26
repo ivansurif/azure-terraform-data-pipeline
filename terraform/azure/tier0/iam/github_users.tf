@@ -12,6 +12,7 @@ locals {
     "igor.suchilov@cognitedata.com",
     "hakon.treider@cognitedata.com",
     "kelvin.sundli@cognitedata.com",
+    "murad.sater@cognitedata.com",
   ]
 
 }
