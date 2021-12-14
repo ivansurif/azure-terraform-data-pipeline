@@ -51,7 +51,10 @@ resource "azurerm_key_vault_secret" "acg_secret" {
 }
 
 
-resource "azurerm_storage_account" "storage" {
+# I'm already working on a storage account as set in providers, hence
+# I'm commenting the below
+
+/* resource "azurerm_storage_account" "storage" {
   account_replication_type = "LRS"
   account_tier             = "Standard"
   resource_group_name      = azurerm_resource_group.rg.name
@@ -59,7 +62,7 @@ resource "azurerm_storage_account" "storage" {
   name                     = var.storage_account_name
   allow_blob_public_access = true
 }
-
+*/
 
 /*
 CONTAINER REGISTRY
