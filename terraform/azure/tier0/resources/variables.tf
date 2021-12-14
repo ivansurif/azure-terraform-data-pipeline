@@ -1,5 +1,5 @@
 variable "resource_group_name" {
-  default     = "skfcenitdevtemp3"
+  default     = "terraform"
   description = "Name of the resource group to be created"
 }
 
@@ -9,7 +9,7 @@ variable "key_vault_name" {
 }
 
 variable "storage_account_name" {
-  default     = "skfcenitdevtemp3"
+  default     = "cogniteskfcenittf"
   description = "Name of the SA to be created"
 }
 
