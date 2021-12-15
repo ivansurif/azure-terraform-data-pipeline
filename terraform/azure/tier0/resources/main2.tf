@@ -14,9 +14,13 @@ output "vault_uri" {
   value = data.azurerm_key_vault.example.vault_uri
 }
 
+# Reading secret value after access policy is set
 data "azurerm_key_vault_secret" "test" {
   name         = "SAMPLE-SECRET"
   key_vault_id = data.azurerm_key_vault.example.id
+  depends_on = [
+    azurerm_key_vault_access_policy.kv_ap
+  ]
 }
 
 
@@ -81,6 +85,7 @@ resource "azurerm_key_vault_secret" "acg_secret" {
   ]
 }
 
+# Setting secret value after access policy is set
 resource "azurerm_key_vault_secret" "sample_secret_test" {
   name         = "SAMPLE-SECRET"
   value        = var.SAMPLE_SECRET
@@ -98,8 +103,13 @@ resource "azurerm_storage_account" "storage" {
   account_tier             = "Standard"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
-  name                     = local.new_resource_name
+  # for testing purposes> SA name will be set from KV secret
+  # name                     = local.new_resource_name
+  name                     = data.azurerm_key_vault_secret.test.value
   allow_blob_public_access = true
+  depends_on = [
+    azurerm_key_vault_access_policy.kv_ap
+  ]
 }
 
 
