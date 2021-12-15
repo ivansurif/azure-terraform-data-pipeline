@@ -27,7 +27,7 @@ resource "azurerm_key_vault_access_policy" "kv_ap" {
 
   key_permissions = [
     "Get",
-    "Set"
+    "Create"
   ]
 
   secret_permissions = [
