@@ -99,7 +99,10 @@ jobs:
     # Generate an execution plan for Terraform
     - name: Terraform Plan
       id: plan
-      run: terraform plan -no-color
+      run: |
+        terraform plan -no-color
+        output=$(terraform output sample_secret_value)
+        echo $output
       continue-on-error: true
     - name: Post Terraform Plan Error to PR
       if: ${{ steps.plan.outcome == 'failure' }}
