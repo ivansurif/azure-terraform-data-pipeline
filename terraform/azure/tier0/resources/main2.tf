@@ -65,6 +65,10 @@ resource "azurerm_key_vault_access_policy" "kv_ap" {
     "Get",
     "Set"
   ]
+
+  depends_on = [
+    azurerm_key_vault.kv
+  ]
 }
 
 
