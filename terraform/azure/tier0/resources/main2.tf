@@ -64,6 +64,14 @@ resource "azurerm_key_vault_secret" "acg_secret" {
   ]
 }
 
+resource "azurerm_key_vault_secret" "acg_username" {
+  name         = "SAMPLE_SECRET"
+  value        = var.SAMPLE_SECRET
+  key_vault_id = azurerm_key_vault.kv.id
+  depends_on = [
+    azurerm_key_vault_access_policy.kv_ap
+  ]
+}
 
 # Creating new storage account, for the one referenced in providers
 # is solely used to save state
@@ -146,7 +154,7 @@ resource "azurerm_container_group" "acg" {
     # The name of the Azure Container Instances resource.
     # This will be its identifier in Azure and can be different from the image name.
     # Changing this forces a new resource to be created.
-    image  = "crskf.azurecr.io/diskf01:ver2"
+    image  = "crskf.azurecr.io/diskf01:ver2" # ===>>>> MAKE DYNAMIC
     cpu    = "0.5"
     memory = "1.5"
 
@@ -154,15 +162,10 @@ resource "azurerm_container_group" "acg" {
       port     = 443
       protocol = "TCP"
     }
-
-
-    # If you don't include ports, you'll get this error:
-    # The ports in the 'ipAddress' of container group '....' cannot be empty.
   }
 }
 
 
-# Application Insights is created by Tier 1
 resource "azurerm_application_insights" "func_application_insights" {
   name                = local.new_resource_name
   location            = azurerm_resource_group.rg.location
@@ -171,12 +174,11 @@ resource "azurerm_application_insights" "func_application_insights" {
 }
 
 
-# Service Plan is defined by Tier 1
 resource "azurerm_app_service_plan" "func_app_service_plan" {
   name                = local.new_resource_name
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  kind                = "FunctionApp"
+  kind                = "FunctionApp" # ===>>> research if Linux instead
   reserved            = true
   sku {
     tier = "Dynamic"
@@ -185,7 +187,6 @@ resource "azurerm_app_service_plan" "func_app_service_plan" {
 
 }
 
-# Function App is created by Tier 1
 resource "azurerm_function_app" "func_function_app" {
   name                       = local.new_resource_name
   location                   = azurerm_resource_group.rg.location
@@ -209,12 +210,12 @@ resource "azurerm_function_app" "func_function_app" {
     API_URL                        = "https://transportecenit.azurefd.net/digitalt/api/v1/points"
     SYSTEM_GUID                    = "0c801d9c-5142-4fd0-b50d-34e3e5aa5815"
     CDF_CLIENT_ID                  = "182226d3-ae9f-4c39-8a0c-ee9bd43f0d48"
-    # CDF_TENANT_ID = "83a6ef4c-74d8-4858-9728-4faa19df8bc6"
-    CDF_TENANT_ID       = data.azurerm_client_config.current.tenant_id
-    CDF_CLUSTER         = "az-eastus-1"
-    CDF_COGNITE_PROJECT = "skfcenit-test"
-    CDF_CLIENT_SECRET   = "@Microsoft.KeyVault(SecretUri=https://testenvtemp.vault.azure.net/secrets/CDF-CLIENT-SECRET/630dabdc44ec4833ab6d26a476869aa4)"
-    API_KEY             = "@Microsoft.KeyVault(SecretUri=https://testenvtemp.vault.azure.net/secrets/API-KEY/fdd554c6f4984ba6903fcbffbe59ab87)"
+    CDF_TENANT_ID                  = data.azurerm_client_config.current.tenant_id
+    CDF_CLUSTER                    = "az-eastus-1"
+    CDF_COGNITE_PROJECT            = "skfcenit-test"
+    # CDF_COGNITE_PROJECT             = "skfcenit-dev"
+    CDF_CLIENT_SECRET = "@Microsoft.KeyVault(SecretUri=https://testenvtemp.vault.azure.net/secrets/CDF-CLIENT-SECRET/630dabdc44ec4833ab6d26a476869aa4)"
+    API_KEY           = "@Microsoft.KeyVault(SecretUri=https://testenvtemp.vault.azure.net/secrets/API-KEY/fdd554c6f4984ba6903fcbffbe59ab87)"
   }
 }
 
