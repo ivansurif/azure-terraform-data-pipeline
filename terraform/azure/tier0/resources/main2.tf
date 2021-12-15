@@ -51,8 +51,8 @@ resource "azurerm_key_vault_secret" "acg_secret" {
 }
 
 
-# I'm already working on a storage account as set in providers, hence
-# I'm referencing the already existing storage account here
+# Creating new storage account, for the one referenced in providers
+# is solely used to save state
 
 resource "azurerm_storage_account" "storage" {
   account_replication_type = "LRS"
