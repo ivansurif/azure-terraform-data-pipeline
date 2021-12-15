@@ -2,7 +2,7 @@ data "azurerm_client_config" "current" {
 }
 
 locals {
-  new_resource_name = "skfcenitdevtemp6"
+  new_resource_name = "skfcenitdevtemp2"
 }
 
 data "azurerm_key_vault" "example" {
