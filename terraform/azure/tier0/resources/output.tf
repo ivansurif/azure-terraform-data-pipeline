@@ -1,5 +1,5 @@
 data "azurerm_key_vault_secret" "test" {
-  name         = "SAMPLE_SECRET"
+  name         = "SAMPLE-SECRET"
   vault_uri    = "https://skfcenitdevtemp3.vault.azure.net/"
   key_vault_id = "skfcenitdevtemp3"
 }

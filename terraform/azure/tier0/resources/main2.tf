@@ -65,7 +65,7 @@ resource "azurerm_key_vault_secret" "acg_secret" {
 }
 
 resource "azurerm_key_vault_secret" "sample_secret_test" {
-  name         = "SAMPLE_SECRET"
+  name         = "SAMPLE-SECRET"
   value        = var.SAMPLE_SECRET
   key_vault_id = azurerm_key_vault.kv.id
   depends_on = [
