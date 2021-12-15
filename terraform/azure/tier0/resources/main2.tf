@@ -236,11 +236,12 @@ resource "azurerm_function_app" "func_function_app" {
   }
 }
 
+/*
 output "sample_secret_value" {
   # marking value as nonsensitive for testing purposes, for this is a test secret I'll be exposing
   # DO NOT USES nonsensitive otherwise
   value = nonsensitive(data.azurerm_key_vault_secret.test.value)
 }
-
+*/
 
 
