@@ -5,7 +5,7 @@ variable "location" {
 
 
 variable "server" {
-  default = "crskf.azurecr.io"
+  default = "skfcenitdevtemp5.azurecr.io"
 }
 
 variable "SAMPLE_SECRET" {
