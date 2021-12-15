@@ -72,6 +72,7 @@ jobs:
       ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
       GITHUB_OWNER: ${{ secrets.GH_OWNER }}
+      TF_VAR_SAMPLE_SECRET: ${{ secrets.SAMPLE_SECRET }}
 
     steps:
 
@@ -175,6 +176,7 @@ jobs:
       ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
       GITHUB_OWNER: ${{ secrets.GH_OWNER }}
+      TF_VAR_SAMPLE_SECRET: ${{ secrets.SAMPLE_SECRET }}
     steps:
     - name: Checkout
       uses: actions/checkout@v2
