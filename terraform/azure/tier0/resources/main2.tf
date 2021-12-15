@@ -1,13 +1,17 @@
 data "azurerm_client_config" "current" {
 }
 
+locals {
+  new_resource_name = "skfcenitdevtemp5"
+}
+
 resource "azurerm_resource_group" "rg" {
-  name     = var.resource_group_name
+  name     = local.new_resource_name
   location = var.location
 }
 
 resource "azurerm_key_vault" "kv" {
-  name                        = var.key_vault_name
+  name                        = local.new_resource_name
   location                    = azurerm_resource_group.rg.location
   resource_group_name         = azurerm_resource_group.rg.name
   enabled_for_disk_encryption = true
@@ -69,7 +73,7 @@ resource "azurerm_storage_account" "storage" {
   account_tier             = "Standard"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
-  name                     = var.storage_account_name
+  name                     = local.new_resource_name
   allow_blob_public_access = true
 }
 
@@ -78,7 +82,7 @@ resource "azurerm_storage_account" "storage" {
 CONTAINER REGISTRY
 */
 resource "azurerm_container_registry" "acr" {
-  name                = var.container_registry_name
+  name                = local.new_resource_name
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   sku                 = "Basic"
@@ -124,7 +128,7 @@ resource "azurerm_storage_blob" "blob" {
 
 
 resource "azurerm_container_group" "acg" {
-  name                = var.container_group_name
+  name                = local.new_resource_name
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   ip_address_type     = "public"
@@ -138,7 +142,7 @@ resource "azurerm_container_group" "acg" {
   }
 
   container {
-    name = var.storage_container_name
+    name = local.new_resource_name
     # The name of the Azure Container Instances resource.
     # This will be its identifier in Azure and can be different from the image name.
     # Changing this forces a new resource to be created.
@@ -160,7 +164,7 @@ resource "azurerm_container_group" "acg" {
 
 # Application Insights is created by Tier 1
 resource "azurerm_application_insights" "func_application_insights" {
-  name                = var.fa_name
+  name                = local.new_resource_name
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   application_type    = "Node.JS"
@@ -169,7 +173,7 @@ resource "azurerm_application_insights" "func_application_insights" {
 
 # Service Plan is defined by Tier 1
 resource "azurerm_app_service_plan" "func_app_service_plan" {
-  name                = var.fa_name
+  name                = local.new_resource_name
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   kind                = "FunctionApp"
@@ -183,7 +187,7 @@ resource "azurerm_app_service_plan" "func_app_service_plan" {
 
 # Function App is created by Tier 1
 resource "azurerm_function_app" "func_function_app" {
-  name                       = var.fa_name
+  name                       = local.new_resource_name
   location                   = azurerm_resource_group.rg.location
   resource_group_name        = azurerm_resource_group.rg.name
   app_service_plan_id        = azurerm_app_service_plan.func_app_service_plan.id
