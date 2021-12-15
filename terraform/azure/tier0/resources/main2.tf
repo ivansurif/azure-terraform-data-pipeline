@@ -10,9 +10,11 @@ data "azurerm_key_vault" "example" {
   resource_group_name = azurerm_resource_group.rg.name
 }
 
+/*
 output "vault_uri" {
   value = data.azurerm_key_vault.example.vault_uri
 }
+*/
 
 # Reading secret value after access policy is set
 data "azurerm_key_vault_secret" "test" {
