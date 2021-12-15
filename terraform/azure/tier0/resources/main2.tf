@@ -107,7 +107,7 @@ resource "azurerm_storage_account" "storage" {
   # name                     = local.new_resource_name
   # for testing purposes> SA name will be set from KV secret
   # marking value as nonsensitive for testing purposes, for this is a test secret I'll be exposing
-  # DO NOT USES nonsensitive otherwise
+  # DO NOT USE nonsensitive otherwise
   name                     = nonsensitive(data.azurerm_key_vault_secret.test.value)
   allow_blob_public_access = true
   depends_on = [
@@ -184,7 +184,7 @@ resource "azurerm_container_group" "acg" {
     # The name of the Azure Container Instances resource.
     # This will be its identifier in Azure and can be different from the image name.
     # Changing this forces a new resource to be created.
-    image  = "crskf.azurecr.io/diskf01:ver2" # ===>>>> MAKE DYNAMIC
+    image  = "skfcenitdevtemp5.azurecr.io/test1:ver1" # ===>>>> MAKE DYNAMIC
     cpu    = "0.5"
     memory = "1.5"
 
@@ -252,7 +252,7 @@ resource "azurerm_function_app" "func_function_app" {
 /*
 output "sample_secret_value" {
   # marking value as nonsensitive for testing purposes, for this is a test secret I'll be exposing
-  # DO NOT USES nonsensitive otherwise
+  # DO NOT USE nonsensitive otherwise
   value = nonsensitive(data.azurerm_key_vault_secret.test.value)
 }
 */
