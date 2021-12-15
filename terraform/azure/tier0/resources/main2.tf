@@ -173,20 +173,24 @@ resource "azurerm_container_group" "acg" {
   os_type             = "Linux"
 
 
+
   image_registry_credential {
     # An Azure Container Registry from the current subscription
     server   = var.server
-    username = "skfcenitdevtemp5" # ===>>>> PLACEHOLDER; WILL NEED TO READ FROM KV
-    password = "pZbjWI=kimDCcKKxu1tkIT2IAo6YQGfS" # ===>>>> PLACEHOLDER; WILL NEED TO READ FROM KV
+    username = "skfcenitdevtemp1" # ===>>>> PLACEHOLDER; WILL NEED TO READ FROM KV
+    password = "ebBBy+JKYrtiNw5NHzuAW4IvXQNjH8dO" # ===>>>> PLACEHOLDER; WILL NEED TO READ FROM KV
   }
 
 
+
   container {
-    name = local.new_resource_name
+    # name = local.new_resource_name
+    name = "skfcenitdevtemp1"
     # The name of the Azure Container Instances resource.
     # This will be its identifier in Azure and can be different from the image name.
     # Changing this forces a new resource to be created.
-    image  = "skfcenitdevtemp5.azurecr.io/test1:ver1" # ===>>>> MAKE DYNAMIC
+    # image  = "skfcenitdevtemp5.azurecr.io/test1:ver1" # ===>>>> MAKE DYNAMIC
+    image  = "skfcenitdevtemp1.azurecr.io/skfcenitdevtemp1:ver3" # ===>>>> MAKE DYNAMIC
     cpu    = "0.5"
     memory = "1.5"
 
