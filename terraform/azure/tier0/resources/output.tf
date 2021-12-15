@@ -1,8 +1,4 @@
-data "azurerm_key_vault_secret" "test" {
-  name         = "SAMPLE-SECRET"
-  vault_uri    = "https://skfcenitdevtemp3.vault.azure.net/"
-  key_vault_id = "skfcenitdevtemp3"
-}
+
 
 
 output "resource_group_id" {
@@ -41,9 +37,7 @@ output "key_vault_id" {
   value = azurerm_key_vault.kv.id
 }
 
-output "sample_secret_value" {
-  value = data.azurerm_key_vault_secret.test.value
-}
+
 /*
 output "blob_url" {
   value = azurerm_storage_blob.blob.url

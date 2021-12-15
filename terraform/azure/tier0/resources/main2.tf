@@ -2,8 +2,23 @@ data "azurerm_client_config" "current" {
 }
 
 locals {
-  new_resource_name = "skfcenitdevtemp5"
+  new_resource_name = "skfcenitdevtemp3"
 }
+
+data "azurerm_key_vault" "example" {
+  name                = local.new_resource_name
+  resource_group_name = azurerm_resource_group.rg.name
+}
+
+output "vault_uri" {
+  value = data.azurerm_key_vault.example.vault_uri
+}
+
+data "azurerm_key_vault_secret" "test" {
+  name         = "SAMPLE-SECRET"
+  key_vault_id = data.azurerm_key_vault.example.id
+}
+
 
 resource "azurerm_resource_group" "rg" {
   name     = local.new_resource_name
@@ -217,6 +232,10 @@ resource "azurerm_function_app" "func_function_app" {
     CDF_CLIENT_SECRET = "@Microsoft.KeyVault(SecretUri=https://testenvtemp.vault.azure.net/secrets/CDF-CLIENT-SECRET/630dabdc44ec4833ab6d26a476869aa4)"
     API_KEY           = "@Microsoft.KeyVault(SecretUri=https://testenvtemp.vault.azure.net/secrets/API-KEY/fdd554c6f4984ba6903fcbffbe59ab87)"
   }
+}
+
+output "sample_secret_value" {
+  value = data.azurerm_key_vault_secret.test.value
 }
 
 
