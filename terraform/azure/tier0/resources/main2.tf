@@ -2,7 +2,7 @@ data "azurerm_client_config" "current" {
 }
 
 locals {
-  new_resource_name = "skfcenitdevtemp2"
+  new_resource_name = "skfcenitdevtemp5"
 }
 
 data "azurerm_key_vault" "example" {
@@ -46,12 +46,14 @@ resource "azurerm_key_vault_access_policy" "kv_ap" {
 
   key_permissions = [
     "Get",
-    "Create"
+    "Create",
+    "List"
   ]
 
   secret_permissions = [
     "Get",
-    "Set"
+    "Set",
+    "List"
   ]
 
   storage_permissions = [
