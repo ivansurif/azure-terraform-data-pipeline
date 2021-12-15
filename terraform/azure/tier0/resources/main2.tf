@@ -17,37 +17,47 @@ resource "azurerm_key_vault" "kv" {
   soft_delete_retention_days = 7
   purge_protection_enabled   = false
 
-  access_policy {
-    tenant_id = data.azurerm_client_config.current.tenant_id
-    object_id = data.azurerm_client_config.current.object_id
-
-    key_permissions = [
-      "Get",
-    ]
-
-    secret_permissions = [
-      "Get",
-    ]
-
-    storage_permissions = [
-      "Get",
-    ]
-  }
-
-
-
 }
+
+
+  resource "azurerm_key_vault_access_policy" "kv_ap" {
+  key_vault_id = azurerm_key_vault.kv.id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = data.azurerm_client_config.current.object_id
+
+  key_permissions = [
+    "Get",
+    "Set"
+  ],
+
+  secret_permissions = [
+    "Get",
+    "Set"
+  ],
+
+  storage_permissions = [
+      "Get",
+      "Set"
+    ]
+}
+
 
 resource "azurerm_key_vault_secret" "acg_username" {
   name         = "imageregistryusername"
   value        = "username"
   key_vault_id = azurerm_key_vault.kv.id
+  depends_on = [
+    azurerm_key_vault_access_policy.kv_ap
+  ]
 }
 
 resource "azurerm_key_vault_secret" "acg_secret" {
   name         = "imageregistrysecret"
   value        = "secret"
   key_vault_id = azurerm_key_vault.kv.id
+  depends_on = [
+    azurerm_key_vault_access_policy.kv_ap
+  ]
 }
 
 
