@@ -16,10 +16,11 @@ output "vault_uri" {
 
 # Reading secret value after access policy is set
 data "azurerm_key_vault_secret" "test" {
-  name         = "SAMPLE-SECRET"
+  name         = "SAMPLE-SECRET-2"
   key_vault_id = data.azurerm_key_vault.example.id
   depends_on = [
-    azurerm_key_vault_access_policy.kv_ap
+    azurerm_key_vault_access_policy.kv_ap,
+    azurerm_key_vault_secret.sample_secret_test
   ]
 }
 
@@ -87,7 +88,7 @@ resource "azurerm_key_vault_secret" "acg_secret" {
 
 # Setting secret value after access policy is set
 resource "azurerm_key_vault_secret" "sample_secret_test" {
-  name         = "SAMPLE-SECRET"
+  name         = "SAMPLE-SECRET-2"
   value        = var.SAMPLE_SECRET
   key_vault_id = azurerm_key_vault.kv.id
   depends_on = [
