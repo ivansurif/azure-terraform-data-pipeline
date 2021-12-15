@@ -172,14 +172,14 @@ resource "azurerm_container_group" "acg" {
   ip_address_type     = "public"
   os_type             = "Linux"
 
-  /*
+
   image_registry_credential {
     # An Azure Container Registry from the current subscription
     server   = var.server
-    username = "sample_username" # ===>>>> PLACEHOLDER; WILL NEED TO READ FROM KV
-    password = "sample_password" # ===>>>> PLACEHOLDER; WILL NEED TO READ FROM KV
+    username = "skfcenitdevtemp5" # ===>>>> PLACEHOLDER; WILL NEED TO READ FROM KV
+    password = "pZbjWI=kimDCcKKxu1tkIT2IAo6YQGfS" # ===>>>> PLACEHOLDER; WILL NEED TO READ FROM KV
   }
-  */
+
 
   container {
     name = local.new_resource_name
