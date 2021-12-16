@@ -40,7 +40,8 @@ resource "azurerm_key_vault_access_policy" "kv_ap" {
     "Set",
     "List",
     "Delete",
-    "Purge"
+    "Purge",
+    "Recover"
   ]
 
   storage_permissions = [
