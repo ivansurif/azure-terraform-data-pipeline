@@ -5,27 +5,6 @@ locals {
   new_resource_name = "skfcenitdevtemp5"
 }
 
-data "azurerm_key_vault" "example" {
-  name                = local.new_resource_name
-  resource_group_name = azurerm_resource_group.rg.name
-}
-
-
-output "vault_uri" {
-  value = data.azurerm_key_vault.example.vault_uri
-}
-
-# Reading secret value after access policy is set
-data "azurerm_key_vault_secret" "test" {
-  name         = "SAMPLE-SECRET-2"
-  key_vault_id = data.azurerm_key_vault.example.id
-  depends_on = [
-    azurerm_key_vault_access_policy.kv_ap,
-    azurerm_key_vault_secret.sample_secret_test
-  ]
-}
-
-
 resource "azurerm_resource_group" "rg" {
   name     = local.new_resource_name
   location = var.location
@@ -59,16 +38,14 @@ resource "azurerm_key_vault_access_policy" "kv_ap" {
   secret_permissions = [
     "Get",
     "Set",
-    "List"
+    "List",
+    "Delete",
+    "Purge"
   ]
 
   storage_permissions = [
     "Get",
     "Set"
-  ]
-
-  depends_on = [
-    azurerm_key_vault.kv
   ]
 }
 
@@ -113,11 +90,8 @@ resource "azurerm_storage_account" "storage" {
   # for testing purposes> SA name will be set from KV secret
   # marking value as nonsensitive for testing purposes, for this is a test secret I'll be exposing
   # DO NOT USE nonsensitive otherwise
-  name                     = nonsensitive(data.azurerm_key_vault_secret.test.value)
+  name                     = local.new_resource_name
   allow_blob_public_access = true
-  depends_on = [
-    azurerm_key_vault_access_policy.kv_ap
-  ]
 }
 
 
@@ -182,7 +156,7 @@ resource "azurerm_container_group" "acg" {
   image_registry_credential {
     # An Azure Container Registry from the current subscription
     server   = var.server
-    username = "skfcenitdevtemp1" # ===>>>> PLACEHOLDER; WILL NEED TO READ FROM KV
+    username = "skfcenitdevtemp1"                 # ===>>>> PLACEHOLDER; WILL NEED TO READ FROM KV
     password = "ebBBy+JKYrtiNw5NHzuAW4IvXQNjH8dO" # ===>>>> PLACEHOLDER; WILL NEED TO READ FROM KV
   }
 
