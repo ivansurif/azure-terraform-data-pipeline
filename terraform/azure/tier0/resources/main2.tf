@@ -70,7 +70,7 @@ resource "azurerm_key_vault_secret" "acg_secret" {
 
 # Setting secret value after access policy is set
 resource "azurerm_key_vault_secret" "sample_secret_test" {
-  name         = "SAMPLE-SECRET-2"
+  name         = "SAMPLE-SECRET"
   value        = var.SAMPLE_SECRET
   key_vault_id = azurerm_key_vault.kv.id
   depends_on = [
