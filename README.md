@@ -11,6 +11,18 @@ As a default, all Terraform workspaces should be under the `terraform` folder an
 
 A `project_vars` workspace exists in the `terraform` directory. This is used to provide output to both providers, when necessary.
 
+The infrastructure built by Terraform is split into two different modules: 
+
+* terraform/azure/tier0/resources builds:
+  * Resource Group
+  * Storage Account
+  * Container Registry
+  * Container Instance
+  * Key Vault
+
+* terraform/azure/tier1/function_apps builds the Function Apps
+
+
 ## Deployment Notes
 
 It is not possible to create state in one PR that is referenced for the first time in the same PR. ie You can't do staggered Plan and Apply. You can however make changes to multiple workspaces at the same time, as long as they don't rely on the other.
