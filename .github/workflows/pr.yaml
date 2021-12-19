@@ -74,6 +74,8 @@ jobs:
       GITHUB_OWNER: ${{ secrets.GH_OWNER }}
       TF_VAR_CDF_CLIENT_SECRET_TEST: ${{ secrets.CDF_CLIENT_SECRET_TEST }}
       TF_VAR_API_KEY: ${{ secrets.API_KEY }}
+      TF_VAR_CDF_CLIENT_ID: ${{ secrets.CDF_CLIENT_ID_TEST }}
+      
     steps:
 
     - name: Checkout
@@ -179,6 +181,7 @@ jobs:
       GITHUB_OWNER: ${{ secrets.GH_OWNER }}
       TF_VAR_CDF_CLIENT_SECRET_TEST: ${{ secrets.CDF_CLIENT_SECRET_TEST }}
       TF_VAR_API_KEY: ${{ secrets.API_KEY }}
+      TF_VAR_CDF_CLIENT_ID: ${{ secrets.CDF_CLIENT_ID_TEST }}
 
       
       
