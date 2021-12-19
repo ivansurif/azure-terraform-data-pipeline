@@ -72,8 +72,8 @@ jobs:
       ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
       GITHUB_OWNER: ${{ secrets.GH_OWNER }}
-      TF_VAR_SAMPLE_SECRET: ${{ secrets.SAMPLE_SECRET }}
-
+      TF_VAR_CDF_CLIENT_SECRET_TEST: ${{ secrets.CDF_CLIENT_SECRET_TEST }}
+      TF_VAR_API_KEY: ${{ secrets.API_KEY }}
     steps:
 
     - name: Checkout
@@ -177,7 +177,11 @@ jobs:
       ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
       GITHUB_OWNER: ${{ secrets.GH_OWNER }}
-      TF_VAR_SAMPLE_SECRET: ${{ secrets.SAMPLE_SECRET }}
+      TF_VAR_CDF_CLIENT_SECRET_TEST: ${{ secrets.CDF_CLIENT_SECRET_TEST }}
+      TF_VAR_API_KEY: ${{ secrets.API_KEY }}
+
+      
+      
     steps:
     - name: Checkout
       uses: actions/checkout@v2
