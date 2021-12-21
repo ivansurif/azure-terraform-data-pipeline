@@ -72,12 +72,6 @@ locals {
       secrets = {
         CDF_CLIENT_SECRET = "CDF-CLIENT-SECRET-PROD"
       }
-<<<<<<< HEAD
-=======
-      always_on        = false
-      https_only       = true
-      linux_fx_version = "Python|3.9"
->>>>>>> origin/main
     }
   }
   system_guids = {
