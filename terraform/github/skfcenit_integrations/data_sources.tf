@@ -14,3 +14,8 @@ data "terraform_remote_state" "integrations" {
 data "github_repository" "repo" {
   full_name = "cognite-skf-cenit/real-time-integrations"
 }
+
+data "github_team" "infra_team" {
+  slug = "infra-team-push"
+}
+
