@@ -20,31 +20,31 @@ locals {
 }
 
 
-resource "github_repository_environment" "environments" {
-  for_each    = local.environments
-  environment = "${each.key}-integrations"
-  repository  = data.github_repository.repo.name
-  reviewers {
-    teams = each.value["teams"]
-    users = each.value["users"]
-  }
-  deployment_branch_policy {
-    protected_branches     = true
-    custom_branch_policies = false
-  }
-}
+# resource "github_repository_environment" "environments" {
+#   for_each    = local.environments
+#   environment = "${each.key}-integrations"
+#   repository  = data.github_repository.repo.name
+#   reviewers {
+#     teams = each.value["teams"]
+#     users = each.value["users"]
+#   }
+#   deployment_branch_policy {
+#     protected_branches     = true
+#     custom_branch_policies = false
+#   }
+# }
 
-resource "github_actions_environment_secret" "site_creds" {
-  for_each        = local.environments
-  repository      = data.github_repository.repo.name
-  environment     = github_repository_environment.environments[each.key].environment
-  secret_name     = "AZURE_RBAC_CREDENTIALS"
-  plaintext_value = jsonencode(
-    {
-      "clientId": data.terraform_remote_state.integrations.outputs.sp_credentials[each.value["resource_group_name"]]["CLIENT_ID"],
-      "clientSecret": data.terraform_remote_state.integrations.outputs.sp_credentials[each.value["resource_group_name"]]["CLIENT_SECRET"],
-      "subscriptionId": data.terraform_remote_state.integrations.outputs.sp_credentials[each.value["resource_group_name"]]["SUBSCIPTION_ID"],
-      "tenantId": data.terraform_remote_state.integrations.outputs.sp_credentials[each.value["resource_group_name"]]["TENANT_ID"],
-    }
-  )
-}
+# resource "github_actions_environment_secret" "site_creds" {
+#   for_each        = local.environments
+#   repository      = data.github_repository.repo.name
+#   environment     = github_repository_environment.environments[each.key].environment
+#   secret_name     = "AZURE_RBAC_CREDENTIALS"
+#   plaintext_value = jsonencode(
+#     {
+#       "clientId": data.terraform_remote_state.integrations.outputs.sp_credentials[each.value["resource_group_name"]]["CLIENT_ID"],
+#       "clientSecret": data.terraform_remote_state.integrations.outputs.sp_credentials[each.value["resource_group_name"]]["CLIENT_SECRET"],
+#       "subscriptionId": data.terraform_remote_state.integrations.outputs.sp_credentials[each.value["resource_group_name"]]["SUBSCIPTION_ID"],
+#       "tenantId": data.terraform_remote_state.integrations.outputs.sp_credentials[each.value["resource_group_name"]]["TENANT_ID"],
+#     }
+#   )
+# }
