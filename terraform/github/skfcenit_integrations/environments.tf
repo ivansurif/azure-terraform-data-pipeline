@@ -44,10 +44,10 @@ resource "github_actions_environment_secret" "site_creds" {
   secret_name     = "AZURE_RBAC_CREDENTIALS"
   plaintext_value = jsonencode(
     {
-      "clientId": data.terraform_remote_state.integrations.outputs.sp_credentials[each.value["resource_group_name"]["CLIENT_ID"]],
-      "clientSecret": data.terraform_remote_state.integrations.outputs.sp_credentials[each.value["resource_group_name"]["CLIENT_SECRET"]],
-      "subscriptionId": data.terraform_remote_state.integrations.outputs.sp_credentials[each.value["resource_group_name"]["SUBSCIPTION_ID"]],
-      "tenantId": data.terraform_remote_state.integrations.outputs.sp_credentials[each.value["resource_group_name"]["TENANT_ID"]],
+      "clientId": data.terraform_remote_state.integrations.outputs.sp_credentials[each.value["resource_group_name"]]["CLIENT_ID"],
+      "clientSecret": data.terraform_remote_state.integrations.outputs.sp_credentials[each.value["resource_group_name"]]["CLIENT_SECRET"],
+      "subscriptionId": data.terraform_remote_state.integrations.outputs.sp_credentials[each.value["resource_group_name"]]["SUBSCIPTION_ID"],
+      "tenantId": data.terraform_remote_state.integrations.outputs.sp_credentials[each.value["resource_group_name"]]["TENANT_ID"],
     }
   )
 }
