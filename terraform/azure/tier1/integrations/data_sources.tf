@@ -48,9 +48,9 @@ locals {
         CDF_CLIENT_SECRET = "CDF-CLIENT-SECRET"
         API_KEY           = "API-KEY"
       }
-      always_on  = false
-      https_only = true
-      linux_fx_version= "Python|3.9"
+      always_on        = false
+      https_only       = true
+      linux_fx_version = "Python|3.9"
     }
   }
 }

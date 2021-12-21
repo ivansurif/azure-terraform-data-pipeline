@@ -19,3 +19,6 @@ data "github_team" "infra_team" {
   slug = "infra-team-push"
 }
 
+data "github_user" "scott" {
+  username = "scottmelhop"
+}
