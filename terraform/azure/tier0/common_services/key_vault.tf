@@ -26,3 +26,14 @@ resource "azurerm_key_vault_access_policy" "kv_ap" {
     "Recover"
   ]
 }
+
+resource "azurerm_key_vault_access_policy" "kv_set" {
+  key_vault_id = azurerm_key_vault.key_vault.id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = azuread_group.kv_set.object_id
+
+  secret_permissions = [
+    "Set",
+    "List"
+  ]
+}
