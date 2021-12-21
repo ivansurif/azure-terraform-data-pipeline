@@ -1,12 +1,14 @@
 locals {
   kv_set_members = [
-    "scott.melhop@cognitedata.com"
+    "joel.sirefelt@cognitedata.com",
+    "scott.melhop@cognitedata.com",
+    "ivan.surif@cognitedata.com",
+    "igor.suchilov@cognitedata.com"
   ]
 }
 
 resource "azuread_group" "kv_set" {
   display_name     = "common-services-kv-set"
-  owners           = [data.azuread_client_config.current.object_id]
   security_enabled = true
 
   members = [
