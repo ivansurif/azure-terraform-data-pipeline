@@ -10,14 +10,14 @@ resource "github_actions_environment_secret" "test_site_creds_username" {
   repository       = data.github_repository.repo.name
   environment      = github_repository_environment.test_environment.environment
   secret_name      = "USER_NAME"
-  plaintext_value  = data.terraform_remote_state.integrations.outputs.site_credentials["skfcenit-integrations-test"]["username"]
+  plaintext_value  = data.terraform_remote_state.integrations.outputs.site_credentials["skfcenit-integrations-test"][0]["username"]
 }
 
 resource "github_actions_environment_secret" "test_site_creds_password" {
   repository       = data.github_repository.repo.name
   environment      = github_repository_environment.test_environment.environment
   secret_name      = "PASSWORD"
-  plaintext_value  = data.terraform_remote_state.integrations.outputs.site_credentials["skfcenit-integrations-test"]["password"]
+  plaintext_value  = data.terraform_remote_state.integrations.outputs.site_credentials["skfcenit-integrations-test"][0]["password"]
 }
 
 resource "github_actions_environment_secret" "test_site_creds_app_name" {
