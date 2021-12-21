@@ -10,6 +10,10 @@ output "app_service_plan_id" {
   value = azurerm_app_service_plan.asp.id
 }
 
+output "app_service_plan_name" {
+  value = azurerm_app_service_plan.asp.name
+}
+
 output "insights_instrumentation_key" {
   value     = azurerm_application_insights.insights.instrumentation_key
   sensitive = true
