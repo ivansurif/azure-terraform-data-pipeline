@@ -1,6 +1,6 @@
 locals {
   kv_set_members = [
-      "scott.melhop@cognitedata.com"
+    "scott.melhop@cognitedata.com"
   ]
 }
 
@@ -10,7 +10,7 @@ resource "azuread_group" "kv_set" {
   security_enabled = true
 
   members = [
-      for user in local.kv_set_members : local.users[user]
+    for user in local.kv_set_members : local.users[user]
   ]
 }
 
