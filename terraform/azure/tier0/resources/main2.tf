@@ -230,10 +230,8 @@ resource "azurerm_function_app" "func_function_app" {
     CDF_CLUSTER                    = "az-eastus-1"
     CDF_COGNITE_PROJECT            = "skfcenit-test"
     # CDF_COGNITE_PROJECT             = "skfcenit-dev"
-    CDF_CLIENT_SECRET        = "@Microsoft.KeyVault(SecretUri=https://testenvtemp.vault.azure.net/secrets/CDF-CLIENT-SECRET/630dabdc44ec4833ab6d26a476869aa4)"
-    API_KEY                  = "@Microsoft.KeyVault(SecretUri=https://testenvtemp.vault.azure.net/secrets/API-KEY/fdd554c6f4984ba6903fcbffbe59ab87)"
-    WEBSITE_RUN_FROM_PACKAGE = "1"
-    FUNCTIONS_WORKER_RUNTIME = "python"
+    CDF_CLIENT_SECRET = "@Microsoft.KeyVault(SecretUri=https://testenvtemp.vault.azure.net/secrets/CDF-CLIENT-SECRET/630dabdc44ec4833ab6d26a476869aa4)"
+    API_KEY           = "@Microsoft.KeyVault(SecretUri=https://testenvtemp.vault.azure.net/secrets/API-KEY/fdd554c6f4984ba6903fcbffbe59ab87)"
   }
 }
 
