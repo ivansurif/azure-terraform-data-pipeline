@@ -24,7 +24,8 @@ resource "azurerm_function_app" "functions" {
 
   site_config {
     always_on = each.value["always_on"]
-    linux_fx_version= each.value["linux_fx_version"]
+    linux_fx_version = each.value["linux_fx_version"]
+    scm_type = "LocalGit"
   }
 }
 
