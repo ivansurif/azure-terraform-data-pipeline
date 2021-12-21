@@ -20,66 +20,38 @@ data "terraform_remote_state" "common_services" {
 locals {
 
   # Resource Group
-  resource_group_name     = "vessel-supply-service-az-function"
-  resource_group_location = data.terraform_remote_state.common_services.outputs.common_services_location
+  resource_group_name     = "integration-functions"
+  resource_group_location = data.terraform_remote_state.common_services.outputs.resource_group_location
   # storage
   storage_account_name    = data.terraform_remote_state.common_services.outputs.storage_account_name
   primary_blob_endpoint   = data.terraform_remote_state.common_services.outputs.storage_account_primary_blob_endpoint
   primary_blob_access_key = data.terraform_remote_state.common_services.outputs.storage_account_primary_access_key
   sas_url                 = "${local.primary_blob_endpoint}${local.primary_blob_access_key}"
 
-  cdf_cluster    = "westeurope-1"
-  idp_tenant_id  = "3aa4a235-b6e2-48d5-9195-7fcf05b459b0" // Equinor's AAD
-  key_vault_name = data.terraform_remote_state.common_services.outputs.common_service_key_vault_name
-  key_vault_id   = data.terraform_remote_state.common_services.outputs.common_service_key_vault_id
+  key_vault_name = data.terraform_remote_state.common_services.outputs.key_vault_name
+  key_vault_id   = data.terraform_remote_state.common_services.outputs.key_vault_id
 
   function_apps = {
-    "vessel-supply-service-az-function-test" = {
-      app_service_plan = "trading-app-services"
+    "integrations-test" = {
+      app_service_plan = data.terraform_remote_state.common_services.outputs.app_service_plan_name
       app_settings = {
-        "DOCKER_REGISTRY_SERVER_URL"      = "https://${data.terraform_remote_state.common_services.outputs.container_registry_login_server}"
-        "DOCKER_REGISTRY_SERVER_USERNAME" = data.terraform_remote_state.common_services.outputs.container_registry_admin_username
-        "DOCKER_REGISTRY_SERVER_PASSWORD" = data.terraform_remote_state.common_services.outputs.container_registry_admin_password
-        "LOGGING_LEVEL"                   = "INFO"
-
-        "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = false
+        API_URL                  = "https://transportecenit.azurefd.net/digitalt/api/v1/points"
+        SYSTEM_GUID              = "0c801d9c-5142-4fd0-b50d-34e3e5aa5815"
+        CDF_CLIENT_ID            = "182226d3-ae9f-4c39-8a0c-ee9bd43f0d48"
+        CDF_TENANT_ID            = data.azurerm_client_config.current.tenant_id
+        CDF_CLUSTER              = "az-eastus-1"
+        CDF_COGNITE_PROJECT      = "skfcenit-test"
+        WEBSITE_RUN_FROM_PACKAGE = "1"
+        FUNCTIONS_WORKER_RUNTIME = "python"
       }
       secrets = {
-        CDF_CLIENT_ID           = "CDF-TEST-ALLPROJECTS-CLIENT-ID"
-        CDF_CLIENT_SECRET       = "CDF-TEST-ALLPROJECTS-CLIENT-SECRET"
-        SIGNAL_TONNAGE_API_KEY  = "SIGNAL-TONNAGE-API-KEY"
-        SIGNAL_DISTANCE_API_KEY = "SIGNAL-DISTANCE-API-KEY"
+        CDF_CLIENT_SECRET = "CDF-CLIENT-SECRET"
+        API_KEY           = "API-KEY"
       }
-      always_on  = true
+      always_on  = false
       https_only = true
-      # linux_fx_version = "DOCKER|cogniteequinortrading.azurecr.io/vessel-supply:test-latest"
-    },
-    "vessel-supply-service-az-function-dev" = {
-      app_service_plan = "trading-app-services"
-      app_settings = {
-        "DOCKER_REGISTRY_SERVER_URL"      = "https://${data.terraform_remote_state.common_services.outputs.container_registry_login_server}"
-        "DOCKER_REGISTRY_SERVER_USERNAME" = data.terraform_remote_state.common_services.outputs.container_registry_admin_username
-        "DOCKER_REGISTRY_SERVER_PASSWORD" = data.terraform_remote_state.common_services.outputs.container_registry_admin_password
-        "LOGGING_LEVEL"                   = "INFO"
-
-        "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = false
-        "https_only"                          = true
-      }
-      secrets = {
-        CDF_CLIENT_ID           = "CDF-DEV-ALLPROJECTS-CLIENT-ID"
-        CDF_CLIENT_SECRET       = "CDF-DEV-ALLPROJECTS-CLIENT-SECRET"
-        SIGNAL_TONNAGE_API_KEY  = "SIGNAL-TONNAGE-API-KEY"
-        SIGNAL_DISTANCE_API_KEY = "SIGNAL-DISTANCE-API-KEY"
-      }
-      always_on  = true
-      https_only = true
-      # linux_fx_version = "DOCKER|cogniteequinortrading.azurecr.io/vessel-supply:latest"
+      linux_fx_version= "Python|3.9"
     }
   }
-
-
-  # slots = {
-  #   "equinor-shipping-plotly-dash-web-app" = "staging"
-  # }
 }
 
