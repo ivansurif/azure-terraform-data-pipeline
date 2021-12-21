@@ -35,7 +35,7 @@ locals {
     WEBSITE_RUN_FROM_PACKAGE = "1"
     FUNCTIONS_WORKER_RUNTIME = "python"
     CDF_CLUSTER              = "az-eastus-1"
-    CDF_TENANT_ID = "83a6ef4c-74d8-4858-9728-4faa19df8bc6"
+    CDF_TENANT_ID            = "83a6ef4c-74d8-4858-9728-4faa19df8bc6"
     API_URL                  = "https://transportecenit.azurefd.net/digitalt/api/v1/points"
   }
 
@@ -46,8 +46,8 @@ locals {
   environments = {
     dev = {
       app_settings = {
-          CDF_CLIENT_ID            = "77980a5e-35f7-4692-a401-14f3b30401a4"        
-          CDF_COGNITE_PROJECT      = "skfcenit-dev"  
+        CDF_CLIENT_ID       = "77980a5e-35f7-4692-a401-14f3b30401a4"
+        CDF_COGNITE_PROJECT = "skfcenit-dev"
       }
       secrets = {
         CDF_CLIENT_SECRET = "CDF-CLIENT-SECRET-DEV"
@@ -56,8 +56,8 @@ locals {
 
     test = {
       app_settings = {
-          CDF_CLIENT_ID            = "182226d3-ae9f-4c39-8a0c-ee9bd43f0d48"        
-          CDF_COGNITE_PROJECT      = "skfcenit-test"  
+        CDF_CLIENT_ID       = "182226d3-ae9f-4c39-8a0c-ee9bd43f0d48"
+        CDF_COGNITE_PROJECT = "skfcenit-test"
       }
       secrets = {
         CDF_CLIENT_SECRET = "CDF-CLIENT-SECRET-TEST"
@@ -66,8 +66,8 @@ locals {
 
     prod = {
       app_settings = {
-          CDF_CLIENT_ID            = "c3b95ff9-f014-4a92-a113-5b2e135c5beb"        
-          CDF_COGNITE_PROJECT      = "skfcenit"  
+        CDF_CLIENT_ID       = "c3b95ff9-f014-4a92-a113-5b2e135c5beb"
+        CDF_COGNITE_PROJECT = "skfcenit"
       }
       secrets = {
         CDF_CLIENT_SECRET = "CDF-CLIENT-SECRET-PROD"
@@ -83,7 +83,7 @@ locals {
   apps = flatten([
     for system in keys(local.system_guids) : [
       for environment in keys(local.environments) : {
-        system = system
+        system      = system
         environment = environment
       }
     ]
@@ -93,11 +93,11 @@ locals {
     for app in local.apps :
     "skfcenit-integrations-${app["system"]}-${app["environment"]}" => {
       app_service_plan = data.terraform_remote_state.common_services.outputs.app_service_plan_name
-      app_settings = merge(local.environments[app["environment"]]["app_settings"], local.common_app_settings)
-      secrets = merge(local.environments[app["environment"]]["secrets"], local.common_secrets)
-      always_on  = false
-      https_only = true
-      linux_fx_version= "Python|3.9"
+      app_settings     = merge(local.environments[app["environment"]]["app_settings"], local.common_app_settings)
+      secrets          = merge(local.environments[app["environment"]]["secrets"], local.common_secrets)
+      always_on        = false
+      https_only       = true
+      linux_fx_version = "Python|3.9"
     }
   }
 }
