@@ -3,6 +3,7 @@ resource "github_repository_environment" "test_environment" {
   repository  = data.github_repository.repo.name
   reviewers {
     teams = [data.github_team.infra_team.id]
+    users = [data.github_user.scott.id]
   }
 }
 
