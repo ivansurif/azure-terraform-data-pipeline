@@ -1,7 +1,7 @@
 resource "azurerm_function_app" "functions" {
   for_each                   = local.function_apps
   name                       = each.key
-  location                   = azurerm_resource_group.rg.location
+  location                   = azurerm_resource_group.rg[each.value["resource_group_name"]].location
   resource_group_name        = azurerm_resource_group.rg[each.value["resource_group_name"]].name
   app_service_plan_id        = data.terraform_remote_state.common_services.outputs.app_service_plan_id
   storage_account_name       = local.storage_account_name

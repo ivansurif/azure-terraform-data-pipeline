@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "rg" {
-  foreach = local.resource_group_names
-  name     = each.value
+  for_each = toset(local.resource_group_names)
+  name     = each.key
   location = local.resource_group_location
 }
 
