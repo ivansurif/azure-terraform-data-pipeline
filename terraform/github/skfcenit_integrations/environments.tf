@@ -17,7 +17,7 @@ locals {
 
 
 resource "github_repository_environment" "environments" {
-  for_each = local.environments
+  for_each    = local.environments
   environment = "${each.key}-integrations"
   repository  = data.github_repository.repo.name
   reviewers {
@@ -27,9 +27,9 @@ resource "github_repository_environment" "environments" {
 }
 
 resource "github_actions_environment_secret" "site_creds" {
-  for_each = local.environments
+  for_each        = local.environments
   repository      = data.github_repository.repo.name
-  environment     = github_repository_environment.test_environment[each.key].environment
+  environment     = github_repository_environment.environments[each.key].environment
   secret_name     = "SITE_CREDENTIALS"
   plaintext_value = data.terraform_remote_state.integrations.outputs.site_credentials
 }
