@@ -32,7 +32,7 @@ locals {
   key_vault_id   = data.terraform_remote_state.common_services.outputs.key_vault_id
 
   function_apps = {
-    "integrations-test" = {
+    "skfcenit-integrations-test" = {
       app_service_plan = data.terraform_remote_state.common_services.outputs.app_service_plan_name
       app_settings = {
         API_URL                  = "https://transportecenit.azurefd.net/digitalt/api/v1/points"
