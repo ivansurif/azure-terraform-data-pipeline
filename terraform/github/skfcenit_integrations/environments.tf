@@ -3,20 +3,17 @@ locals {
     dev = {
       teams = []
       users = []
-      protected_branches = false
       resource_group_name = "integration-functions-dev"
     }
     test = {
       teams = [data.github_team.infra_team.id]
       users = [data.github_user.scott.id]
-      protected_branches = true
       resource_group_name = "integration-functions-test"
 
     }
     prod = {
       teams = [data.github_team.infra_team.id]
       users = [data.github_user.scott.id]
-      protected_branches = true
       resource_group_name = "integration-functions-prod"
     }
   }
@@ -32,7 +29,7 @@ resource "github_repository_environment" "environments" {
     users = each.value["users"]
   }
   deployment_branch_policy {
-    protected_branches     = each.value["protected_branches"]
+    protected_branches     = true
     custom_branch_policies = false
   }
 }
