@@ -5,3 +5,8 @@ resource "azurerm_storage_account" "storage" {
   account_tier             = local.storage_account_tier
   account_replication_type = local.storage_account_replication_type
 }
+resource "azurerm_storage_container" "example" {
+  name                  = local.storage_container_name
+  storage_account_name  = azurerm_storage_account.storage.name
+  container_access_type = "blob"
+}

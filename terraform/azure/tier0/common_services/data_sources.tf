@@ -29,5 +29,6 @@ locals {
   storage_name                     = "cogniteskfcenitcommon"
   storage_account_tier             = "Standard"
   storage_account_replication_type = "LRS"
+  storage_container_name           = "samplestoragecontainer"
 
 }
