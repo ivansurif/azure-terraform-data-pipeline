@@ -102,7 +102,7 @@ locals {
     for app in local.apps :
     "skfcenit-integrations-${app["system"]}-${app["environment"]}" => {
       app_service_plan    = data.terraform_remote_state.common_services.outputs.app_service_plan_name
-      app_settings        = merge(local.environments[app["environment"]]["app_settings"], local.common_app_settings)
+      app_settings        = merge(local.environments[app["environment"]]["app_settings"], local.common_app_settings, {SYSTEM_GUID = local.system_guids[app["system"]]})
       secrets             = merge(local.environments[app["environment"]]["secrets"], local.common_secrets)
       always_on           = false
       https_only          = true
