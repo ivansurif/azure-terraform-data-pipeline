@@ -36,11 +36,13 @@ locals {
   key_vault_id   = data.terraform_remote_state.common_services.outputs.key_vault_id
 
   common_app_settings = {
-    WEBSITE_RUN_FROM_PACKAGE = "1"
-    FUNCTIONS_WORKER_RUNTIME = "python"
-    CDF_CLUSTER              = "az-eastus-1"
-    CDF_TENANT_ID            = "83a6ef4c-74d8-4858-9728-4faa19df8bc6"
-    API_URL                  = "https://transportecenit.azurefd.net/digitalt/api/v1/points"
+    WEBSITE_RUN_FROM_PACKAGE       = "1"
+    FUNCTIONS_WORKER_RUNTIME       = "python"
+    CDF_CLUSTER                    = "az-eastus-1"
+    CDF_TENANT_ID                  = "83a6ef4c-74d8-4858-9728-4faa19df8bc6"
+    API_URL                        = "https://transportecenit.azurefd.net/digitalt/api/v1/points"
+    SCM_DO_BUILD_DURING_DEPLOYMENT = false
+    ENABLE_ORYX_BUILD              = false
   }
 
   common_secrets = {
