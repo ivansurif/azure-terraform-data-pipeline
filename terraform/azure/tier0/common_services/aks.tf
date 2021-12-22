@@ -13,4 +13,5 @@ resource "azurerm_kubernetes_cluster" "akc" {
   identity {
     type = "SystemAssigned"
   }
+
 }
