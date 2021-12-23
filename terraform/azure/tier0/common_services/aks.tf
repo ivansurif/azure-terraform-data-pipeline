@@ -10,6 +10,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
     node_count = 1
   }
 
+  role_based_access_control {
+    enabled = true
+  }
+
   identity {
     type = "SystemAssigned"
   }
