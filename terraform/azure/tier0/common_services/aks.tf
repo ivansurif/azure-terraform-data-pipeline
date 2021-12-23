@@ -1,4 +1,4 @@
-resource "azurerm_kubernetes_cluster" "akc" {
+resource "azurerm_kubernetes_cluster" "aks" {
   name                = local.aks_cluster_name
   location            = local.aks_cluster_location
   resource_group_name = azurerm_resource_group.common.name
