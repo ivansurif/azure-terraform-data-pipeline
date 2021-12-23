@@ -10,5 +10,5 @@ resource "azurerm_container_registry" "acr" {
 resource "azurerm_role_assignment" "role_aks_app_to_acr" {
   scope                = azurerm_container_registry.acr.id
   role_definition_name = "Contributor"
-  principal_id         = azurerm_kubernetes_cluster.aks.id
+  principal_id         = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
 }
