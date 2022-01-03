@@ -104,7 +104,7 @@ locals {
       app_service_plan    = data.terraform_remote_state.common_services.outputs.app_service_plan_name
       app_settings        = merge(local.environments[app["environment"]]["app_settings"], local.common_app_settings, {SYSTEM_GUID = local.system_guids[app["system"]]})
       secrets             = merge(local.environments[app["environment"]]["secrets"], local.common_secrets)
-      always_on           = false
+      always_on           = "true"
       https_only          = true
       linux_fx_version    = "Python|3.9"
       resource_group_name = local.environments[app["environment"]]["resource_group_name"]
