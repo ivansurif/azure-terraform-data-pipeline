@@ -1,5 +1,5 @@
 resource "azurerm_function_app" "functions" {
-  for_each                   = merge(local.function_apps, local.files_upload_function_apps)
+  for_each                   = local.function_apps
   name                       = each.key
   location                   = azurerm_resource_group.rg[each.value["resource_group_name"]].location
   resource_group_name        = azurerm_resource_group.rg[each.value["resource_group_name"]].name
@@ -30,7 +30,7 @@ resource "azurerm_function_app" "functions" {
 }
 
 resource "azurerm_key_vault_access_policy" "function_app_policies" {
-  for_each     = merge(local.function_apps, local.files_upload_function_apps)
+  for_each     = local.function_apps
   key_vault_id = local.key_vault_id
   tenant_id    = data.azurerm_client_config.current.tenant_id
   object_id    = azurerm_function_app.functions[each.key].identity[0].principal_id
