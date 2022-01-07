@@ -6,6 +6,10 @@ output "resource_group_location" {
   value = azurerm_resource_group.common.location
 }
 
+output "resource_group_name" {
+  value = azurerm_resource_group.common.name
+}
+
 output "app_service_plan_id" {
   value = azurerm_app_service_plan.asp.id
 }
@@ -17,6 +21,14 @@ output "app_service_plan_name" {
 output "insights_instrumentation_key" {
   value     = azurerm_application_insights.insights.instrumentation_key
   sensitive = true
+}
+
+output "insights_id" {
+  value     = azurerm_application_insights.insights.id
+}
+
+output "action_group_id" {
+  value     = azurerm_monitor_action_group.action_group.id
 }
 
 output "storage_account_primary_blob_endpoint" {
