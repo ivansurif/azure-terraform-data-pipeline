@@ -4,3 +4,16 @@ resource "azurerm_application_insights" "insights" {
   resource_group_name = azurerm_resource_group.common.name
   application_type    = "web"
 }
+
+
+resource "azurerm_monitor_action_group" "action_group" {
+  name                = "function-alerts"
+  resource_group_name = azurerm_resource_group.common.name
+  short_name          = "f-alerts"
+
+  email_receiver {
+    name                    = "sendtojoel"
+    email_address           = "joel.sirefelt@cognite.com"
+    use_common_alert_schema = true
+  }
+}
