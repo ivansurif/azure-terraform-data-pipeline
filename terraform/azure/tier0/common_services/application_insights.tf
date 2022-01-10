@@ -7,21 +7,21 @@ resource "azurerm_application_insights" "insights" {
 
 
 resource "azurerm_application_insights" "insights_files_upload_dev" {
-  name                = "insights-${element(toset(local.resource_group_names_files_upload), 0)}"
+  name                = "insights-${element(local.resource_group_names_files_upload, 0)}"
   location            = azurerm_resource_group.common.location
   resource_group_name = azurerm_resource_group.common.name
   application_type    = "web"
 }
 
 resource "azurerm_application_insights" "insights_files_upload_test" {
-  name                = "insights-${element(toset(local.resource_group_names_files_upload), 1)}"
+  name                = "insights-${element(local.resource_group_names_files_upload, 1)}"
   location            = azurerm_resource_group.common.location
   resource_group_name = azurerm_resource_group.common.name
   application_type    = "web"
 }
 
 resource "azurerm_application_insights" "insights_files_upload_prod" {
-  name                = "insights-${element(toset(local.resource_group_names_files_upload), 2)}"
+  name                = "insights-${element(local.resource_group_names_files_upload, 2)}"
   location            = azurerm_resource_group.common.location
   resource_group_name = azurerm_resource_group.common.name
   application_type    = "web"
@@ -41,7 +41,7 @@ resource "azurerm_monitor_action_group" "action_group" {
 }
 
 resource "azurerm_monitor_action_group" "action_group_files_upload_dev" {
-  name                = "function-alerts-${element(toset(local.resource_group_names_files_upload), 0)}"
+  name                = "function-alerts-${element(local.resource_group_names_files_upload, 0)}"
   resource_group_name = azurerm_resource_group.common.name
   short_name          = "alert-fu-dev"
 
@@ -53,7 +53,7 @@ resource "azurerm_monitor_action_group" "action_group_files_upload_dev" {
 }
 
 resource "azurerm_monitor_action_group" "action_group_files_upload_test" {
-  name                = "function-alerts-${element(toset(local.resource_group_names_files_upload), 1)}"
+  name                = "function-alerts-${element(local.resource_group_names_files_upload, 1)}"
   resource_group_name = azurerm_resource_group.common.name
   short_name          = "alert-fu-tst"
 
@@ -65,7 +65,7 @@ resource "azurerm_monitor_action_group" "action_group_files_upload_test" {
 }
 
 resource "azurerm_monitor_action_group" "action_group_files_upload_prod" {
-  name                = "function-alerts-${element(toset(local.resource_group_names_files_upload), 2)}"
+  name                = "function-alerts-${element(local.resource_group_names_files_upload, 2)}"
   resource_group_name = azurerm_resource_group.common.name
   short_name          = "alert-fu-prd"
 
