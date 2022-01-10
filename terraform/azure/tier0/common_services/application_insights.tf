@@ -6,6 +6,28 @@ resource "azurerm_application_insights" "insights" {
 }
 
 
+resource "azurerm_application_insights" "insights_files_upload_dev" {
+  name                = "insights-${element(toset(local.resource_group_names_files_upload), 0)}"
+  location            = azurerm_resource_group.common.location
+  resource_group_name = azurerm_resource_group.common.name
+  application_type    = "web"
+}
+
+resource "azurerm_application_insights" "insights_files_upload_test" {
+  name                = "insights-${element(toset(local.resource_group_names_files_upload), 1)}"
+  location            = azurerm_resource_group.common.location
+  resource_group_name = azurerm_resource_group.common.name
+  application_type    = "web"
+}
+
+resource "azurerm_application_insights" "insights_files_upload_prod" {
+  name                = "insights-${element(toset(local.resource_group_names_files_upload), 2)}"
+  location            = azurerm_resource_group.common.location
+  resource_group_name = azurerm_resource_group.common.name
+  application_type    = "web"
+}
+
+
 resource "azurerm_monitor_action_group" "action_group" {
   name                = "function-alerts"
   resource_group_name = azurerm_resource_group.common.name
@@ -14,6 +36,42 @@ resource "azurerm_monitor_action_group" "action_group" {
   email_receiver {
     name                    = "sendtojoel"
     email_address           = "joel.sirefelt@cognite.com"
+    use_common_alert_schema = true
+  }
+}
+
+resource "azurerm_monitor_action_group" "action_group_files_upload_dev" {
+  name                = "function-alerts-${element(toset(local.resource_group_names_files_upload), 0)}"
+  resource_group_name = azurerm_resource_group.common.name
+  short_name          = "alert-fu-dev"
+
+  email_receiver {
+    name                    = "ivan"
+    email_address           = "ivan.surif@cognite.com"
+    use_common_alert_schema = true
+  }
+}
+
+resource "azurerm_monitor_action_group" "action_group_files_upload_test" {
+  name                = "function-alerts-${element(toset(local.resource_group_names_files_upload), 1)}"
+  resource_group_name = azurerm_resource_group.common.name
+  short_name          = "alert-fu-tst"
+
+  email_receiver {
+    name                    = "ivan"
+    email_address           = "ivan.surif@cognite.com"
+    use_common_alert_schema = true
+  }
+}
+
+resource "azurerm_monitor_action_group" "action_group_files_upload_prod" {
+  name                = "function-alerts-${element(toset(local.resource_group_names_files_upload), 2)}"
+  resource_group_name = azurerm_resource_group.common.name
+  short_name          = "alert-fu-prd"
+
+  email_receiver {
+    name                    = "ivan"
+    email_address           = "ivan.surif@cognite.com"
     use_common_alert_schema = true
   }
 }
