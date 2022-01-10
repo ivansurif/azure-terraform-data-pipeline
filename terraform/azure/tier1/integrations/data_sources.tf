@@ -25,6 +25,22 @@ locals {
     "integration-functions-test",
     "integration-functions-prod"
   ]
+
+  # Resource Groups for files upload functions are created in Tier 0
+  resource_group_names_files_upload = [
+    data.terraform_remote_state.common_services.outputs.resource_group_name_files_upload_dev,
+    data.terraform_remote_state.common_services.outputs.resource_group_name_files_upload_test,
+    data.terraform_remote_state.common_services.outputs.resource_group_name_files_upload_prod
+  ]
+
+  # Insights Instrumentation keys
+  insight_instrumentation_keys_files_upload = {
+    data.terraform_remote_state.common_services.outputs.resource_group_name_files_upload_dev  = data.terraform_remote_state.common_services.outputs.insights_instrumentation_key_files_upload_dev,
+    data.terraform_remote_state.common_services.outputs.resource_group_name_files_upload_test = data.terraform_remote_state.common_services.outputs.insights_instrumentation_key_files_upload_test,
+    data.terraform_remote_state.common_services.outputs.resource_group_name_files_upload_prod = data.terraform_remote_state.common_services.outputs.insights_instrumentation_key_files_upload_prod,
+  }
+
+
   resource_group_location = data.terraform_remote_state.common_services.outputs.resource_group_location
   # storage
   storage_account_name    = data.terraform_remote_state.common_services.outputs.storage_account_name
@@ -98,11 +114,19 @@ locals {
     ]
   ])
 
+  apps_files_upload = flatten([
+    for environment in keys(local.environments) : {
+      environment = environment
+    }
+    ]
+  )
+
+
   function_apps = {
     for app in local.apps :
     "skfcenit-integrations-${app["system"]}-${app["environment"]}" => {
       app_service_plan    = data.terraform_remote_state.common_services.outputs.app_service_plan_name
-      app_settings        = merge(local.environments[app["environment"]]["app_settings"], local.common_app_settings, {SYSTEM_GUID = local.system_guids[app["system"]]})
+      app_settings        = merge(local.environments[app["environment"]]["app_settings"], local.common_app_settings, { SYSTEM_GUID = local.system_guids[app["system"]] })
       secrets             = merge(local.environments[app["environment"]]["secrets"], local.common_secrets)
       always_on           = "true"
       https_only          = true
@@ -114,7 +138,7 @@ locals {
   alerts = {
     for app in local.apps :
     "alert-${app["system"]}-${app["environment"]}" => {
-    query = <<-QUERY
+      query = <<-QUERY
       traces
       | where message contains "Successfully uploaded datapoints to CDF"
       | where timestamp > ago(10min)
@@ -124,11 +148,11 @@ locals {
   }
 
 
-  files_upload_function_apps = {
-    for app in local.apps :
-    "files-upload-${app["system"]}-${app["environment"]}" => {
-      app_service_plan    = data.terraform_remote_state.common_services.outputs.app_service_plan_name
-      app_settings        = merge(local.environments[app["environment"]]["app_settings"], local.common_app_settings, {SYSTEM_GUID = local.system_guids[app["system"]]})
+  function_apps_files_upload = {
+    for app in local.apps_files_upload :
+    "files-upload-${app["environment"]}" => {
+      app_service_plan    = data.terraform_remote_state.common_services.outputs.app_service_plan_name_files_upload
+      app_settings        = merge(local.environments[app["environment"]]["app_settings"], local.common_app_settings)
       secrets             = merge(local.environments[app["environment"]]["secrets"], local.common_secrets)
       always_on           = false
       https_only          = true
