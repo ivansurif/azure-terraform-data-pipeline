@@ -36,8 +36,8 @@ locals {
   # Insights Instrumentation keys
   insight_instrumentation_keys_files_upload = {
     files-upload-dev  = data.terraform_remote_state.common_services.outputs.insights_instrumentation_key_files_upload_dev,
-    files-upload-dev = data.terraform_remote_state.common_services.outputs.insights_instrumentation_key_files_upload_test,
-    files-upload-dev = data.terraform_remote_state.common_services.outputs.insights_instrumentation_key_files_upload_prod,
+    files-upload-test = data.terraform_remote_state.common_services.outputs.insights_instrumentation_key_files_upload_test,
+    files-upload-prod = data.terraform_remote_state.common_services.outputs.insights_instrumentation_key_files_upload_prod,
   }
 
 

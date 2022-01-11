@@ -34,7 +34,7 @@ resource "azurerm_function_app" "functions_files_upload" {
   for_each                   = local.function_apps_files_upload
   name                       = each.key
   location                   = data.terraform_remote_state.common_services.outputs.resource_group_location
-  resource_group_name        = azurerm_resource_group.rg_files_upload[each.value["resource_group_name"]].name
+  resource_group_name        = each.value["resource_group_name"]
   app_service_plan_id        = data.terraform_remote_state.common_services.outputs.app_service_plan_id_files_upload
   storage_account_name       = local.storage_account_name
   storage_account_access_key = local.primary_blob_access_key
@@ -44,7 +44,7 @@ resource "azurerm_function_app" "functions_files_upload" {
 
   app_settings = merge(
     {
-      APPINSIGHTS_INSTRUMENTATIONKEY : lookup(local.insight_instrumentation_keys_files_upload, azurerm_resource_group.rg_files_upload[each.value["resource_group_name"]].name, "Value not found")
+      APPINSIGHTS_INSTRUMENTATIONKEY : lookup(local.insight_instrumentation_keys_files_upload, each.value["resource_group_name"], "Value not found")
     },
     each.value["app_settings"],
     { for key, secret in each.value["secrets"] : key => "@Microsoft.KeyVault(VaultName=${local.key_vault_name};SecretName=${secret})" }
