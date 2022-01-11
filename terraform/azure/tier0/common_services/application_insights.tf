@@ -12,8 +12,8 @@ resource "azurerm_monitor_action_group" "action_group" {
   short_name          = "f-alerts"
 
   email_receiver {
-    name                    = "sendtojoel"
-    email_address           = "joel.sirefelt@cognite.com"
+    name                    = "sendtogooglegroup"
+    email_address           = "skf-cenit-alert@cognite.com"
     use_common_alert_schema = true
   }
 }
