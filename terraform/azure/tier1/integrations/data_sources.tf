@@ -25,6 +25,22 @@ locals {
     "integration-functions-test",
     "integration-functions-prod"
   ]
+
+  # Resource Groups for files upload functions are created in Tier 0
+  resource_group_names_files_upload = [
+    data.terraform_remote_state.common_services.outputs.resource_group_name_files_upload_dev,
+    data.terraform_remote_state.common_services.outputs.resource_group_name_files_upload_test,
+    data.terraform_remote_state.common_services.outputs.resource_group_name_files_upload_prod
+  ]
+
+  # Insights Instrumentation keys
+  insight_instrumentation_keys_files_upload = {
+    files-upload-dev  = data.terraform_remote_state.common_services.outputs.insights_instrumentation_key_files_upload_dev,
+    files-upload-dev = data.terraform_remote_state.common_services.outputs.insights_instrumentation_key_files_upload_test,
+    files-upload-dev = data.terraform_remote_state.common_services.outputs.insights_instrumentation_key_files_upload_prod,
+  }
+
+
   resource_group_location = data.terraform_remote_state.common_services.outputs.resource_group_location
   # storage
   storage_account_name    = data.terraform_remote_state.common_services.outputs.storage_account_name
@@ -52,6 +68,7 @@ locals {
   environments = {
     dev = {
       resource_group_name = "integration-functions-dev"
+      resource_group_name_files_upload = data.terraform_remote_state.common_services.outputs.resource_group_name_files_upload_dev
       app_settings = {
         CDF_CLIENT_ID       = "77980a5e-35f7-4692-a401-14f3b30401a4"
         CDF_COGNITE_PROJECT = "skfcenit-dev"
@@ -63,6 +80,7 @@ locals {
 
     test = {
       resource_group_name = "integration-functions-test"
+      resource_group_name_files_upload = data.terraform_remote_state.common_services.outputs.resource_group_name_files_upload_test
       app_settings = {
         CDF_CLIENT_ID       = "182226d3-ae9f-4c39-8a0c-ee9bd43f0d48"
         CDF_COGNITE_PROJECT = "skfcenit-test"
@@ -74,6 +92,7 @@ locals {
 
     prod = {
       resource_group_name = "integration-functions-prod"
+      resource_group_name_files_upload = data.terraform_remote_state.common_services.outputs.resource_group_name_files_upload_prod
       app_settings = {
         CDF_CLIENT_ID       = "c3b95ff9-f014-4a92-a113-5b2e135c5beb"
         CDF_COGNITE_PROJECT = "skfcenit"
@@ -98,11 +117,19 @@ locals {
     ]
   ])
 
+  apps_files_upload = flatten([
+    for environment in keys(local.environments) : {
+      environment = environment
+    }
+    ]
+  )
+
+
   function_apps = {
     for app in local.apps :
     "skfcenit-integrations-${app["system"]}-${app["environment"]}" => {
       app_service_plan    = data.terraform_remote_state.common_services.outputs.app_service_plan_name
-      app_settings        = merge(local.environments[app["environment"]]["app_settings"], local.common_app_settings, {SYSTEM_GUID = local.system_guids[app["system"]]})
+      app_settings        = merge(local.environments[app["environment"]]["app_settings"], local.common_app_settings, { SYSTEM_GUID = local.system_guids[app["system"]] })
       secrets             = merge(local.environments[app["environment"]]["secrets"], local.common_secrets)
       always_on           = "true"
       https_only          = true
@@ -114,7 +141,7 @@ locals {
   alerts = {
     for app in local.apps :
     "alert-${app["system"]}-${app["environment"]}" => {
-    query = <<-QUERY
+      query = <<-QUERY
       traces
       | where message contains "Successfully uploaded datapoints to CDF"
       | where timestamp > ago(10min)
@@ -124,16 +151,16 @@ locals {
   }
 
 
-  files_upload_function_apps = {
-    for app in local.apps :
-    "files-upload-${app["system"]}-${app["environment"]}" => {
-      app_service_plan    = data.terraform_remote_state.common_services.outputs.app_service_plan_name
-      app_settings        = merge(local.environments[app["environment"]]["app_settings"], local.common_app_settings, {SYSTEM_GUID = local.system_guids[app["system"]]})
+  function_apps_files_upload = {
+    for app in local.apps_files_upload :
+    "files-upload-${app["environment"]}" => {
+      app_service_plan    = data.terraform_remote_state.common_services.outputs.app_service_plan_name_files_upload
+      app_settings        = merge(local.environments[app["environment"]]["app_settings"], local.common_app_settings)
       secrets             = merge(local.environments[app["environment"]]["secrets"], local.common_secrets)
       always_on           = false
       https_only          = true
       linux_fx_version    = "Python|3.9"
-      resource_group_name = local.environments[app["environment"]]["resource_group_name"]
+      resource_group_name = local.environments[app["environment"]]["resource_group_name_files_upload"]
     }
   }
 }
