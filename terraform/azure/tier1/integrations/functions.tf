@@ -76,7 +76,7 @@ resource "azurerm_key_vault_access_policy" "function_app_policies_files_upload" 
   for_each     = local.function_apps_files_upload
   key_vault_id = local.key_vault_id
   tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = azurerm_function_app.functions[each.key].identity[0].principal_id
+  object_id    = azurerm_function_app.functions_files_upload[each.key].identity[0].principal_id
 
   secret_permissions = [
     "Get",

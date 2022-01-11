@@ -68,6 +68,7 @@ locals {
   environments = {
     dev = {
       resource_group_name = "integration-functions-dev"
+      resource_group_name_files_upload = data.terraform_remote_state.common_services.outputs.resource_group_name_files_upload_dev
       app_settings = {
         CDF_CLIENT_ID       = "77980a5e-35f7-4692-a401-14f3b30401a4"
         CDF_COGNITE_PROJECT = "skfcenit-dev"
@@ -79,6 +80,7 @@ locals {
 
     test = {
       resource_group_name = "integration-functions-test"
+      resource_group_name_files_upload = data.terraform_remote_state.common_services.outputs.resource_group_name_files_upload_test
       app_settings = {
         CDF_CLIENT_ID       = "182226d3-ae9f-4c39-8a0c-ee9bd43f0d48"
         CDF_COGNITE_PROJECT = "skfcenit-test"
@@ -90,6 +92,7 @@ locals {
 
     prod = {
       resource_group_name = "integration-functions-prod"
+      resource_group_name_files_upload = data.terraform_remote_state.common_services.outputs.resource_group_name_files_upload_prod
       app_settings = {
         CDF_CLIENT_ID       = "c3b95ff9-f014-4a92-a113-5b2e135c5beb"
         CDF_COGNITE_PROJECT = "skfcenit"
@@ -157,7 +160,7 @@ locals {
       always_on           = false
       https_only          = true
       linux_fx_version    = "Python|3.9"
-      resource_group_name = local.environments[app["environment"]]["resource_group_name"]
+      resource_group_name = local.environments[app["environment"]]["resource_group_name_files_upload"]
     }
   }
 }
