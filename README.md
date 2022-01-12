@@ -3,7 +3,7 @@ Cognite - SKF Cenit - Terraform
 
 The purpose of this repository is to configure the infrastructure for the Cognite SKF Cenit project. The project uses a separate Github Organisation, `cognite-skf-cenit` and Azure AD and Subscription, `SKF Cenit By Cognite` and `Azure Companion Project - SKF Cenit` respectively.
 
-## Structure 
+## Structure
 
 A Github Actions Workflow automates the Terraform Plan and Apply. And directory containing a `.tf` file is considered a Terraform Workspace, and the action will attempt to provide a Plan for that workspace.
 
