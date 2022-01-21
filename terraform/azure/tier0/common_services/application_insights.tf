@@ -46,7 +46,7 @@ resource "azurerm_monitor_action_group" "action_group_files_upload_dev" {
   short_name          = "alert-fu-dev"
 
   email_receiver {
-    name                    = "ivan"
+    name                    = "sendtoivan"
     email_address           = "ivan.surif@cognite.com"
     use_common_alert_schema = true
   }
@@ -58,7 +58,7 @@ resource "azurerm_monitor_action_group" "action_group_files_upload_test" {
   short_name          = "alert-fu-tst"
 
   email_receiver {
-    name                    = "ivan"
+    name                    = "sendtoivan"
     email_address           = "ivan.surif@cognite.com"
     use_common_alert_schema = true
   }
@@ -70,7 +70,7 @@ resource "azurerm_monitor_action_group" "action_group_files_upload_prod" {
   short_name          = "alert-fu-prd"
 
   email_receiver {
-    name                    = "ivan"
+    name                    = "sendtoivan"
     email_address           = "ivan.surif@cognite.com"
     use_common_alert_schema = true
   }
