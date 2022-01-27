@@ -63,9 +63,9 @@ resource "azurerm_function_app" "functions_files_upload" {
 resource "azurerm_function_app" "skf-ai-data" {
   for_each                   = local.function_apps_skf_ai_data
   name                       = each.key
-  location                   = azurerm_resource_group.rg[each.value["resource_group_name"]].location
-  resource_group_name        = azurerm_resource_group.rg[each.value["resource_group_name"]].name
-  app_service_plan_id        = data.terraform_remote_state.common_services.outputs.app_service_plan_id
+  location                   = data.terraform_remote_state.common_services.outputs.resource_group_location
+  resource_group_name        = each.value["resource_group_name"]
+  app_service_plan_id        = data.terraform_remote_state.common_services.outputs.app_service_plan_id_files_upload
   storage_account_name       = local.storage_account_name
   storage_account_access_key = local.primary_blob_access_key
   os_type                    = "linux"
@@ -74,7 +74,7 @@ resource "azurerm_function_app" "skf-ai-data" {
 
   app_settings = merge(
     {
-      APPINSIGHTS_INSTRUMENTATIONKEY = data.terraform_remote_state.common_services.outputs.insights_instrumentation_key
+      APPINSIGHTS_INSTRUMENTATIONKEY : lookup(local.insight_instrumentation_keys_files_upload, each.value["resource_group_name"], "Value not found")
     },
     each.value["app_settings"],
     { for key, secret in each.value["secrets"] : key => "@Microsoft.KeyVault(VaultName=${local.key_vault_name};SecretName=${secret})" }
