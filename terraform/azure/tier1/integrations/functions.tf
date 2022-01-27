@@ -59,6 +59,38 @@ resource "azurerm_function_app" "functions_files_upload" {
   }
 }
 
+
+resource "azurerm_function_app" "skf-ai-data" {
+  for_each                   = local.function_apps_skf_ai_data
+  name                       = each.key
+  location                   = data.terraform_remote_state.common_services.outputs.resource_group_location
+  resource_group_name        = each.value["resource_group_name"]
+  app_service_plan_id        = data.terraform_remote_state.common_services.outputs.app_service_plan_id_files_upload
+  storage_account_name       = local.storage_account_name
+  storage_account_access_key = local.primary_blob_access_key
+  os_type                    = "linux"
+  version                    = "~3"
+
+
+  app_settings = merge(
+    {
+      APPINSIGHTS_INSTRUMENTATIONKEY : lookup(local.insight_instrumentation_keys_files_upload, each.value["resource_group_name"], "Value not found")
+    },
+    each.value["app_settings"],
+    { for key, secret in each.value["secrets"] : key => "@Microsoft.KeyVault(VaultName=${local.key_vault_name};SecretName=${secret})" }
+  )
+
+  identity {
+    type = "SystemAssigned"
+  }
+
+  site_config {
+    always_on        = each.value["always_on"]
+    linux_fx_version = each.value["linux_fx_version"]
+    scm_type         = "LocalGit"
+  }
+}
+
 resource "azurerm_key_vault_access_policy" "function_app_policies" {
   for_each     = local.function_apps
   key_vault_id = local.key_vault_id
