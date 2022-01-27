@@ -61,7 +61,7 @@ resource "azurerm_function_app" "functions_files_upload" {
 
 
 resource "azurerm_function_app" "skf-ai-data" {
-  for_each                   = local.skf_ai_data
+  for_each                   = local.function_apps_skf_ai_data
   name                       = each.key
   location                   = azurerm_resource_group.rg[each.value["resource_group_name"]].location
   resource_group_name        = azurerm_resource_group.rg[each.value["resource_group_name"]].name
