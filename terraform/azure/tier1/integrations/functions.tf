@@ -1,5 +1,5 @@
 resource "azurerm_function_app" "functions" {
-  for_each                   = local.apps_files_upload
+  for_each                   = local.function_apps
   name                       = each.key
   location                   = azurerm_resource_group.rg[each.value["resource_group_name"]].location
   resource_group_name        = azurerm_resource_group.rg[each.value["resource_group_name"]].name

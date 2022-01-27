@@ -63,7 +63,7 @@ locals {
 
   common_secrets = {
     API_KEY = "API-KEY"
-    TOPIC_ACCESS_KEY = "WRITE_BACK_KEY"
+    TOPIC_ACCESS_KEY = "TOPIC_ACCESS_KEY"
   }
 
   environments = {
@@ -165,9 +165,9 @@ locals {
     }
   }
 
-  function_skf_ai_data = {
+  function_apps_skf_ai_data = {
     for app in local.apps_files_upload :
-    "skf_ai_data-${app["environment"]}" => {
+    "skf-ai-data-${app["environment"]}" => {
       app_service_plan    = data.terraform_remote_state.common_services.outputs.app_service_plan_name_files_upload
       app_settings        = merge(local.environments[app["environment"]]["app_settings"], local.common_app_settings, {URL_TOPIC = "https://transportecenit.azurefd.net/ub/api/events"})
       secrets             = merge(local.environments[app["environment"]]["secrets"], local.common_secrets)
