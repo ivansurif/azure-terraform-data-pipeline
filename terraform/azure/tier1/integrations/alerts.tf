@@ -16,7 +16,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert" "function-alerts" {
   query       = each.value["query"]
   severity    = 1
   frequency   = 10
-  time_window = 10
+  time_window = 15
   trigger {
     operator  = "LessThan"
     threshold = 1

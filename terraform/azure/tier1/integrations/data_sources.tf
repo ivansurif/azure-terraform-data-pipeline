@@ -145,7 +145,6 @@ locals {
       query = <<-QUERY
       traces
       | where message contains "Successfully uploaded datapoints to CDF"
-      | where timestamp > ago(10min)
       | where cloud_RoleName =~ 'skfcenit-integrations-${app["system"]}-${app["environment"]}' and operation_Name  =~ 'update_datapoints'
       QUERY
     }
