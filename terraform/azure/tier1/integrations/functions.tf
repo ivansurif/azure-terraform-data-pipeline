@@ -116,3 +116,16 @@ resource "azurerm_key_vault_access_policy" "function_app_policies_files_upload" 
   key_permissions     = []
   storage_permissions = []
 }
+
+resource "azurerm_key_vault_access_policy" "function_app_policies_skf_ai_data" {
+  for_each     = local.function_apps_skf_ai_data
+  key_vault_id = local.key_vault_id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = azurerm_function_app.skf-ai-data[each.key].identity[0].principal_id
+
+  secret_permissions = [
+    "Get",
+  ]
+  key_permissions     = []
+  storage_permissions = []
+}
