@@ -98,7 +98,6 @@ jobs:
         pwd
         echo hello > world.txt
         ls
-      working-directory: ./temp
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
