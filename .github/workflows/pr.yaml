@@ -116,7 +116,7 @@ jobs:
       run: |
         dot -V
 
-        dot home/runner/work/terraform/terraform/terraform/azure/tier0/common_services/diagram.dot -Tsvg -o output.svg
+        dot /home/runner/work/terraform/terraform/terraform/azure/tier0/common_services/diagram.dot -Tsvg -o output.svg
 
         echo digraph { a -> b } >> output.svg
         echo 'digraph { a -> b }' | dot -Tsvg > output.svg
