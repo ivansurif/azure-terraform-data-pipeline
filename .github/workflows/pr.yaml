@@ -96,8 +96,7 @@ jobs:
     - name: Create File
       run: |
         pwd
-        echo terraform graph > diagram.dot
-        ls
+        terraform graph > diagram.dot
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
@@ -116,6 +115,9 @@ jobs:
       id: graph
       run: |
         dot -V
+
+        dot home/runner/work/terraform/terraform/terraform/azure/tier0/common_services/diagram.dot -Tsvg -o output.svg
+
         echo digraph { a -> b } >> output.svg
         echo 'digraph { a -> b }' | dot -Tsvg > output.svg
 
