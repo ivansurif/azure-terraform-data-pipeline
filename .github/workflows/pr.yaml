@@ -94,10 +94,22 @@ jobs:
     - name: Setup Graphviz
       uses: ts-graphviz/setup-graphviz@v1
 
+
+    - name: Create File
+      uses: actions/checkout@v2
+      run: echo hello > world.txt
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: world.txt
+
     - name: Produce graph
       id: graph
       run: |
         dot -V
+        echo digraph { a -> b } >> output.svg
         echo 'digraph { a -> b }' | dot -Tsvg > output.svg
 
 
