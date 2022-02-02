@@ -105,6 +105,9 @@ jobs:
         name: my-artifact
         path: /home/runner/work/terraform/terraform/terraform/azure/tier0/common_services/world.txt
 
+    - name: Download all workflow run artifacts
+      uses: actions/download-artifact@v2
+
     - name: Setup Graphviz
       uses: ts-graphviz/setup-graphviz@v1
 
