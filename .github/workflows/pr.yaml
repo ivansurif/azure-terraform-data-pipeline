@@ -91,7 +91,9 @@ jobs:
       id: init
       run: terraform init
 
-
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate -no-color
 
     - name: Create Diagram File in working directory
       run: |
@@ -108,9 +110,6 @@ jobs:
     - name: Download all workflow run artifacts
       uses: actions/download-artifact@v2
 
-    - name: Terraform Validate
-      id: validate
-      run: terraform validate -no-color
 
     # Generate an execution plan for Terraform
     - name: Terraform Plan
