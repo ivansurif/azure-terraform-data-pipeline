@@ -96,14 +96,14 @@ jobs:
     - name: Create File
       run: |
         pwd
-        echo hello > world.txt
+        echo terraform graph > diagram.dot
         ls
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
         name: my-artifact
-        path: /home/runner/work/terraform/terraform/terraform/azure/tier0/common_services/world.txt
+        path: /home/runner/work/terraform/terraform/terraform/azure/tier0/common_services/diagram.dot
 
     - name: Download all workflow run artifacts
       uses: actions/download-artifact@v2
