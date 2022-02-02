@@ -91,8 +91,6 @@ jobs:
       id: init
       run: terraform init
 
-    - name: Setup Graphviz
-      uses: ts-graphviz/setup-graphviz@v1
 
 
     - name: Create File
@@ -104,6 +102,10 @@ jobs:
       with:
         name: my-artifact
         path: world.txt
+
+    - name: Setup Graphviz
+      uses: ts-graphviz/setup-graphviz@v1
+
 
     - name: Produce graph
       id: graph
