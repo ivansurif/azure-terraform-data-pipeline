@@ -91,6 +91,11 @@ jobs:
       id: init
       run: terraform init
 
+    - name: Produce graph
+      id: graph
+      run: terraform graph | dot -Tsvg > graph.svg
+
+
     - name: Terraform Validate
       id: validate
       run: terraform validate -no-color
