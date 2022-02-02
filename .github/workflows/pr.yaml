@@ -99,7 +99,6 @@ jobs:
       run: |
         pwd
         terraform graph > diagram.dot
-        ls
 
     - name: Upload file to Artifact
       uses: actions/upload-artifact@v2
