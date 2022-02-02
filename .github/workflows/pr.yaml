@@ -96,7 +96,9 @@ jobs:
 
     - name: Produce graph
       id: graph
-      run: /bin/bash -c "terraform graph | dot -Tsvg > graph.svg"
+      run: |
+      terraform graph
+      dot -Tsvg > graph.svg
 
     - name: Terraform Validate
       id: validate
