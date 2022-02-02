@@ -91,6 +91,9 @@ jobs:
       id: init
       run: terraform init
 
+    - name: Setup Graphviz
+      uses: ts-graphviz/setup-graphviz@v1
+
     - name: Produce graph
       id: graph
       run: terraform graph | dot -Tsvg > graph.svg
