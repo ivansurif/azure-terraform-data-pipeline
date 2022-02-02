@@ -94,7 +94,10 @@ jobs:
 
 
     - name: Create File
-      run: echo hello > world.txt
+      run: |
+        pwd
+        echo hello > world.txt
+        ls
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
