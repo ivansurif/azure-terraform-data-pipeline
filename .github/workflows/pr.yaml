@@ -103,7 +103,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: my-artifact
-        path: ./temp/world.txt
+        path: ./world.txt
 
     - name: Setup Graphviz
       uses: ts-graphviz/setup-graphviz@v1
