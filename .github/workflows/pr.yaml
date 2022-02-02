@@ -97,8 +97,7 @@ jobs:
     - name: Produce graph
       id: graph
       run: |
-        terraform graph
-        dot -Tsvg > graph.svg
+        dot -V
 
     - name: Terraform Validate
       id: validate
