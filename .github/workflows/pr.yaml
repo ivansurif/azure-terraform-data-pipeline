@@ -103,7 +103,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: my-artifact
-        path: ./world.txt
+        path: /home/runner/work/terraform/terraform/terraform/azure/tier0/common_services/world.txt
 
     - name: Setup Graphviz
       uses: ts-graphviz/setup-graphviz@v1
