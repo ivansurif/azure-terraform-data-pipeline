@@ -98,6 +98,8 @@ jobs:
       id: graph
       run: |
         dot -V
+        echo 'digraph { a -> b }' | dot -Tsvg > output.svg
+
 
     - name: Terraform Validate
       id: validate
