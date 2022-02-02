@@ -91,6 +91,11 @@ jobs:
       id: init
       run: terraform init
 
+    - name: Produce graph
+      id: graph
+      run: terraform graph | dot -Tsvg > graph.svg
+
+
     - name: Terraform Validate
       id: validate
       run: terraform validate -no-color
@@ -140,6 +145,7 @@ jobs:
           const output = `## Plan For \`${{ matrix.folder }}\`
           #### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
           #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+          #### Terraform Graph ⚙️\`${{ steps.graph.outcome }}\`
           #### Terraform Validation 🤖${{ steps.validate.outputs.stdout }}
           #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
 
