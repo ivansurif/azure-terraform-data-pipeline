@@ -94,7 +94,6 @@ jobs:
 
 
     - name: Create File
-      uses: actions/checkout@v2
       run: echo hello > world.txt
 
     - name: Upload Artifact
