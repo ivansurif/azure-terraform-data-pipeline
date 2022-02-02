@@ -91,11 +91,6 @@ jobs:
       id: init
       run: terraform init
 
-    - name: Produce graph
-      id: graph
-      run: terraform graph
-
-
     - name: Terraform Validate
       id: validate
       run: terraform validate -no-color
