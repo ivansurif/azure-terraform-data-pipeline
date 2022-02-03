@@ -1,5 +1,5 @@
 # # Note: If this resource group was created in Terraform, then this RBAC should exist within the same workspace
-
+/*
 data "azurerm_resource_group" "skf_cenit_dev" {
   name = "skf-cenit-dev"
 }
