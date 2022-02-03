@@ -16,3 +16,4 @@ resource "azurerm_role_assignment" "skf_cenit_dev_user_access_admin" {
   role_definition_name = "User Access Administrator"
   principal_id         = local.users[each.value]
 }
+*/
