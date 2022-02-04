@@ -95,6 +95,21 @@ jobs:
       id: validate
       run: terraform validate -no-color
 
+    - name: Create Diagram File in working directory
+      run: terraform graph > diagram.dot
+
+    - name: Upload file to Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Resource Graph
+        path: /home/runner/work/terraform/terraform/terraform/azure/tier0/common_services/diagram.dot
+
+    - name: Download all workflow run artifacts
+      uses: actions/download-artifact@v2
+    # The download will be a zip containing the .dot file.
+    # The .dot file needs to be converted to svg using the Graphviz CLI for example
+    # or an online conversion tool such as http://graphviz.it/
+
     # Generate an execution plan for Terraform
     - name: Terraform Plan
       id: plan
@@ -140,6 +155,7 @@ jobs:
           const output = `## Plan For \`${{ matrix.folder }}\`
           #### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
           #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+          #### Terraform Graph ⚙️\`${{ steps.graph.outcome }}\`
           #### Terraform Validation 🤖${{ steps.validate.outputs.stdout }}
           #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
 
@@ -157,6 +173,7 @@ jobs:
             repo: context.repo.repo,
             body: output
           })
+
   apply:
     environment: apply
     name: Apply Terraform on "${{ matrix.folder }}"
@@ -176,7 +193,7 @@ jobs:
       ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
       GITHUB_OWNER: ${{ secrets.GH_OWNER }}
-         
+
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -200,15 +217,10 @@ jobs:
         script: |
           const output = `## Apply For \`${{ matrix.folder }}\`
           #### Terraform Apply \`${{ steps.apply.outcome }}\`
-
           <details><summary>Show Apply Error</summary>
-
           \`\`\`${process.env.ERROR}\`\`\`
-
           </details>
-
           *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ matrix.folder }}\`, Workflow: \`${{ github.workflow }}\`*`;
-
           github.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
@@ -228,15 +240,10 @@ jobs:
         script: |
           const output = `## Apply For \`${{ matrix.folder }}\`
           #### Terraform Apply \`${{ steps.apply.outcome }}\`
-
           <details><summary>Show Applied Plan</summary>
-
           \`\`\`${process.env.APPLY}\`\`\`
-
           </details>
-
           *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ matrix.folder }}\`, Workflow: \`${{ github.workflow }}\`*`;
-
           github.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
