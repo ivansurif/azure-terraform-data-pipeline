@@ -1,5 +1,5 @@
 # # Note: If this resource group was created in Terraform, then this RBAC should exist within the same workspace
-
+/*
 data "azurerm_resource_group" "skf_cenit_dev" {
   name = "skf-cenit-dev"
 }
@@ -16,3 +16,4 @@ resource "azurerm_role_assignment" "skf_cenit_dev_user_access_admin" {
   role_definition_name = "User Access Administrator"
   principal_id         = local.users[each.value]
 }
+*/
