@@ -19,7 +19,7 @@ data "terraform_remote_state" "common_services" {
 
 locals {
 
-  # Resource Group
+  # Resource Group.
   resource_group_names = [
     "integration-functions-dev",
     "integration-functions-test",
