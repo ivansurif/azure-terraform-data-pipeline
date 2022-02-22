@@ -34,6 +34,7 @@ locals {
 
   # Storage
   storage_name                        = "cogniteskfcenitcommon"
+  storage_name_prod                   = "cogniteskfcenitprodonly"
   storage_account_tier                = "Standard"
   storage_account_replication_type    = "LRS"
   storage_container_name_files_upload = "fileuploadstorage"
