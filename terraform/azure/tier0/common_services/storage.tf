@@ -15,15 +15,7 @@ resource "azurerm_storage_container" "cogniteskfcenittags" {
   storage_account_name = azurerm_storage_account.storage.name
 }
 
-resource "azurerm_storage_account" "storage_prod" {
-  name                     = local.storage_name_prod
-  resource_group_name      = azurerm_resource_group.common.name
-  location                 = azurerm_resource_group.common.location
-  account_tier             = local.storage_account_tier
-  account_replication_type = local.storage_account_replication_type
-}
-
 resource "azurerm_storage_container" "blob_storage_container_prod" {
-  name                 = local.storage_container_name_files_upload
-  storage_account_name = azurerm_storage_account.storage_prod.name
+  name                 = local.storage_container_name_files_upload_prod_only
+  storage_account_name = azurerm_storage_account.storage.name
 }
