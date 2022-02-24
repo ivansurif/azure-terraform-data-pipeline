@@ -14,3 +14,8 @@ resource "azurerm_storage_container" "cogniteskfcenittags" {
   name                 = local.storage_container_name_tags
   storage_account_name = azurerm_storage_account.storage.name
 }
+
+resource "azurerm_storage_container" "blob_storage_container_prod" {
+  name                 = local.storage_container_name_files_upload_prod_only
+  storage_account_name = azurerm_storage_account.storage.name
+}

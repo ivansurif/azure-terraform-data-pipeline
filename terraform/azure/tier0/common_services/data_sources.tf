@@ -37,6 +37,7 @@ locals {
   storage_account_tier                = "Standard"
   storage_account_replication_type    = "LRS"
   storage_container_name_files_upload = "fileuploadstorage"
+  storage_container_name_files_upload_prod_only = "fileuploadstorage-prod-only"
   storage_container_name_tags         = "cogniteskfcenittags"
 
   # AKS
