@@ -107,6 +107,7 @@ locals {
     Aya = "9ad2aaf3-b305-49e2-bbf6-947a981cb03c"
     Poz = "0c801d9c-5142-4fd0-b50d-34e3e5aa5815"
     Car = "43c6892d-56c8-43ba-a883-655e922bb5ca"
+    Alb = "2b920ed6-c316-40ba-b3ab-72ba2f7e193a"
   }
 
   apps = flatten([
