@@ -109,6 +109,7 @@ locals {
     Car = "43c6892d-56c8-43ba-a883-655e922bb5ca"
     Alb = "2b920ed6-c316-40ba-b3ab-72ba2f7e193a"
     Vil = "72bfbb64-2428-4112-bba2-a6d8fd32a965"
+    Med = "b55a6fa2-b907-4bd0-9456-91078f99dc87"
   }
 
   apps = flatten([
