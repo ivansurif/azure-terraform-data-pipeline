@@ -45,11 +45,5 @@ locals {
       "org_member"      = "member"
       "infra_team_push" = "member"
     }
-
-    "dummymail@cognite.com" = {
-      "github_account"  = "gognite-test-user-2"
-      "org_member"      = "member"
-      "infra_team_push" = "member"
-    }
   }
 }
