@@ -30,6 +30,7 @@ locals {
     "ivan.surif@cognitedata.com" = {
       "github_account"  = "ivansurif"
       "org_member"      = "admin"
+
     }
 
     "igor.suchilov@cognitedata.com" = {
@@ -43,7 +44,7 @@ locals {
     "cognite.test.user@gmail.com" = {
       "github_account"  = "gognite-test-user"
       "org_member"      = "member"
-      "infra_team_push" = "member"
+      "skf_cenit_team_push" = "member"
     }
 
     "dummymail@cognite.com" = {
