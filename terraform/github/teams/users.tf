@@ -29,13 +29,13 @@ locals {
 
     "ivan.surif@cognitedata.com" = {
       "github_account"  = "ivansurif"
-      "org_member"      = "member"
-      "infra_team_push" = "member"
+      "org_member"      = "admin"
     }
 
     "igor.suchilov@cognitedata.com" = {
       "github_account"  = "igors-cognite"
-      "org_member"      = "admin"
+      "org_member"      = "member"
+      "infra_team_push" = "member"
     }
 
     "cognite.test.user@gmail.com" = {
