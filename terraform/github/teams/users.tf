@@ -30,7 +30,6 @@ locals {
     "ivan.surif@cognitedata.com" = {
       "github_account"  = "ivansurif"
       "org_member"      = "admin"
-      "infra_team_push" = "member"
     }
 
     "igor.suchilov@cognitedata.com" = {
