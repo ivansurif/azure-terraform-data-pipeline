@@ -35,8 +35,7 @@ locals {
 
     "igor.suchilov@cognitedata.com" = {
       "github_account"  = "igors-cognite"
-      "org_member"      = "member"
-      "infra_team_push" = "member"
+      "org_member"      = "admin"
     }
 
     "cognite.test.user@gmail.com" = {
