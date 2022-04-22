@@ -29,7 +29,8 @@ locals {
 
     "ivan.surif@cognitedata.com" = {
       "github_account"  = "ivansurif"
-      "org_member"     = "admin"
+      "org_member"      = "admin"
+
     }
 
     "igor.suchilov@cognitedata.com" = {
@@ -37,11 +38,43 @@ locals {
       "org_member"      = "member"
       "infra_team_push" = "member"
     }
+  }
 
+  external_collaborators = {
     "cognite.test.user@gmail.com" = {
       "github_account"  = "gognite-test-user"
       "org_member"      = "member"
-      "skf_cenit_team_push" = "member"
+    }
+
+    "agustin.canto@skf.com" = {
+      "github_account"  = "acanto29"
+      "org_member"      = "member"
+    }
+
+    "claudio.guerrero@skf.com" = {
+      "github_account"  = "c-dasq"
+      "org_member"      = "member"
+    }
+
+    "david.mendez@skf.com" = {
+      "github_account"  = "davidmendezr"
+      "org_member"      = "member"
+    }
+
+    "leandro.torrent@skf.com" = {
+      "github_account"  = "leandrotorrent"
+      "org_member"      = "member"
+    }
+
+    "osmel.cardenas@skf.com" = {
+      "github_account"  = "Rafael-Cardenas-P"
+      "org_member"      = "member"
+    }
+
+    "marco.santos@skf.com" = {
+      "github_account"  = "darkrori"
+      "org_member"      = "member"
     }
   }
+
 }
