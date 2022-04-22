@@ -44,7 +44,6 @@ locals {
     "cognite.test.user@gmail.com" = {
       "github_account"  = "gognite-test-user"
       "org_member"      = "member"
-      "skf_cenit_team_push" = "member"
     }
   }
 }
