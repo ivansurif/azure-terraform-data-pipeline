@@ -1,6 +1,7 @@
 Cognite - SKF Cenit - Terraform
 ===
 
+
 The purpose of this repository is to configure the infrastructure for the Cognite SKF Cenit project. The project uses a separate Github Organisation, `cognite-skf-cenit` and Azure AD and Subscription, `SKF Cenit By Cognite` and `Azure Companion Project - SKF Cenit` respectively.
 
 ## Structure
