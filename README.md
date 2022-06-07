@@ -1,6 +1,7 @@
 Cognite - SKF Cenit - Terraform
 ===
 
+
 The purpose of this repository is to configure the infrastructure for the Cognite SKF Cenit project. The project uses a separate Github Organisation, `cognite-skf-cenit` and Azure AD and Subscription, `SKF Cenit By Cognite` and `Azure Companion Project - SKF Cenit` respectively.
 
 ## Structure
@@ -33,7 +34,7 @@ The `apply` stage requires an approval from one of the configured approvers.
 
 Having successfully applied the infra changes, the changes can be approved and merged into the `main` branch.
 
-## Inviting a new User to the Azure AD Tenant
+## Inviting a new User to the Azure AD Tenant:
 
 1. Create a new branch
 1. In `terraform/azure/tier0/guest_users/users.tf` create an invite for the new user by adding them to the `users` set. The format is ` display_name : email_address`
