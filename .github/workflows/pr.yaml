@@ -135,12 +135,6 @@ jobs:
 
           *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ matrix.folder }}\`, Workflow: \`${{ github.workflow }}\`*`;
 
-          github.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: output
-          })
     - name: Fail on Error
       if: ${{ steps.plan.outcome == 'failure' }}
       run: exit 1
@@ -167,12 +161,6 @@ jobs:
 
           *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ matrix.folder }}\`, Workflow: \`${{ github.workflow }}\`*`;
 
-          github.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: output
-          })
 
   apply:
     environment: apply
@@ -221,12 +209,7 @@ jobs:
           \`\`\`${process.env.ERROR}\`\`\`
           </details>
           *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ matrix.folder }}\`, Workflow: \`${{ github.workflow }}\`*`;
-          github.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: output
-          })
+
     - name: Fail on Error
       if: ${{ steps.apply.outcome == 'failure' }}
       run: exit 1
@@ -244,9 +227,3 @@ jobs:
           \`\`\`${process.env.APPLY}\`\`\`
           </details>
           *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ matrix.folder }}\`, Workflow: \`${{ github.workflow }}\`*`;
-          github.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: output
-          })
