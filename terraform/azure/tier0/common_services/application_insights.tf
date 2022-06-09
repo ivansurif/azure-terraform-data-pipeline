@@ -34,8 +34,8 @@ resource "azurerm_monitor_action_group" "action_group" {
   short_name          = "f-alerts"
 
   email_receiver {
-    name                    = "sendtojoel"
-    email_address           = "joel.sirefelt@cognite.com"
+    name                    = "davidmendez"
+    email_address           = "david.mendez@skf.com"
     use_common_alert_schema = true
   }
 
@@ -46,8 +46,8 @@ resource "azurerm_monitor_action_group" "action_group" {
   }
 
   email_receiver {
-    name                    = "sendtoigor"
-    email_address           = "igor.suchilov@cognite.com"
+    name                    = "leandrotorrent"
+    email_address           = "leandro.torrent@skf.com"
     use_common_alert_schema = true
   }
 }
