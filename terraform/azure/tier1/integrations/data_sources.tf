@@ -110,6 +110,9 @@ locals {
     Alb = "2b920ed6-c316-40ba-b3ab-72ba2f7e193a"
     Vil = "72bfbb64-2428-4112-bba2-a6d8fd32a965"
     Med = "b55a6fa2-b907-4bd0-9456-91078f99dc87"
+    Ara = "3455d2c3-cf38-4f45-b8f9-1f04d8418b09"
+    Sfd = "5282b1b6-d17b-4004-92b5-421b8e7c2a15"
+    San = "6d0396f7-4f42-4073-b21b-c379b41e5f01"
   }
 
   apps = flatten([
