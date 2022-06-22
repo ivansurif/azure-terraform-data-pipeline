@@ -34,7 +34,7 @@ locals {
     
     "david.alvarez@cognitedata.com" = {
       "github_account"  = "david-alvarez-cognite"
-      "org_member"      = "admin"
+      "org_member"      = "member"
     }
 
     "igor.suchilov@cognitedata.com" = {
