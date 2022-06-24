@@ -43,7 +43,9 @@ jobs:
               #            fi
               #        done
               #        if [ "$HAS_TF" = true ]; then
-                          JSONline="{\"folder\": \"$path\"},"
+              #            JSONline="{\"folder\": \"$path\"},"
+                          JSONline="{\"folder\": \"terraform/github/teams\"},"
+
                           JSON="$JSON$JSONline"
               #        fi
               #    fi
