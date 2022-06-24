@@ -33,19 +33,19 @@ jobs:
           while read path; do
               if [[ "$path" == *"terraform"* ]]; then
               #if [[ "$path" == *"github"* ]]; then
-                  if [[ -d $path ]]; then
-                      HAS_TF=false
-                      for entry in "$path"/*.tf
-                      do
-                          if test -f "$entry"; then
-                              HAS_TF=true
-                          fi                
-                      done
-                      if [ "$HAS_TF" = true ]; then
+              #    if [[ -d $path ]]; then
+              #        HAS_TF=false
+              #        for entry in "$path"/*.tf
+              #        do
+              #            if test -f "$entry"; then
+              #                HAS_TF=true
+              #            fi
+              #        done
+              #        if [ "$HAS_TF" = true ]; then
                           JSONline="{\"folder\": \"$path\"},"
                           JSON="$JSON$JSONline"
-                      fi
-                  fi 
+              #        fi
+              #    fi
               fi
           done <<< "$DIFF"
           if [[ $JSON == *, ]]; then
