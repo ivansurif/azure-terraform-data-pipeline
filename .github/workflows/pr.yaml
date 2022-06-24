@@ -29,6 +29,7 @@ jobs:
           # Only add paths with terraform in it
           # Initially only including github
           while read path; do
+              echo "$PATH"
               echo $path
               if [[ "$path" == *"terraform"* ]]; then
                 echo "has terraform"
