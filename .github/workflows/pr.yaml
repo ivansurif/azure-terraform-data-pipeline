@@ -31,8 +31,8 @@ jobs:
           while read path; do
               echo "$PATH"
               echo $path
-              if [[ "$path" == *"terraform"* ]]; then
-                echo "has terraform"
+              #if [[ "$path" == *"terraform"* ]]; then
+              #  echo "has terraform"
               #if [[ "$path" == *"github"* ]]; then
               #    if [[ -d $path ]]; then
               #        HAS_TF=false
@@ -49,7 +49,7 @@ jobs:
                           JSON="$JSON$JSONline"
               #        fi
               #    fi
-              fi
+              #fi
           done <<< "$DIFF"
           if [[ $JSON == *, ]]; then
               JSON="${JSON%?}"
