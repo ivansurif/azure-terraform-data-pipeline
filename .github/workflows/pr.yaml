@@ -23,6 +23,7 @@ jobs:
         id: set-matrix
         run: |
           echo 'Hello'
+          echo $GITHUB_BASE_REF
           git fetch origin $GITHUB_BASE_REF --depth=1
           DIFF=$( git diff --name-only origin/$GITHUB_BASE_REF $GITHUB_SHA | xargs -L1 dirname | uniq)
           JSON="{\"include\":["
