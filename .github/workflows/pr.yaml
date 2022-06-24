@@ -22,8 +22,6 @@ jobs:
       - name: Set matrix
         id: set-matrix
         run: |
-          echo 'Hello'
-          echo "Github SHA is $GITHUB_SHA"
           echo "Base ref is $GITHUB_BASE_REF"
           git fetch origin $GITHUB_BASE_REF --depth=1
           DIFF=$( git diff --name-only origin/$GITHUB_BASE_REF $GITHUB_SHA | xargs -L1 dirname | uniq)
@@ -31,8 +29,9 @@ jobs:
           # Only add paths with terraform in it
           # Initially only including github
           while read path; do
+              echo $path
               if [[ "$path" == *"terraform"* ]]; then
-                echo $path
+                echo "has terraform"
               #if [[ "$path" == *"github"* ]]; then
               #    if [[ -d $path ]]; then
               #        HAS_TF=false
