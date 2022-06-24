@@ -22,7 +22,7 @@ jobs:
       - uses: kanga333/comment-hider@master
         name: Hide bot comments
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ github.token }}
       - name: Set matrix
         id: set-matrix
         run: |
