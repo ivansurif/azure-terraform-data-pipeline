@@ -32,6 +32,7 @@ jobs:
           # Initially only including github
           while read path; do
               if [[ "$path" == *"terraform"* ]]; then
+                echo $path
               #if [[ "$path" == *"github"* ]]; then
               #    if [[ -d $path ]]; then
               #        HAS_TF=false
