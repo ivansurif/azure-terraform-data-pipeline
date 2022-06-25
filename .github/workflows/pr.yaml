@@ -4,7 +4,7 @@ on:
   # push:
   #   branches:
   #   - master
-  [push, pull_request, workflow_dispatch]
+  [pull_request, workflow_dispatch]
 
 jobs:
   
@@ -22,31 +22,34 @@ jobs:
       - name: Set matrix
         id: set-matrix
         run: |
-          echo 'Hello'
           echo "Base ref is $GITHUB_BASE_REF"
-          echo "Github SHA is $GITHUB_SHA"
           git fetch origin $GITHUB_BASE_REF --depth=1
           DIFF=$( git diff --name-only origin/$GITHUB_BASE_REF $GITHUB_SHA | xargs -L1 dirname | uniq)
           JSON="{\"include\":["
           # Only add paths with terraform in it
           # Initially only including github
           while read path; do
-              if [[ "$path" == *"terraform"* ]]; then
+              echo "$PATH"
+              echo $path
+              #if [[ "$path" == *"terraform"* ]]; then
+              #  echo "has terraform"
               #if [[ "$path" == *"github"* ]]; then
-                  if [[ -d $path ]]; then
-                      HAS_TF=false
-                      for entry in "$path"/*.tf
-                      do
-                          if test -f "$entry"; then
-                              HAS_TF=true
-                          fi                
-                      done
-                      if [ "$HAS_TF" = true ]; then
-                          JSONline="{\"folder\": \"$path\"},"
+              #    if [[ -d $path ]]; then
+              #        HAS_TF=false
+              #        for entry in "$path"/*.tf
+              #        do
+              #            if test -f "$entry"; then
+              #                HAS_TF=true
+              #            fi
+              #        done
+              #        if [ "$HAS_TF" = true ]; then
+              #            JSONline="{\"folder\": \"$path\"},"
+                          JSONline="{\"folder\": \"terraform/github/teams\"},"
+
                           JSON="$JSON$JSONline"
-                      fi
-                  fi 
-              fi
+              #        fi
+              #    fi
+              #fi
           done <<< "$DIFF"
           if [[ $JSON == *, ]]; then
               JSON="${JSON%?}"
