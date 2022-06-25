@@ -43,7 +43,8 @@ jobs:
                       done
                       if [ "$HAS_TF" = true ]; then
                           JSONline="{\"folder\": \"$path\"},"
-                          JSONline="{\"folder\": \"terraform/\"},"
+                     # use this line below to hardcode path where to look for terraform files
+                     #    JSONline="{\"folder\": \"terraform/\"},"
                           JSON="$JSON$JSONline"
                       fi
                   fi
