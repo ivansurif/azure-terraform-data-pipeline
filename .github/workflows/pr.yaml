@@ -80,6 +80,11 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@v2
+
+    - name: Set matrix
+        id: set-matrix
+        run: |
+          echo "ARM_CLIENT_ID value: $ARM_CLIENT_ID"
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
 
