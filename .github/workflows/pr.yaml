@@ -81,9 +81,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Set matrix
-        id: set-matrix
-        run: |
+    - name: Check secrets
+      id: check-secrets
+      run: |
           echo "ARM_CLIENT_ID value: $ARM_CLIENT_ID"
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
