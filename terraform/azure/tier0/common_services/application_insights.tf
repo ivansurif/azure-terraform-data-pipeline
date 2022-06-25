@@ -34,12 +34,6 @@ resource "azurerm_monitor_action_group" "action_group" {
   short_name          = "f-alerts"
 
   email_receiver {
-    name                    = "davidmendez"
-    email_address           = "david.mendez@skf.com"
-    use_common_alert_schema = true
-  }
-
-  email_receiver {
     name                    = "sendtoivan"
     email_address           = "ivan.surif@cognite.com"
     use_common_alert_schema = true
