@@ -99,17 +99,17 @@ jobs:
       id: validate
       run: terraform validate -no-color
 
-    - name: Create Diagram File in working directory
-      run: terraform graph > diagram.dot
+    #- name: Create Diagram File in working directory
+    #  run: terraform graph > diagram.dot
 
-    - name: Upload file to Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: Resource Graph
-        path: /home/runner/work/terraform/terraform/terraform/azure/tier0/common_services/diagram.dot
+    #- name: Upload file to Artifact
+    #  uses: actions/upload-artifact@v2
+    #  with:
+    #    name: Resource Graph
+    #    path: /home/runner/work/terraform/terraform/terraform/azure/tier0/common_services/diagram.dot
 
-    - name: Download all workflow run artifacts
-      uses: actions/download-artifact@v2
+    #- name: Download all workflow run artifacts
+    #  uses: actions/download-artifact@v2
     # The download will be a zip containing the .dot file.
     # The .dot file needs to be converted to svg using the Graphviz CLI for example
     # or an online conversion tool such as http://graphviz.it/
