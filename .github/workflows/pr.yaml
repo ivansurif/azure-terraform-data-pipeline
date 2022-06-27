@@ -92,6 +92,7 @@ jobs:
           array=( $ARM_CLIENT_ID $ARM_CLIENT_ID_NOT_SET)
           for SECRET in "${array[@]}"
           do
+              echo "$SECRET"
               if [ -z $SECRET ];
                   then echo "NULL";
                   else echo "Not NULL";
