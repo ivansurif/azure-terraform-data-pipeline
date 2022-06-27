@@ -22,6 +22,10 @@ in variable `storage_account_name`. The storage account, in turn, needs to be cr
 also created manually, which name does not need to be updated in this repo.
 No need to create tags when creating the Resource Group.
 
+Lastly, a **Storage Container** needs to be created within the previously created Storage Account. 
+The container shall be named `tfstate`. If choosing a different name, the references to the Storage Container 
+within this code need to be updated to match the selected name.
+
 Once a Resource Group and Storage Accounts are created, and the Access Key set in Secret ARM_ACCESS_KEY,  
 Terraform takes it from there, including the creation of the Storage Container within that Storage Account 
 where the Terraform state file will be stored.
@@ -62,6 +66,9 @@ Having successfully applied the infra changes, the changes can be approved and m
 
 ## Inviting a new User to the Azure AD Tenant:
 
+⚠️ **This is only applicable if AAD is stored in the same Subscription as the remaining resources, which is not the case
+for SKF Cenit project. I leave it documented here because it might become handy at some point**
+
 1. Create a new branch
 1. In `terraform/azure/tier0/guest_users/users.tf` create an invite for the new user by adding them to the `users` set. The format is ` display_name : email_address`
 1. Run `terraform fmt --recursive=true` to ensure formatting is correct
@@ -70,6 +77,9 @@ Having successfully applied the infra changes, the changes can be approved and m
 1. If the Apply is successful, have the changes approved and merged to the main branch
 
 ## Inviting a User to the Github Org
+
+ℹ️ **This still applies even if the AAD Subscription is not the same as the one holding the resources**
+
 As a prerequisite to this, the user must be in the Azure AD Tenant, so the previous section should be completed.
 
 1. Create a new branch

@@ -1,4 +1,5 @@
-terraform {
+## NOT CURRENTLY IN USE
+/*terraform {
   backend "azurerm" {
     storage_account_name = "skfcenittf"
     container_name       = "tfstate"
@@ -27,3 +28,4 @@ provider "azurerm" {
 
   features {}
 }
+*/

@@ -1,3 +1,5 @@
+## NOT CURRENTLY IN USE
+/*
 locals {
   guest_users = {
     "Håkon Treider" : "hakon.treider@cognitedata.com",
@@ -16,3 +18,4 @@ resource "azuread_invitation" "example" {
     body = "Hi, welcome to Cognite - SKF Cenit Azure AD Tenant"
   }
 }
+*/
