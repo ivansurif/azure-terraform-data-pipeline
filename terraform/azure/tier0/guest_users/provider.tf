@@ -1,6 +1,6 @@
 terraform {
   backend "azurerm" {
-    storage_account_name = "cogniteskfcenittf"
+    storage_account_name = "skfcenittf"
     container_name       = "tfstate"
     key                  = "azure.tier0.guest_users"
 

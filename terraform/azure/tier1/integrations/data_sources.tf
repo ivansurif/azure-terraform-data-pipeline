@@ -8,7 +8,7 @@ data "terraform_remote_state" "common_services" {
   backend = "azurerm"
 
   config = {
-    storage_account_name = "cogniteskfcenittf"
+    storage_account_name = "skfcenittf"
     container_name       = "tfstate"
     key                  = "azure.tier0.common_services"
 

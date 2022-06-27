@@ -2,7 +2,33 @@ Cognite - SKF Cenit - Terraform
 ===
 
 
-The purpose of this repository is to configure the infrastructure for the Cognite SKF Cenit project. The project uses a separate Github Organisation, `cognite-skf-cenit` and Azure AD and Subscription, `SKF Cenit By Cognite` and `Azure Companion Project - SKF Cenit` respectively.
+The purpose of this repository is to configure the infrastructure for the Cognite SKF Cenit project. 
+The project uses a separate Github Organisation, `cognite-skf-cenit` and Azure AD and Subscription, 
+`SKF Cenit By Cognite` and `Azure Companion Project - SKF Cenit - SKF Tenant` respectively.
+
+The repository handles the creation, management and destruction of all Azure resources within these subscriptions. 
+
+## Before using this repo
+
+These resources / values need to be created:
+
+### Azure account used to store resources, not AAD
+
+A <b>Subscription</b> needs to be created manually in the Azure Tenant prior to executing this code. 
+
+A **Storage Account** where Terraform state will be stored also needs to be created prior to using this repo. 
+The name of the storage account is referenced (and needs to be updated) in multiple files throughout this repo, 
+in variable `storage_account_name`. The storage account, in turn, needs to be created within a **Resource Group**, 
+also created manually, which name does not need to be updated in this repo.
+No need to create tags when creating the Resource Group.
+
+Once a Resource Group and Storage Accounts are created, and the Access Key set in Secret ARM_ACCESS_KEY,  
+Terraform takes it from there, including the creation of the Storage Container within that Storage Account 
+where the Terraform state file will be stored.
+
+### GitHub
+Several secrets need to be set at repo level in order for the workflows to run: they are listed in the GH workflow.
+
 
 ## Structure
 
