@@ -89,9 +89,10 @@ jobs:
           That means secrets are set in the repo and accesible from this workflow job.\
           If '***' is not printed, it means secret is not found"
           echo "ARM_CLIENT_ID value is: $ARM_CLIENT_ID"
-          for SECRET in $ARM_CLIENT_ID $ARM_CLIENT_ID_NOT_SET
+          array=( $ARM_CLIENT_ID $ARM_CLIENT_ID_NOT_SET)
+          for SECRET in "${array[@]}"
           do
-              if [ -z SECRET ];
+              if [ -z $SECRET ];
                   then echo "NULL";
                   else echo "Not NULL";
               fi
