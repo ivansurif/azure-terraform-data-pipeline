@@ -89,6 +89,15 @@ jobs:
           That means secrets are set in the repo and accesible from this workflow job.\
           If '***' is not printed, it means secret is not found"
           echo "ARM_CLIENT_ID value is: $ARM_CLIENT_ID"
+          if [ -z "$ARM_CLIENT_ID" ];
+            then echo "NULL";
+            else echo "Not NULL";
+          fi
+          if [ -z "$ARM_CLIENT_ID_NOT_SET" ];
+            then echo "NULL";
+            else echo "Not NULL";
+          fi
+
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
 
