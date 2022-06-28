@@ -10,9 +10,11 @@ The repository handles the creation, management and destruction of all Azure res
 
 ## Before using this repo
 
-These resources / values need to be created:
+These resources need to be created:
 
-### Azure account used to store resources, not AAD
+###1. An Azure Tenant used to store resources, not AAD
+
+A Tenant is required. It's ID needs to be set in GitHub Secret `ARM_TENANT_ID`.
 
 A <b>Subscription</b> needs to be created manually in the Azure Tenant prior to executing this code. It's ID needs to be stored in a GitHub Secret called `ARM_SUBSCRIPTION_ID`.
 
