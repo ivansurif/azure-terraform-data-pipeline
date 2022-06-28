@@ -147,12 +147,8 @@ jobs:
       run: exit 1
     # Post Terraform plan as a comment to PR
 
-    - name: Print output
-      run: |
-        users=$(terraform output users)
-        echo $users
-        app_roles=$(terraform output app_roles)
-        echo $app_roles
+
+
 
   apply:
     environment: apply
@@ -191,3 +187,9 @@ jobs:
     - name: Fail on Error
       if: ${{ steps.apply.outcome == 'failure' }}
       run: exit 1
+    - name: Print output
+      run: |
+        users=$(terraform output users)
+        echo $users
+        app_roles=$(terraform output app_roles)
+        echo $app_roles
