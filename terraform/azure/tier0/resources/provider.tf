@@ -1,6 +1,6 @@
 terraform {
   backend "azurerm" {
-    storage_account_name = "skfcenittf"
+    storage_account_name = "skfcenittfpersonal"
     container_name       = "tfstate"
     key                  = "azure.tier0.function_app"
 
