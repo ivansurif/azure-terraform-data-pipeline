@@ -1,10 +1,6 @@
-## NOT CURRENTLY IN USE
-/*
 locals {
   guest_users = {
-    "Håkon Treider" : "hakon.treider@cognitedata.com",
-    "Kelvin Sundli" : "kelvin.sundli@cognitedata.com",
-    "Murad Sater" : "murad.sater@cognitedata.com",
+    "TEST GMAIL USER" : "cognite.test.user@gmail.com",
   }
 }
 

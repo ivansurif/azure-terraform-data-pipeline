@@ -88,6 +88,17 @@ The `apply` stage requires an approval from one of the configured approvers.
 
 Having successfully applied the infra changes, the changes can be approved and merged into the `main` branch.
 
+## Inviting new User to rhe Azure Tenant where all resources (except for AAD) live at
+⚠️  **Only @cognitedata users can be added to the Cognitedata tenant**
+1. Add new user **in this order** to:
+   - **terraform/azure/tier0/guest_users/users.tf**
+   - terraform/azure/tier0/common_services/iam.tf
+   - terraform/azure/tier0/iam/directory_roles.tf
+   - terraform/azure/tier0/iam/github_users.tf
+
+2. Add the user as a `Contributor` to the `Azure Companion Project - SKF Cenit` Subscription. 
+This needs to be done through the UI in `Subscriptions` > `Azure Companion Project - SKF Cenit` > `Access control (IAM)` by a user with at least `Owner` access to that Subscription.
+
 ## Inviting a new User to the Azure AD Tenant:
 
 ⚠️ **This is only applicable if AAD is stored in the same Subscription as the remaining resources, which is not the case
