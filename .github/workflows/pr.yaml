@@ -97,6 +97,13 @@ jobs:
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_wrapper: false
+
+    - name: Print output
+      run: |
+        output=$(terraform output users)
+        echo $output
 
     # Check that all Terraform configuration files adhere to a canonical format
     - name: Terraform fmt
