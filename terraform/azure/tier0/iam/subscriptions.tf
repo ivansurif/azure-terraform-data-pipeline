@@ -1,3 +1,6 @@
+# NOT IN ORIGINAL REPO
+# WIP
+
 data "azurerm_subscription" "primary" {
 }
 
