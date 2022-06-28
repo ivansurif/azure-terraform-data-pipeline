@@ -14,4 +14,3 @@ resource "azuread_invitation" "example" {
     body = "Hi, welcome to Cognite - SKF Cenit Azure AD Tenant"
   }
 }
-*/
