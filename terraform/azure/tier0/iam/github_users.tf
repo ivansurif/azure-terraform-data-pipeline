@@ -5,6 +5,7 @@ data "azuread_service_principal" "github_enterprise" {
 locals {
   app_roles = { for v in data.azuread_service_principal.github_enterprise.app_roles : v.display_name => v.id }
   github_users = [
+    "github@ivansurifgmail.onmicrosoft.com",
     "ivan.surif@gmail.com",
   ]
 

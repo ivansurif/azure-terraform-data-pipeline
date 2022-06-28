@@ -99,6 +99,10 @@ Having successfully applied the infra changes, the changes can be approved and m
 2. Add the user as a `Contributor` to the `Azure Companion Project - SKF Cenit` Subscription. 
 This needs to be done through the UI in `Subscriptions` > `Azure Companion Project - SKF Cenit` > `Access control (IAM)` by a user with at least `Owner` access to that Subscription.
 
+3. Add the user to `GitHub Enterprise Cloud - Organization` >  `Users and groups` in Active Directory.
+This Enterprise Registration acts as the **Service Principal**.
+
+
 ## Inviting a new User to the Azure AD Tenant:
 
 ⚠️ **This is only applicable if AAD is stored in the same Subscription as the remaining resources, which is not the case
