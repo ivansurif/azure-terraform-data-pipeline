@@ -33,10 +33,21 @@ within this code need to be updated to match the selected name.
 
 After creating the Storage Container, copy either of its **Access Keys** from the Azure UI. Store its value in a **GitHub Repository Secret** named `ARM_ACCESS_KEY`
 
-An **App Registration** with admin rights needs to be created in Azure Active Directory. Copy and set it's ID in GitHub Secret
+An **App Registration** needs to be created in Azure Active Directory. Copy and set it's ID in GitHub Secret
  `ARM_CLIENT_ID`. Create a Secret and set its value in GitHub Secret `ARM_CLIENT_SECRET`.
 
 Redirect URI (optional)??
+
+Back to the Storage Container's **Access Control (IAM)**, grant:
+- Owner
+- Contributor
+- Reader
+
+access to the App Registration
+
+From Active Directory, Roles and administrators, add the application to the role `Application administrator`.
+
+
 
 That's all. Terraform takes it from there, including the creation of the Storage Container within that Storage Account 
 where the Terraform state file will be stored. **No manual changes should be made in Azure UI after this point 
