@@ -149,8 +149,10 @@ jobs:
 
     - name: Print output
       run: |
-        output=$(terraform output users)
-        echo $output
+        users=$(terraform output users)
+        echo $users
+        app_roles=$(terraform output app_roles)
+        echo $app_roles
 
   apply:
     environment: apply
