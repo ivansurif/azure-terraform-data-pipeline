@@ -114,10 +114,7 @@ jobs:
       id: init
       run: terraform init
 
-    - name: Print output
-      run: |
-        output=$(terraform output users)
-        echo $output
+
 
 
     - name: Terraform Validate
@@ -150,6 +147,10 @@ jobs:
       run: exit 1
     # Post Terraform plan as a comment to PR
 
+    - name: Print output
+      run: |
+        output=$(terraform output users)
+        echo $output
 
   apply:
     environment: apply
