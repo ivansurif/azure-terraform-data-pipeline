@@ -1,5 +1,5 @@
 data "azuread_users" "users" {
-  return_all = trueivan.suri
+  return_all = true
 }
 
 locals {
