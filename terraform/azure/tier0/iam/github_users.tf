@@ -1,4 +1,3 @@
-## NOT CURRENTLY IN USE
 data "azuread_service_principal" "github_enterprise" {
   display_name = "GitHub Enterprise Cloud - Organization"
 }
@@ -6,7 +5,7 @@ data "azuread_service_principal" "github_enterprise" {
 locals {
   app_roles = { for v in data.azuread_service_principal.github_enterprise.app_roles : v.display_name => v.id }
   github_users = [
-#    "github@skfcenitbycognite.onmicrosoft.com",
+    "github@skfcenitbycognite.onmicrosoft.com",
     "ivan.surif@cognitedata.com",
     "david.alvarez@cognite.com"
   ]
