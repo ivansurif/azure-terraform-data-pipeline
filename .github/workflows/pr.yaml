@@ -173,7 +173,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
- Commenting so as not to apply to USA Sandbox
+
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
     - name: Terraform Init
