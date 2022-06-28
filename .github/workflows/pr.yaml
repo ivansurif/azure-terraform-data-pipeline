@@ -99,12 +99,6 @@ jobs:
       uses: hashicorp/setup-terraform@v1
       with:
         terraform_wrapper: false
-
-    - name: Print output
-      run: |
-        output=$(terraform output users)
-        echo $output
-
     # Check that all Terraform configuration files adhere to a canonical format
     - name: Terraform fmt
       id: fmt
@@ -112,13 +106,19 @@ jobs:
       continue-on-error: false
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init Reconfigur
-      id: init-reconfigure
-      run: terraform init -reconfigure
+    #- name: Terraform Init Reconfigur
+    #  id: init-reconfigure
+    #  run: terraform init -reconfigure
 
     - name: Terraform Init
       id: init
       run: terraform init
+
+    - name: Print output
+      run: |
+        output=$(terraform output users)
+        echo $output
+
 
     - name: Terraform Validate
       id: validate
