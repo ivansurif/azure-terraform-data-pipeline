@@ -1,4 +1,4 @@
-locals {
+/*locals {
   guest_users = {
     "TEST GMAIL USER" : "cognite.test.user@gmail.com",
   }
@@ -14,3 +14,4 @@ resource "azuread_invitation" "example" {
     body = "Hi, welcome to Cognite - SKF Cenit Azure AD Tenant"
   }
 }
+*/

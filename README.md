@@ -47,6 +47,12 @@ access to the App Registration
 
 From Active Directory, Roles and administrators, add the application to the role `Application administrator`.
 
+From the app registration > API permissions, grant 
+Microsoft Graph (2)
+User.Invite.All
+User.Read
+(Invite All needs permission to be granted)
+
 
 
 That's all. Terraform takes it from there, including the creation of the Storage Container within that Storage Account 
