@@ -22,7 +22,7 @@ locals {
   container_registry_sku  = "Basic"
 
   # Key Vault
-  key_vault_name = "cognite-skfcenit-kvmysandbox"
+  key_vault_name = "kv-mysandbox"
   key_vault_sku  = "standard"
 
   # App Service Plan
