@@ -18,11 +18,11 @@ locals {
   ]
 
   # Container Registry
-  container_registry_name = "cogniteskfcenitregistry"
+  container_registry_name = "cogniteskfcenitmysandbox"
   container_registry_sku  = "Basic"
 
   # Key Vault
-  key_vault_name = "cognite-skfcenit-kv"
+  key_vault_name = "cognite-skfcenit-kvmysandbox"
   key_vault_sku  = "standard"
 
   # App Service Plan
