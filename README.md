@@ -98,15 +98,25 @@ Having successfully applied the infra changes, the changes can be approved and m
 ⚠️  **Only @cognitedata users can be added to the Cognitedata tenant**
 1. Add new user **in this order** to:
    - **terraform/azure/tier0/guest_users/users.tf**
-   - terraform/azure/tier0/common_services/iam.tf
-   - terraform/azure/tier0/iam/directory_roles.tf
-   - terraform/azure/tier0/iam/github_users.tf
+   - (NOT NECESSARY?) terraform/azure/tier0/common_services/iam.tf
+   - (NOT NECESSARY?) terraform/azure/tier0/iam/directory_roles.tf
+   - (NOT NECESSARY?) terraform/azure/tier0/iam/github_users.tf
 
 2. Add the user as a `Contributor` to the `Azure Companion Project - SKF Cenit` Subscription. 
 This needs to be done through the UI in `Subscriptions` > `Azure Companion Project - SKF Cenit` > `Access control (IAM)` by a user with at least `Owner` access to that Subscription.
 
 3. Add the user to `GitHub Enterprise Cloud - Organization` >  `Users and groups` in Active Directory.
 This Enterprise Registration acts as the **Service Principal**.
+
+Assigning users to this principal
+
+![alt text](assign users to principal.png)
+
+is done here:
+terraform/azure/tier0/iam/github_users.tf
+This is not required for accessing Github, it allows users to authenticate against Azure.
+
+
 
 
 ## Inviting a new User to the Azure AD Tenant:
