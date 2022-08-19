@@ -16,7 +16,6 @@ These resources need to be created:
 
 - An Azure **Tenant** is required. It's ID needs to be set in GitHub Secret `ARM_TENANT_ID`.
 
-
 - A **Subscription** needs exist in the Azure Tenant prior to executing this code. 
 It's ID needs to be stored in a GitHub Secret called `ARM_SUBSCRIPTION_ID`. 
 
@@ -36,24 +35,17 @@ is very recommendable (and will esure that you catch errors like the one above).
 _Terraform will only try to manipulate resources that are in the state file (ie they were created by TF in the first place, or they were imported into state). It ignores everything else. Also, `terraform plan` is pretty trustworthy, especially the last line where it details how many resources will be changed, deleted, or created. If those all say zero, then you are in a safe place._
 
 
-- The following **Resource Groups** need be created manually, which name does not need to be updated in this repo.
+- The following **Resource Groups** need be created manually. </br>
+Their names do not need to be updated in this repo: the code in the repo runs assuming these Resource Groups already exist.</br>
 No need to create tags when creating the Resource Group:
+<mark>[COMPARE THIS LIST WITH ACTUAL RESOURCE GROUPS CREATED IN THE REPO!]<mark>
 
-[COMPARE THIS LIST WITH ACTUAL RESOURCE GROUPS CREATED IN THE REPO!]
-
-common-services
-files-upload-dev
-files-upload-prod
-files-upload-test
-integration-functions-dev
-integration-functions-prod
-integration-functions-test
-terraform
+  - terraform
 
 
 - A **Storage Account** where Terraform state will be stored also needs to be created prior to using this repo. 
 The name of the storage account is referenced (and needs to be updated) in multiple files throughout this repo, 
-in variable `storage_account_name`. The only thing that needs to be set manually when creating the Storage Account 
+in field `storage_account_name`. The only thing that needs to be set manually when creating the Storage Account 
 in Azure UI is its name. All other variables can be kept with their default values. The Storage account, like 
 everything else created either manually or through this repo, need to belong to the aforementioned Resource Group.
 
@@ -71,7 +63,7 @@ Store its value in a **GitHub Repository Secret** named `ARM_ACCESS_KEY`
  `ARM_CLIENT_ID`. Create a Secret and set its value in GitHub Secret `ARM_CLIENT_SECRET`.
 
 
-- Redirect URI (optional)??
+<mark>- Redirect URI (optional)??</mark>
 
 - Back to the Storage Container's **Access Control (IAM)**, grant:
 - Owner
@@ -94,7 +86,7 @@ Then grant all permissions by clicking on "Grant admin consent for [Tenant name]
 
 That's all. Terraform takes it from there, including the creation of the Storage Container within that Storage Account 
 where the Terraform state file will be stored. **No manual changes should be made in Azure UI after this point 
-(all changes need to be managed via Terraform)**
+(all changes need to be managed via Terraform)** 
 
 
 ### GitHub
