@@ -144,8 +144,8 @@ jobs:
       continue-on-error: true
 
     - name: Terraform Output
-        id: plan-output
-        run: terraform output
+      id: plan-output
+      run: terraform output
 
 
     - name: Fail on Error
