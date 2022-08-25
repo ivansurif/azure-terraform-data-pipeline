@@ -1,6 +1,6 @@
 locals {
   kv_set_members = [
-    "ivan.surif@gmail.com",
+    "cognite.test.user@gmail.com",
   ]
 }
 

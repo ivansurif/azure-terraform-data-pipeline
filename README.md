@@ -110,6 +110,12 @@ The infrastructure built by Terraform is split into two different modules:
   * Container Instance
   * Key Vault
 
+Users need to be added to the Key Vault if they are required to handle keys.</br>
+For example, several Funtion App environment variables are pulled from Key Vault secrets. 
+If these secrets had to be updated, then users with access to the key vault would be the only ones able to make those changes.</br>
+These users are added to a group in file <code>terraform/azure/tier0/resources/iam.tf</code>.</br>
+That group is then granted access to the Key Vault in <code>terraform/azure/tier0/resources/key_vault.tf</code>
+
 * terraform/azure/tier1/function_apps builds the Function Apps
 
 
