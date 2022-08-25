@@ -50,13 +50,13 @@ in Azure UI is its name. All other variables can be kept with their default valu
 everything else created either manually or through this repo, need to belong to the aforementioned Resource Group.
 
 
+- After creating the Storage Account, copy either of its **Access Keys** from the Azure UI. 
+Store its value in a **GitHub Repository Secret** named `ARM_ACCESS_KEY`
+
+
 - Lastly, a **Storage Container** needs to be created within the previously created Storage Account. 
 The container shall be named `tfstate`. If choosing a different name, the references to the Storage Container 
 within this code need to be updated to match the selected name.
-
-
-- After creating the Storage Container, copy either of its **Access Keys** from the Azure UI. 
-Store its value in a **GitHub Repository Secret** named `ARM_ACCESS_KEY`
 
 
 - An **App Registration** needs to be created in Azure Active Directory. Copy and set it's ID in GitHub Secret

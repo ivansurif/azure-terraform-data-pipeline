@@ -142,6 +142,12 @@ jobs:
       run: terraform plan -no-color
 
       continue-on-error: true
+
+    - name: Terraform Output
+        id: plan-output
+        run: terraform output
+
+
     - name: Fail on Error
       if: ${{ steps.plan.outcome == 'failure' }}
       run: exit 1
