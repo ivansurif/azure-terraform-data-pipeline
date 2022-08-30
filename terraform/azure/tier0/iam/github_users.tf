@@ -10,8 +10,8 @@ locals {
 
 }
 
-output app_roles{
-    value = local.app_roles
+output "app_roles" {
+  value = local.app_roles
 }
 
 /*

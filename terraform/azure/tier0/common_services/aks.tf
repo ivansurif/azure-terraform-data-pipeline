@@ -5,8 +5,8 @@ resource "azurerm_kubernetes_cluster" "aks" {
   dns_prefix          = "common-services-aks-cluster"
 
   default_node_pool {
-    name    = "default"
-    vm_size = "Standard_B2s"
+    name       = "default"
+    vm_size    = "Standard_B2s"
     node_count = 1
   }
 

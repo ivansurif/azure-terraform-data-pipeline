@@ -67,7 +67,7 @@ locals {
 
   environments = {
     dev = {
-      resource_group_name = "integration-functions-dev"
+      resource_group_name              = "integration-functions-dev"
       resource_group_name_files_upload = data.terraform_remote_state.common_services.outputs.resource_group_name_files_upload_dev
       app_settings = {
         CDF_CLIENT_ID       = "77980a5e-35f7-4692-a401-14f3b30401a4"
@@ -79,7 +79,7 @@ locals {
     }
 
     test = {
-      resource_group_name = "integration-functions-test"
+      resource_group_name              = "integration-functions-test"
       resource_group_name_files_upload = data.terraform_remote_state.common_services.outputs.resource_group_name_files_upload_test
       app_settings = {
         CDF_CLIENT_ID       = "182226d3-ae9f-4c39-8a0c-ee9bd43f0d48"
@@ -91,7 +91,7 @@ locals {
     }
 
     prod = {
-      resource_group_name = "integration-functions-prod"
+      resource_group_name              = "integration-functions-prod"
       resource_group_name_files_upload = data.terraform_remote_state.common_services.outputs.resource_group_name_files_upload_prod
       app_settings = {
         CDF_CLIENT_ID       = "c3b95ff9-f014-4a92-a113-5b2e135c5beb"
@@ -176,8 +176,8 @@ locals {
     for app in local.apps_files_upload :
     "skf-ai-data-${app["environment"]}" => {
       app_service_plan    = data.terraform_remote_state.common_services.outputs.app_service_plan_name_files_upload
-      app_settings        = merge(local.environments[app["environment"]]["app_settings"], local.common_app_settings, {URL_TOPIC = "https://transportecenit.azurefd.net/ub/api/events"})
-      secrets             = merge(local.environments[app["environment"]]["secrets"], {TOPIC_ACCESS_KEY = "TOPIC-ACCESS-KEY"})
+      app_settings        = merge(local.environments[app["environment"]]["app_settings"], local.common_app_settings, { URL_TOPIC = "https://transportecenit.azurefd.net/ub/api/events" })
+      secrets             = merge(local.environments[app["environment"]]["secrets"], { TOPIC_ACCESS_KEY = "TOPIC-ACCESS-KEY" })
       always_on           = false
       https_only          = true
       linux_fx_version    = "Python|3.9"
