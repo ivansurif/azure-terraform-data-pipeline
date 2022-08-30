@@ -4,7 +4,7 @@ resource "azuread_directory_role" "app_admin" {
 
 locals {
   app_admins = toset([
-    "ivan.surif@gmail.com"
+    "cognite.test.user@gmail.com"
   ])
 }
 

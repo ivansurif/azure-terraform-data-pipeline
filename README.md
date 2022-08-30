@@ -136,12 +136,22 @@ The `apply` stage requires an approval from one of the configured approvers.
 Having successfully applied the infra changes, the changes can be approved and merged into the `main` branch.
 
 ## Inviting a new User to the Azure Tenant where all resources (except for AAD) live at
-⚠️  **Only @cognitedata users can be added to the Cognitedata tenant**
-1. Add new user **in this order** to:
-   - **terraform/azure/tier0/guest_users/users.tf**
-   - (NOT NECESSARY?) terraform/azure/tier0/common_services/iam.tf
-   - (NOT NECESSARY?) terraform/azure/tier0/iam/directory_roles.tf
-   - (NOT NECESSARY?) terraform/azure/tier0/iam/github_users.tf
+⚠️  **Restrictions may apply in terms of what user emails can be added. Example: only @cognitedata users**.
+This depends on the configuration of AAD in the tenant.
+
+
+ℹ️  **Even though access to the CDF project is handled via AAD and CDF groups, 
+perissions to work on the Azure tenant resources are handled by users that exist in that tenant's AAD**
+
+1. Create a new branch
+1. In `terraform/azure/tier0/guest_users/users.tf` create an invite for the new user by adding them to the `users` set. The format is ` display_name : email_address`
+1. Run `terraform fmt --recursive=true` to ensure formatting is correct
+1. Add the changes and create a PR
+1. Check the Plan, and have someone on the `infra-team-push` approve and run the Apply
+1. If the Apply is successful, have the changes approved and merged to the main branch
+
+
+<mark>IS THIS NECESSARY?</mark>
 
 2. Add the user as a `Contributor` to the `Azure Companion Project - SKF Cenit` Subscription. 
 This needs to be done through the UI in `Subscriptions` > `Azure Companion Project - SKF Cenit` > `Access control (IAM)` by a user with at least `Owner` access to that Subscription.
@@ -160,29 +170,6 @@ This is not required for accessing Github, it allows users to authenticate again
 
 
 
-## Inviting a new User to the Azure AD Tenant:
-
-⚠️ **Even though access to the CDF project is handled via AAD and CDF groups, 
-perissions to work on the Azure tenant resources are handled by users that exist in that tenant's AAD**
-
-1. Create a new branch
-1. In `terraform/azure/tier0/guest_users/users.tf` create an invite for the new user by adding them to the `users` set. The format is ` display_name : email_address`
-1. Run `terraform fmt --recursive=true` to ensure formatting is correct
-1. Add the changes and create a PR
-1. Check the Plan, and have someone on the `infra-team-push` approve and run the Apply
-1. If the Apply is successful, have the changes approved and merged to the main branch
-
 ## Inviting a new User to the Github Org
 
-ℹ️ **This still applies even if the AAD Subscription is not the same as the one holding the resources**
-
-As a prerequisite to this, the user must be in the Azure AD Tenant, so the previous section should be completed.
-
-1. Create a new branch
-1. In `terraform/azure/tier0/iam/github_users.tf` add the previously invited users email to the `github_users` list
-1. In `terraform/github/teams/users.tf` add the user to the `github_users` set
-1. Run `terraform fmt --recursive=true` to ensure formatting is correct
-1. Add the changes and create a PR
-1. Check the Plan, and have someone on the `infra-team-push` approve and run the Apply
-1. If the Apply is successful, have the changes approved and merged to the main branch
-1. Direct the new user to `https://github.com/orgs/cognite-skf-cenit/sso` to complete the authorization process
+⚠️ **Deprecated.** GitHub access to be managed through GitHub UI
