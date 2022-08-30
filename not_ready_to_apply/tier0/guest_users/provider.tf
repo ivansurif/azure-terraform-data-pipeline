@@ -1,7 +1,7 @@
 ## NOT CURRENTLY IN USE
 /*terraform {
   backend "azurerm" {
-    storage_account_name = "skfcenittfsandbox"
+    storage_account_name = "skfcenittf2"
     container_name       = "tfstate"
     key                  = "azure.tier0.guest_users"
 
