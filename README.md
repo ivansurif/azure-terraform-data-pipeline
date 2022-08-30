@@ -63,6 +63,10 @@ within this code need to be updated to match the selected name.
  `ARM_CLIENT_ID`. Create a Secret and set its value in GitHub Secret `ARM_CLIENT_SECRET`.
 
 
+- A **Service Principal** which is automatically created by Azure when creating an App Registration.
+The service principal is invoked in <code>tier0/iam/github_users</code> line 2. Make sure that it's name is correctly set
+in parameter <code>display_name</code>.
+
 <mark>- Redirect URI (optional)??</mark>
 
 - Back to the Storage Container's **Access Control (IAM)**, grant:
