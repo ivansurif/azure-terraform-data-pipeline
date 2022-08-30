@@ -66,11 +66,11 @@ within this code need to be updated to match the selected name.
 <mark>- Redirect URI (optional)??</mark>
 
 - Back to the Storage Container's **Access Control (IAM)**, grant:
-- Owner
-- Contributor
-- Reader
+  - Owner
+  - Contributor
+  - Reader
 
-access to the App Registration
+    access to the App Registration
 
 - From Active Directory, Roles and administrators, add the application to the role `Application administrator`.
 
@@ -156,8 +156,8 @@ This is not required for accessing Github, it allows users to authenticate again
 
 ## Inviting a new User to the Azure AD Tenant:
 
-⚠️ **This is only applicable if AAD is stored in the same Subscription as the remaining resources, which is not the case
-for SKF Cenit project. I leave it documented here because it might become handy at some point**
+⚠️ **Even though access to the CDF project is handled via AAD and CDF groups, 
+perissions to work on the Azure tenant resources are handled by users that exist in that tenant's AAD**
 
 1. Create a new branch
 1. In `terraform/azure/tier0/guest_users/users.tf` create an invite for the new user by adding them to the `users` set. The format is ` display_name : email_address`

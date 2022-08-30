@@ -1,12 +1,11 @@
 data "azuread_service_principal" "github_enterprise" {
-  display_name = "GitHub Enterprise Cloud - Organization"
+  display_name = "GitHub Enterprise Cloud - Sandbox"
 }
 
 locals {
   app_roles = { for v in data.azuread_service_principal.github_enterprise.app_roles : v.display_name => v.id }
   github_users = [
-    "github@ivansurifgmail.onmicrosoft.com",
-    "ivan.surif@gmail.com",
+    "ivan.surif@cognitedata.com"
   ]
 
 }
