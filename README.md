@@ -115,6 +115,8 @@ The infrastructure built by Terraform is split into two different modules:
   * Key Vault
 
 Users need to be added to the Key Vault if they are required to handle keys.</br>
+This is done **by harcoding** their emails in <code>terraform/azure/tier0/common_services/iam.tf</code>
+
 For example, several Funtion App environment variables are pulled from Key Vault secrets. 
 If these secrets had to be updated, then users with access to the key vault would be the only ones able to make those changes.</br>
 These users are added to a group in file <code>terraform/azure/tier0/resources/iam.tf</code>.</br>
