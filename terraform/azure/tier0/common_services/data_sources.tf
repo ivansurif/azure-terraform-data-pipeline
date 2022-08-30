@@ -18,7 +18,7 @@ locals {
   ]
 
   # Container Registry
-  container_registry_name = "cogniteskfcenitmysandbox"
+  container_registry_name = "cogniteskfcenitmysandbox2"
   container_registry_sku  = "Basic"
 
   # Key Vault
@@ -33,7 +33,7 @@ locals {
   app_service_plan_kind              = "Linux"
 
   # Storage
-  storage_name                                  = "cogniteskfcenitmysandbox"
+  storage_name                                  = "cogniteskfcenitmysandbox2"
   storage_account_tier                          = "Standard"
   storage_account_replication_type              = "LRS"
   storage_container_name_files_upload           = "fileuploadstorage"
