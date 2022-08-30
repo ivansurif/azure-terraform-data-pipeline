@@ -1,5 +1,5 @@
 data "azuread_service_principal" "github_enterprise" {
-  display_name = "GitHub Enterprise Cloud - Sandbox"
+  display_name = "ivan-industries-at-usa-sandbox"
 }
 
 locals {
