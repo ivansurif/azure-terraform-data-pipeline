@@ -1,6 +1,6 @@
 # NOT IN ORIGINAL REPO
 # WIP
-
+/*
 data "azurerm_subscription" "primary" {
 }
 
@@ -12,3 +12,4 @@ resource "azurerm_role_assignment" "example" {
   role_definition_name = "Owner"
   principal_id         = data.azurerm_client_config.example.object_id
 }
+*/
