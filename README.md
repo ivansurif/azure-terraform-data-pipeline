@@ -16,8 +16,8 @@ These resources need to be created:
 
 - An Azure **Tenant** is required. It's ID needs to be set in GitHub Secret `ARM_TENANT_ID`.
 
-- A **Subscription** needs exist in the Azure Tenant prior to executing this code. 
-It's ID needs to be stored in a GitHub Secret called `ARM_SUBSCRIPTION_ID`. 
+- A **Subscription** needs to exist in the Azure Tenant prior to executing this code. 
+It's ID needs to be stored in a GitHub Secret called `ARM_SUBSCRIPTION_ID`.
 
 **Note**: Subscriptions need to have resource providers registered (enabled) in order for these to be used. 
 If you attempt to build a resource which provider is not enabled, you will get a `MissingSubscriptionRegistration` error. 
@@ -61,6 +61,8 @@ within this code need to be updated to match the selected name.
 
 - An **App Registration** needs to be created in Azure Active Directory. Copy and set it's ID in GitHub Secret
  `ARM_CLIENT_ID`. Create a Secret and set its value in GitHub Secret `ARM_CLIENT_SECRET`.
+
+<mark>This App Registration needs to be set as Owner of the Subscription in order to be able to manage resources.</mark>
 
 
 - A **Service Principal** which is automatically created by Azure when creating an App Registration.

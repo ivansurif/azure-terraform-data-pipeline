@@ -196,6 +196,13 @@ jobs:
     - name: Print output
       run: |
         users=$(terraform output users)
-        echo $users
+        if [ -z "users" ]
+        then
+          echo $users
+          app_roles=$(terraform output app_roles)
+        fi
         app_roles=$(terraform output app_roles)
-        echo $app_roles
+        if [ -z "app_roles" ]
+        then
+          echo $app_roles
+        fi
