@@ -6,6 +6,15 @@ on:
   #   - master
   [pull_request, workflow_dispatch]
 
+env:
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+  ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
+  GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
+  GITHUB_OWNER: ${{ secrets.GH_OWNER }}
+
 jobs:
   
   generate-matrix:
@@ -27,29 +36,28 @@ jobs:
           DIFF=$( git diff --name-only origin/$GITHUB_BASE_REF $GITHUB_SHA | xargs -L1 dirname | uniq)
           JSON="{\"include\":["
           # Only add paths with terraform in it
-          # Initially only including github
           while read path; do
-              echo "$PATH"
+          #    echo "$PATH"
               echo $path
-              #if [[ "$path" == *"terraform"* ]]; then
-              #  echo "has terraform"
+              if [[ "$path" == *"terraform"* ]]; then
+                echo "has terraform"
               #if [[ "$path" == *"github"* ]]; then
-              #    if [[ -d $path ]]; then
-              #        HAS_TF=false
-              #        for entry in "$path"/*.tf
-              #        do
-              #            if test -f "$entry"; then
-              #                HAS_TF=true
-              #            fi
-              #        done
-              #        if [ "$HAS_TF" = true ]; then
-              #            JSONline="{\"folder\": \"$path\"},"
-                          JSONline="{\"folder\": \"terraform/github/teams\"},"
-
+                  if [[ -d $path ]]; then
+                      HAS_TF=false
+                      for entry in "$path"/*.tf
+                      do
+                          if test -f "$entry"; then
+                              HAS_TF=true
+                          fi
+                      done
+                      if [ "$HAS_TF" = true ]; then
+                          JSONline="{\"folder\": \"$path\"},"
+                     # use this line below to hardcode path where to look for terraform files
+                     #    JSONline="{\"folder\": \"terraform/\"},"
                           JSON="$JSON$JSONline"
-              #        fi
-              #    fi
-              #fi
+                      fi
+                  fi
+              fi
           done <<< "$DIFF"
           if [[ $JSON == *, ]]; then
               JSON="${JSON%?}"
@@ -68,22 +76,27 @@ jobs:
       run:
         shell: bash
         working-directory: ${{ matrix.folder }}
-    env:
-      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-      ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
-      GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
-      GITHUB_OWNER: ${{ secrets.GH_OWNER }}
-      
+
     steps:
 
     - name: Checkout
       uses: actions/checkout@v2
+
+    - name: Check secrets
+      id: check-secrets
+      run: |
+          echo "In the lines below, secret values should be printed as '***'.\
+          That means secrets are set in the repo and accesible from this workflow job.\
+          If '***' is not printed, it means secret is not found"
+          echo "ARM_CLIENT_ID value is: $ARM_CLIENT_ID"
+          echo "ARM_CLIENT_SECRET value is: $ARM_CLIENT_SECRET"
+          echo "ARM_SUBSCRIPTION_ID value is: $ARM_SUBSCRIPTION_ID"
+          echo "ARM_ACCESS_KEY value is: $ARM_ACCESS_KEY"
+
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-
+      with:
+        terraform_wrapper: false
     # Check that all Terraform configuration files adhere to a canonical format
     - name: Terraform fmt
       id: fmt
@@ -91,25 +104,32 @@ jobs:
       continue-on-error: false
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    #- name: Terraform Init Reconfigur
+    #  id: init-reconfigure
+    #  run: terraform init -reconfigure
+
     - name: Terraform Init
       id: init
       run: terraform init
+
+
+
 
     - name: Terraform Validate
       id: validate
       run: terraform validate -no-color
 
-    - name: Create Diagram File in working directory
-      run: terraform graph > diagram.dot
+    #- name: Create Diagram File in working directory
+    #  run: terraform graph > diagram.dot
 
-    - name: Upload file to Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: Resource Graph
-        path: /home/runner/work/terraform/terraform/terraform/azure/tier0/common_services/diagram.dot
+    #- name: Upload file to Artifact
+    #  uses: actions/upload-artifact@v2
+    #  with:
+    #    name: Resource Graph
+    #    path: /home/runner/work/terraform/terraform/terraform/azure/tier0/common_services/diagram.dot
 
-    - name: Download all workflow run artifacts
-      uses: actions/download-artifact@v2
+    #- name: Download all workflow run artifacts
+    #  uses: actions/download-artifact@v2
     # The download will be a zip containing the .dot file.
     # The .dot file needs to be converted to svg using the Graphviz CLI for example
     # or an online conversion tool such as http://graphviz.it/
@@ -120,10 +140,18 @@ jobs:
       run: terraform plan -no-color
 
       continue-on-error: true
+
+    - name: Terraform Show Plan Output
+      id: plan-show-plan
+      run: terraform show
+
+
     - name: Fail on Error
       if: ${{ steps.plan.outcome == 'failure' }}
       run: exit 1
     # Post Terraform plan as a comment to PR
+
+
 
 
   apply:
@@ -149,6 +177,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
     - name: Terraform Init

@@ -1,8 +1,8 @@
 terraform {
   backend "azurerm" {
-    storage_account_name = "cogniteskfcenittf"
+    storage_account_name = "skfcenittf2"
     container_name       = "tfstate"
-    key                  = "azure.tier0.function_app"
+    key                  = "azure.tier1.integrations"
 
     # Access Key set as environment variable ARM_ACCESS_KEY
 

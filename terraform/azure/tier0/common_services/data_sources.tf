@@ -18,11 +18,11 @@ locals {
   ]
 
   # Container Registry
-  container_registry_name = "cogniteskfcenit"
+  container_registry_name = "skfcenitsandbox"
   container_registry_sku  = "Basic"
 
   # Key Vault
-  key_vault_name = "cognite-skfcenit-kv"
+  key_vault_name = "kv-mysandbox"
   key_vault_sku  = "standard"
 
   # App Service Plan
@@ -33,12 +33,12 @@ locals {
   app_service_plan_kind              = "Linux"
 
   # Storage
-  storage_name                        = "cogniteskfcenitcommon"
-  storage_account_tier                = "Standard"
-  storage_account_replication_type    = "LRS"
-  storage_container_name_files_upload = "fileuploadstorage"
+  storage_name                                  = "skfcenitsandbox"
+  storage_account_tier                          = "Standard"
+  storage_account_replication_type              = "LRS"
+  storage_container_name_files_upload           = "fileuploadstorage"
   storage_container_name_files_upload_prod_only = "fileuploadstorage-prod-only"
-  storage_container_name_tags         = "cogniteskfcenittags"
+  storage_container_name_tags                   = "cogniteskfcenittags"
 
   # AKS
   aks_cluster_name     = "cogniteskfcenit-aks"
