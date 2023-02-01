@@ -23,7 +23,12 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: main
+          token: ${{ github.token }}
+
       - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.9.1
         with:
