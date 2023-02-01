@@ -1,7 +1,7 @@
-output "customer_name" {
+/*output "customer_name" {
   value = "skf-cenit"
 }
-
+*/
 output "location" {
   value = "eastus"
 }
