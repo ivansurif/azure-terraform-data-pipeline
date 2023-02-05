@@ -9,7 +9,7 @@ module "project_vars" {
 locals {
 
   # Resource Group
-  resource_group_name     = "terraform-sandbox-ivan"
+  resource_group_name     = "terraform-sandbox"
   resource_group_location = module.project_vars.location
 /*
   # Resource Group
