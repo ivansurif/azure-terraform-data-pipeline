@@ -71,3 +71,15 @@ jobs:
       - name: Terraform Show Plan Output
         id: plan-show-plan
         run: terraform show
+
+  terraform-apply:
+      name: Apply Terraform
+      runs-on: ubuntu-latest
+      defaults:
+        run:
+          shell: bash
+          working-directory: terraform/azure/tier0/common_services
+      steps:
+        - name: Terraform Apply
+          if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+          run: terraform apply -auto-approve -input=false
