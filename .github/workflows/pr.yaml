@@ -17,143 +17,58 @@ env:
 
 jobs:
   
-  generate-matrix:
-    name: Generate matrix
+  terraform-plan:
+    name: Plan Terraform
     runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.9.1
         with:
           access_token: ${{ github.token }}
-      - name: Set matrix
-        id: set-matrix
+
+      - name: Setup Terraform
+          uses: hashicorp/setup-terraform@v1
+          with:
+            terraform_wrapper: false
+
+      - name: Terraform format
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: false
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Check secrets
+        id: check-secrets
         run: |
-          echo "Base ref is $GITHUB_BASE_REF"
-          git fetch origin $GITHUB_BASE_REF --depth=1
-          DIFF=$( git diff --name-only origin/$GITHUB_BASE_REF $GITHUB_SHA | xargs -L1 dirname | uniq)
-          JSON="{\"include\":["
-          # Only add paths with terraform in it
-          while read path; do
-          #    echo "$PATH"
-              echo $path
-              if [[ "$path" == *"terraform"* ]]; then
-                echo "has terraform"
-              #if [[ "$path" == *"github"* ]]; then
-                  if [[ -d $path ]]; then
-                      HAS_TF=false
-                      for entry in "$path"/*.tf
-                      do
-                          if test -f "$entry"; then
-                              HAS_TF=true
-                          fi
-                      done
-                      if [ "$HAS_TF" = true ]; then
-                          JSONline="{\"folder\": \"$path\"},"
-                     # use this line below to hardcode path where to look for terraform files
-                     #    JSONline="{\"folder\": \"terraform/\"},"
-                          JSON="$JSON$JSONline"
-                      fi
-                  fi
-              fi
-          done <<< "$DIFF"
-          if [[ $JSON == *, ]]; then
-              JSON="${JSON%?}"
-          fi
-          JSON="$JSON]}"
-          echo $JSON
-          echo "::set-output name=matrix::$( echo "$JSON" )"
-  plan:
-    name: Plan Terraform on "${{ matrix.folder }}"
-    environment: plan
-    needs: generate-matrix
-    strategy:
-      matrix: ${{fromJson(needs.generate-matrix.outputs.matrix)}}
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: ${{ matrix.folder }}
+            echo "In the lines below, secret values should be printed as '***'.\
+            That means secrets are set in the repo and accesible from this workflow job.\
+            If '***' is not printed, it means secret is not found"
+            echo "ARM_CLIENT_ID value is: $ARM_CLIENT_ID"
+            echo "ARM_CLIENT_SECRET value is: $ARM_CLIENT_SECRET"
+            echo "ARM_SUBSCRIPTION_ID value is: $ARM_SUBSCRIPTION_ID"
+            echo "ARM_ACCESS_KEY value is: $ARM_ACCESS_KEY"
 
-    steps:
+      - name: Terraform Plan
+        id: plan
+        #if: github.event_name == 'pull_request'
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
 
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Terraform Show Plan Output
+        id: plan-show-plan
+        run: terraform show
 
-    - name: Check secrets
-      id: check-secrets
-      run: |
-          echo "In the lines below, secret values should be printed as '***'.\
-          That means secrets are set in the repo and accesible from this workflow job.\
-          If '***' is not printed, it means secret is not found"
-          echo "ARM_CLIENT_ID value is: $ARM_CLIENT_ID"
-          echo "ARM_CLIENT_SECRET value is: $ARM_CLIENT_SECRET"
-          echo "ARM_SUBSCRIPTION_ID value is: $ARM_SUBSCRIPTION_ID"
-          echo "ARM_ACCESS_KEY value is: $ARM_ACCESS_KEY"
-
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      with:
-        terraform_wrapper: false
-    # Check that all Terraform configuration files adhere to a canonical format
-    - name: Terraform fmt
-      id: fmt
-      run: terraform fmt
-      continue-on-error: false
-
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    #- name: Terraform Init Reconfigur
-    #  id: init-reconfigure
-    #  run: terraform init -reconfigure
-
-    - name: Terraform Init
-      id: init
-      run: terraform init
-
-
-
-
-    - name: Terraform Validate
-      id: validate
-      run: terraform validate -no-color
-
-    #- name: Create Diagram File in working directory
-    #  run: terraform graph > diagram.dot
-
-    #- name: Upload file to Artifact
-    #  uses: actions/upload-artifact@v2
-    #  with:
-    #    name: Resource Graph
-    #    path: /home/runner/work/terraform/terraform/terraform/azure/tier0/common_services/diagram.dot
-
-    #- name: Download all workflow run artifacts
-    #  uses: actions/download-artifact@v2
-    # The download will be a zip containing the .dot file.
-    # The .dot file needs to be converted to svg using the Graphviz CLI for example
-    # or an online conversion tool such as http://graphviz.it/
-
-    # Generate an execution plan for Terraform
-    - name: Terraform Plan
-      id: plan
-      run: terraform plan -no-color
-
-      continue-on-error: true
-
-    - name: Terraform Show Plan Output
-      id: plan-show-plan
-      run: terraform show
-
-
-    - name: Fail on Error
-      if: ${{ steps.plan.outcome == 'failure' }}
-      run: exit 1
-    # Post Terraform plan as a comment to PR
-
-
-
-
+'''
   apply:
     environment: apply
     name: Apply Terraform on "${{ matrix.folder }}"
@@ -189,5 +104,6 @@ jobs:
       continue-on-error: true
 
     - name: Fail on Error
-      if: ${{ steps.apply.outcome == 'failure' }}
+      if: ${{ steps.apply.outcome == "failure" }}
       run: exit 1
+'''
