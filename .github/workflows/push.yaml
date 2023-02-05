@@ -30,9 +30,9 @@ jobs:
           access_token: ${{ github.token }}
 
       - name: Setup Terraform
-          uses: hashicorp/setup-terraform@v1
-          with:
-            terraform_wrapper: false
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false
 
       - name: Terraform format
         id: fmt
