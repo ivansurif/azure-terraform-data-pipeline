@@ -25,6 +25,10 @@ jobs:
         shell: bash
         working-directory: terraform/azure/tier0/common_services
     steps:
+
+      - name: Print Current Working Directory
+        run:
+          echo "Current Working Directory: $(pwd)"
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -81,6 +85,9 @@ jobs:
           shell: bash
           #working-directory: terraform/azure/tier0/common_services
       steps:
+        - name: Print Current Working Directory
+            run:
+              echo "Current Working Directory: $(pwd)"
         - name: Terraform Apply
           if: github.ref == 'refs/heads/main' && github.event_name == 'push'
           run: terraform apply -auto-approve -input=false
