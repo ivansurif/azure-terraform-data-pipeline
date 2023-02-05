@@ -11,7 +11,7 @@ locals {
   # Resource Group
   resource_group_name     = "terraform-sandbox"
   resource_group_location = module.project_vars.location
-/*
+  /*
   # Resource Group
   resource_group_names_files_upload = [
     "files-upload-dev",
