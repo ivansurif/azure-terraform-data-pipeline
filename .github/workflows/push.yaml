@@ -83,7 +83,7 @@ jobs:
       defaults:
         run:
           shell: bash
-          #working-directory: terraform/azure/tier0/common_services
+          working-directory: terraform/azure/tier0/common_services
       steps:
         - name: Print Current Working Directory
           run: |
