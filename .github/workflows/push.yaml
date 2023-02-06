@@ -23,7 +23,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: terraform/azure/tier0/common_services
+        working-directory: ${GITHUB_WORKSPACE}
     steps:
 
       - name: Print Current Working Directory
