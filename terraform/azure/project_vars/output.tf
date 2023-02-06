@@ -1,5 +1,5 @@
 /*output "customer_name" {
-  value = "skf-cenit"
+  value = "CUSTOMER NAME HERE"
 }
 */
 output "location" {

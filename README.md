@@ -30,7 +30,7 @@ This error is easy to fix, and the message is self explanatory. But you need adm
 enable (register) resource providers (i.e., fixing this error). Sample error below:
 
 
-`2022-06-30T18:44:03.1472586Z Error: creating Container Registry "cogniteskfcenitregistry" (Resource Group "common-services"): containerregistry.RegistriesClient#Create: Failure sending request: StatusCode=409 -- Original Error: Code="MissingSubscriptionRegistration" Message="The subscription is not registered to use namespace 'Microsoft.ContainerRegistry'. See https://aka.ms/rps-not-found for how to register subscriptions." Details=[{"code":"MissingSubscriptionRegistration","message":"The subscription is not registered to use namespace 'Microsoft.ContainerRegistry'. See https://aka.ms/rps-not-found for how to register subscriptions.","target":"Microsoft.ContainerRegistry"}]`
+`2022-06-30T18:44:03.1472586Z Error: creating Container Registry "REGISTRY_NAME_HERE" (Resource Group "common-services"): containerregistry.RegistriesClient#Create: Failure sending request: StatusCode=409 -- Original Error: Code="MissingSubscriptionRegistration" Message="The subscription is not registered to use namespace 'Microsoft.ContainerRegistry'. See https://aka.ms/rps-not-found for how to register subscriptions." Details=[{"code":"MissingSubscriptionRegistration","message":"The subscription is not registered to use namespace 'Microsoft.ContainerRegistry'. See https://aka.ms/rps-not-found for how to register subscriptions.","target":"Microsoft.ContainerRegistry"}]`
 
 **Note**: Terraform erros in GH Actions can by pretty cryptic. 
 Therefore [enabling debug logging](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/enabling-debug-logging) 
