@@ -12,3 +12,4 @@ locals {
   resource_group_name     = "common_services"
   resource_group_location = module.project_vars.location
 }
+
