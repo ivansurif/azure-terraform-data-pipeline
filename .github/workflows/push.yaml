@@ -18,6 +18,7 @@ env:
 jobs:
   
   terraform-plan:
+    environment: plan
     name: Plan Terraform
     runs-on: ubuntu-latest
     defaults:
@@ -77,6 +78,7 @@ jobs:
         run: terraform show
 
   terraform-apply:
+      environment: apply
       name: Apply Terraform
       needs: terraform-plan
       runs-on: ubuntu-latest
@@ -87,6 +89,11 @@ jobs:
       steps:
         - name: Checkout
           uses: actions/checkout@v2
+
+        - name: Terraform Init
+            id: init
+            run: terraform init
+
         - name: Terraform Apply
           if: github.ref == 'refs/heads/main' && github.event_name == 'push'
           run: terraform apply -auto-approve -input=false
