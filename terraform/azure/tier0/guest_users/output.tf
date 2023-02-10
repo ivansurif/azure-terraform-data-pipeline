@@ -1,5 +1,5 @@
 output "azuread_invitation" {
-  value = "eastus"
+  value = azuread_invitation.example
 }
 
 
