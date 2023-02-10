@@ -14,6 +14,7 @@ resource "azurerm_role_assignment" "af_role" {
 data "azuread_user" "aad_user" {
   for_each            = toset(var.smb_share_users)
   user_principal_name = format("%s", each.key)
+  depends_on          = [module.guest_users.azuread_invitation]
 }
 
 resource "azuread_group" "aad_group" {
