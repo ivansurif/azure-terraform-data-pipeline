@@ -8,7 +8,6 @@ variable "aad_group_name" {
 variable "smb_share_users" {
   description = "SMB Share users"
   default = [
-    "sampleuser01@contoso.net",
-    "sampleuser02@contoso.net"
+    "cognite.test.user@gmail.com"
   ]
 }

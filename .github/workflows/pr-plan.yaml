@@ -14,18 +14,12 @@ env:
 
 jobs:
 
-  Create-Matrix:
-    name: Working Directory Matrix creation
-    runs-on: ubuntu-latest
-    strategy:
-      matrix: { folder: ['terraform/azure/tier0/guest_users', 'terraform/azure/tier0/common_services'] }
-
-
-
   terraform-plan:
     environment: plan
     name: Plan Terraform
     runs-on: ubuntu-latest
+    strategy:
+      matrix: { folder: [ 'terraform/azure/tier0/guest_users', 'terraform/azure/tier0/common_services' ] }
     defaults:
       run:
         shell: bash
