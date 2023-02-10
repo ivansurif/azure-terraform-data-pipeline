@@ -1,6 +1,6 @@
 locals {
   guest_users = {
-        "TEST GMail user" : "cognite.test.user@gmail.com"
+    "TEST GMail user" : "cognite.test.user@gmail.com"
   }
 }
 
