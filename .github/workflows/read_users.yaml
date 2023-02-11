@@ -1,0 +1,44 @@
+name: Terraform Destroy
+
+on:
+  [workflow_dispatch]
+
+env:
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+  ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
+  GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
+  GITHUB_OWNER: ${{ secrets.GH_OWNER }}
+
+jobs:
+
+  read_users:
+    environment: ad-hoc
+    name: Read Users in AAD
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: { folder: [ 'terraform/azure/tier0/guest_users', 'terraform/azure/tier0/common_services' ] }
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ matrix.folder }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Print CWD
+      run: pwd
+
+    - name: Configure Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 0.15.0
+
+    - name: Get Terraform state
+      run: terraform init
+
+    - name: Print AAD users
+      run: terraform output user_display_names
