@@ -19,7 +19,6 @@ jobs:
   terraform-apply:
       environment: apply
       name: Apply Terraform
-      needs: terraform-plan
       runs-on: ubuntu-latest
       strategy:
         matrix: { folder: [ 'terraform/azure/tier0/guest_users', 'terraform/azure/tier0/common_services' ] }
