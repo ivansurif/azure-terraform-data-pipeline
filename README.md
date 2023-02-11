@@ -1,9 +1,9 @@
 Terraform Deployment Template
 ===
 
-## Repo setup instructions
+## Repo setup
 
-1. Create these secrets in your repo:
+1. Create these **secrets** in your repo:
 - `ARM_CLIENT_ID`
 - `ARM_CLIENT_SECRET`
 - `ARM_SUBSCRIPTION_ID`
@@ -13,13 +13,10 @@ Terraform Deployment Template
 2. Make sure that your `GH Actions` workflow permissions are permissive: _Settings > Actions > Workflow permissions >_ 
 select `Read & Write permissions`
 
-## Before using this repo
-
-These resources need to be created:
-
-###1. An Azure Tenant used to store resources, not necessarily the same one where AAD lives
+## Azure Setup
 
 - An Azure **Tenant** is required. It's ID needs to be set in GitHub Secret `ARM_TENANT_ID`.
+
 
 - A **Subscription** needs to exist in the Azure Tenant prior to executing this code. 
 It's ID needs to be stored in a GitHub Secret called `ARM_SUBSCRIPTION_ID`.
@@ -40,35 +37,45 @@ is very recommendable (and will esure that you catch errors like the one above).
 _Terraform will only try to manipulate resources that are in the state file (ie they were created by TF in the first place, or they were imported into state). It ignores everything else. Also, `terraform plan` is pretty trustworthy, especially the last line where it details how many resources will be changed, deleted, or created. If those all say zero, then you are in a safe place._
 
 
-- The following **Resource Groups** need be created manually. </br>
-Their names do not need to be updated in this repo: the code in the repo runs assuming these Resource Groups already exist.</br>
-No need to create tags when creating the Resource Group:
-<mark>[COMPARE THIS LIST WITH ACTUAL RESOURCE GROUPS CREATED IN THE REPO!]<mark>
+<br>
 
-  - terraform
+### The following resources need to be created <u>_manually_</u>:  
+The reason is that state file is stored in Azure itself. So the creation of the storage group, account and container
+where Terraform will be able to create and update the file need to precede the deployment of the resources through this repo.
+
+Their names are referenced in file `provider.tf`:
+
+```
+terraform {
+  backend "azurerm" {
+    storage_account_name = "sandbox4terraform"
+    container_name       = "tfstate"
+    key                  = "azure.tier0.common_services"
+    # Access Key set as environment variable ARM_ACCESS_KEY
+  }
+  (...)
+```
+
+And, as mentioned in the code comment, repo secret `ARM_ACCESS_KEY` is necessary for the repo to be able to write to
+that container.
 
 
-- A **Storage Account** where Terraform state will be stored also needs to be created prior to using this repo. 
-The name of the storage account is referenced (and needs to be updated) in multiple files throughout this repo, 
-in field `storage_account_name`. The only thing that needs to be set manually when creating the Storage Account 
-in Azure UI is its name. All other variables can be kept with their default values. The Storage account, like 
-everything else created either manually or through this repo, need to belong to the aforementioned Resource Group.
+The code in the repo runs assuming these resources exist, and will return an error when deploying if they don't.</br>
 
 
-- After creating the Storage Account, copy either of its **Access Keys** from the Azure UI. 
+- A **Resource Group**
+
+
+- A **Storage Account**  
+After creating the Storage Account, copy either of its **Access Keys** from the Azure UI. 
 Store its value in a **GitHub Repository Secret** named `ARM_ACCESS_KEY`
 
 
 - Lastly, a **Storage Container** needs to be created within the previously created Storage Account. 
-The container shall be named `tfstate`. If choosing a different name, the references to the Storage Container 
-within this code need to be updated to match the selected name.
+The container shall be named `tfstate` for convenience. 
 
 
 - An **App Registration** needs to be created in Azure Active Directory. Copy and set it's ID in GitHub Secret
- `ARM_CLIENT_ID`. Create a Secret and set its value in GitHub Secret `ARM_CLIENT_SECRET`.
+ `ARM_CLIENT_ID`. Create a Secret and set its value in GitHub Secret `ARM_CLIENT_SECRET`.  
+This App Registration needs to be set as Owner of the Subscription in order to be able to manage resources.
 
-<mark>This App Registration needs to be set as Owner of the Subscription in order to be able to manage resources.</mark>
-
-MAKE SURE TO SET AS WORKING DIRECTORY THE PLACE WHERE TF FILES ARE
-SCOTT'S MATRIX IS USEFUL WHEN WORKING WITH MULTIPLE FOLDERS
-CURRENT WF FILE DOES NOT SUPPORT MULTI TIERING BECAUSE IT CAN ONLY WORK WITH A SINGLE FOLDER
