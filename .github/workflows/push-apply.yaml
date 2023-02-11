@@ -21,13 +21,18 @@ jobs:
       name: Apply Terraform
       needs: terraform-plan
       runs-on: ubuntu-latest
+      strategy:
+        matrix: { folder: [ 'terraform/azure/tier0/guest_users', 'terraform/azure/tier0/common_services' ] }
       defaults:
         run:
           shell: bash
-          working-directory: terraform/azure/tier0/common_services
+          working-directory: ${{ matrix.folder }}
       steps:
         - name: Checkout
           uses: actions/checkout@v2
+
+        - name: Print CWD
+          run: pwd
 
         - name: Terraform Init
           id: init
