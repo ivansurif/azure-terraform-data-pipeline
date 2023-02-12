@@ -11,6 +11,6 @@ data "azuread_users" "return_all_users" {
 
 output "user_names" {
   value = {
-    for user in data.azuread_users.example.users : user.user_principal_name => user.display_name
+    for user in data.azuread_users.return_all_users.users : user.user_principal_name => user.display_name
   }
 }
