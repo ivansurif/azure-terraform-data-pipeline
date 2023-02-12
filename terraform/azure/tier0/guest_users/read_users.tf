@@ -1,7 +1,7 @@
 resource "azuread_user" "example" {
   display_name = "Jane Doe"
   mail_nickname = "jane.doe"
-  user_principal_name = "jane.doe@example.com"
+  user_principal_name = "jane.doeddddd@gmail.com"
   password = "Password123!"
 }
 
