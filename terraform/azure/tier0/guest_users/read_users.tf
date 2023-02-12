@@ -1,4 +1,6 @@
-data "azuread_users" "example" {}
+data "azuread_users" "example" {
+  return_all = true
+}
 
 output "user_names" {
   value = {
