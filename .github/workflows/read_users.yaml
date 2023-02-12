@@ -1,4 +1,4 @@
-name: Terraform Read Users
+name: Read Users in AAD
 
 on:
   pull_request
@@ -42,7 +42,7 @@ jobs:
       run: terraform init
 
     - name: Terraform Apply
-      run: terraform apply -target=guest_users.users -auto-approve -input=false
+      run: terraform apply -target=guest_users.read_users -auto-approve -input=false
 
     - name: Get Terraform state
       run: terraform init
