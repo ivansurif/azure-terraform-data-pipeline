@@ -1,4 +1,4 @@
-name: Terraform Destroy
+name: Terraform Read Users
 
 on:
   pull_request
@@ -19,7 +19,8 @@ jobs:
     name: Read Users in AAD
     runs-on: ubuntu-latest
     strategy:
-      matrix: { folder: [ 'terraform/azure/tier0/guest_users', 'terraform/azure/tier0/common_services' ] }
+      matrix: { folder: [ 'terraform/azure/tier0/guest_users' ] }
+      #matrix: { folder: [ 'terraform/azure/tier0/guest_users', 'terraform/azure/tier0/common_services' ] }
     defaults:
       run:
         shell: bash
@@ -39,6 +40,9 @@ jobs:
 
     - name: Get Terraform state
       run: terraform init
+
+    - name: Terraform Apply
+      run: terraform apply -target=guest_users.users -auto-approve -input=false
 
     - name: Print AAD users
       run: terraform output user_names
