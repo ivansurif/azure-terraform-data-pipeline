@@ -41,8 +41,12 @@ jobs:
     - name: Get Terraform state
       run: terraform init
 
-    - name: Terraform Apply
-      run: terraform apply -target=read_users -auto-approve -input=false
+    - name: Terraform Apply 1
+      run: terraform apply -target=azuread_user.example -auto-approve -input=false
 
+
+    - name: Terraform Apply 2
+      run: terraform apply -target=azuread_users.return_all_users -auto-approve -input=false
+      # needs:
     - name: Print AAD users
       run: terraform output user_names
