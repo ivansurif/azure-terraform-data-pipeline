@@ -1,4 +1,11 @@
-data "azuread_users" "example" {
+resource "azuread_user" "example" {
+  display_name = "Jane Doe"
+  mail_nickname = "jane.doe"
+  user_principal_name = "jane.doe@example.com"
+  password = "Password123!"
+}
+
+data "azuread_users" "return_all_users" {
   return_all = true
 }
 
