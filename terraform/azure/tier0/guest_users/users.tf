@@ -14,3 +14,4 @@ resource "azuread_invitation" "example" {
     body = "Hi, welcome to Terraform Test Sandbox Project"
   }
 }
+

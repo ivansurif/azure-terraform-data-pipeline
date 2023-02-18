@@ -42,7 +42,7 @@ jobs:
       run: terraform init
 
     - name: Terraform Apply 1
-      run: terraform apply -target=azuread_user.example -auto-approve -input=false
+      run: terraform apply -target=azuread_user.example -auto-approve -input=false -var 'user_principal_name=$USER_PRINCIPAL_NAME'
 
 
     - name: Terraform Apply 2

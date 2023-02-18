@@ -1,8 +1,6 @@
 resource "azuread_user" "example" {
-  display_name = "Jane Doe"
-  mail_nickname = "jane.doe"
-  user_principal_name = "jane.doeddddd@gmail.com"
-  password = "Password123!"
+# Add existing user to Terraform State File
+  user_principal_name = var.user_principal_name
 }
 
 data "azuread_users" "return_all_users" {
