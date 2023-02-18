@@ -11,6 +11,7 @@ env:
   ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
   GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
   GITHUB_OWNER: ${{ secrets.GH_OWNER }}
+  AAD_USER_OBJECT_ID: ${{ secrets.AAD_USER_OBJECT_ID }}
 
 jobs:
 
@@ -41,11 +42,10 @@ jobs:
     - name: Get Terraform state
       run: terraform init
 
-    - name: Terraform Apply 1
-      run: terraform apply -target=azuread_user.example -auto-approve -input=false -var 'user_principal_name=$USER_PRINCIPAL_NAME'
+    - name: Import existing user
+      run: terraform import azuread_user.example $AAD_USER_OBJECT_ID
 
-
-    - name: Terraform Apply 2
+    - name: Terraform Apply
       run: terraform apply -target=azuread_users.return_all_users -auto-approve -input=false
       # needs:
     - name: Print AAD users

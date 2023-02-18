@@ -1,10 +1,8 @@
 resource "azuread_user" "example" {
   # Add existing user to Terraform State File
-  user_principal_name = var.user_principal_name
+  user_principal_name = sensitive(var.user_principal_name)
+  display_name = sensitive(var.user_name)
 
-  sensitive_attributes = [
-    "user_principal_name"
-  ]
 }
 
 data "azuread_users" "return_all_users" {
