@@ -1,7 +1,7 @@
 name: 'Terraform'
 
 on:
-  pull_request
+  [workflow_dispatch]
 
 env:
   ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
