@@ -1,6 +1,9 @@
+# DEPRECATED BECAUSE I WILL USE AN EXISTING USER
+
+/*
 locals {
   guest_users = {
-    "TEST GMail user" : "cognite.test.user@gmail.com"
+    "TEST GMail user" : "XXXXX"
   }
 }
 
@@ -15,3 +18,4 @@ resource "azuread_invitation" "example" {
   }
 }
 
+*/

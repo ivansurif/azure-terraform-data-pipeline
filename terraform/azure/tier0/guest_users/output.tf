@@ -1,5 +1,5 @@
-output "azuread_invitation" {
-  value = azuread_invitation.example
-}
+#output "azuread_invitation" {
+#  value = azuread_invitation.example
+#}
 
 
