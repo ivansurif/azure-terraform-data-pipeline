@@ -45,7 +45,12 @@ jobs:
     - name: Import existing user
       run: terraform import azuread_user.example $AAD_USER_OBJECT_ID
 
-    - name: Terraform Apply
+    - name: Terraform Apply 1
+      run: terraform apply -target=azuread_user.example -auto-approve -input=false\
+        -var 'user_principal_name=$USER_PRINCIPAL_NAME'\
+        -var 'user_name=$USER_NAME'
+
+    - name: Terraform Apply 2
       run: terraform apply -target=azuread_users.return_all_users -auto-approve -input=false
       # needs:
     - name: Print AAD users
