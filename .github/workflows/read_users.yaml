@@ -42,8 +42,8 @@ jobs:
     - name: Get Terraform state
       run: terraform init
 
-    - name: Import existing user
-      run: terraform import azuread_user.example $EXAMPLE_USER_AAD_USER_OBJECT_ID
+    #- name: Import existing user
+    #  run: terraform import azuread_user.example $EXAMPLE_USER_AAD_USER_OBJECT_ID
 
     - name: Terraform Apply 1
       run: terraform apply -target=azuread_user.example -auto-approve -input=false\
