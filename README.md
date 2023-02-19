@@ -40,21 +40,30 @@ _Terraform will only try to manipulate resources that are in the state file (ie 
 <br>
 
 ### The following resources need to be created <u>_manually_</u>:  
-The reason is that state file is stored in Azure itself. So the creation of the storage group, account and container
-where Terraform will be able to create and update the file need to precede the deployment of the resources through this repo.
-
-Their names are referenced in file `provider.tf`:
+The reason is that in this architecture, Terraform _state file_ is stored in Azure itself.  
+So the creation of the storage `account` and `container` where Terraform will be able to create and update the 
+state file need to precede the deployment of the resources through this repo.  
+Creating those resources will also require the creation of a resource group in Azure. That resource group is not referenced
+in this repo. Instead, the storage `account` and `container` names are, in file `provider.tf`:
 
 ```
 terraform {
   backend "azurerm" {
-    storage_account_name = "sandbox4terraform"
+    storage_account_name = "terra4mstate"
     container_name       = "tfstate"
     key                  = "azure.tier0.common_services"
     # Access Key set as environment variable ARM_ACCESS_KEY
   }
   (...)
 ```
+In the above code, `key` is a parameter used to specify the name of the Terraform state file within the Azure Storage Account. The key parameter can be used to specify a prefix for the state file name or the full path of the state file.
+
+In this case, the key parameter value is set to "azure.tier0.common_services", which means that the Terraform state file for this configuration will be stored in a container named "tfstate" within the "terra4mstate" storage account with the name "azure.tier0.common_services".
+
+The key parameter is optional, and if it is not specified, Terraform will use a default naming convention to create the state file name.
+
+
+
 
 And, as mentioned in the code comment, repo secret `ARM_ACCESS_KEY` is necessary for the repo to be able to write to
 that container.
