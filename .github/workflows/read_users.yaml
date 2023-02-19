@@ -46,9 +46,7 @@ jobs:
     #  run: terraform import azuread_user.example $EXAMPLE_USER_AAD_USER_OBJECT_ID
 
     - name: Terraform Apply 1
-      run: terraform apply -target=azuread_user.example -auto-approve -input=false\
-        -var 'user_principal_name=$EXAMPLE_USER_AAD_USER_PRINCIPAL_NAME'\
-        -var 'user_name=$EXAMPLE_USER_AAD_USER_NAME'
+      run: terraform apply -target=azuread_user.example -auto-approve -input=false -var 'user_principal_name=$EXAMPLE_USER_AAD_USER_PRINCIPAL_NAME' -var 'user_name=$EXAMPLE_USER_AAD_USER_NAME'
 
     - name: Terraform Apply 2
       run: terraform apply -target=azuread_users.return_all_users -auto-approve -input=false
