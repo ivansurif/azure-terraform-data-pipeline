@@ -1,6 +1,6 @@
 resource "azuread_user" "example" {
   # Add existing user to Terraform State File
-  user_principal_name = var.user_principal_name
+  user_principal_name = 'cognite.test.user@gmail.com'
   display_name        = var.user_name
 
 }
