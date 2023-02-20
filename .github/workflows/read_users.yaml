@@ -43,7 +43,7 @@ jobs:
       run: terraform init
 
     - name: Import existing user
-      run: terraform import azuread_user.example $EXAMPLE_USER_AAD_USER_OBJECT_ID
+      run: terraform import azuread_user.example b77e8523-0fed-4396-a2e6-f5b90a87cf79
 
     #- name: Terraform Apply 1
     #  run: terraform apply -target=azuread_user.example -auto-approve -input=false -var 'user_principal_name=$EXAMPLE_USER_AAD_USER_PRINCIPAL_NAME' -var 'user_name=$EXAMPLE_USER_AAD_USER_NAME'
