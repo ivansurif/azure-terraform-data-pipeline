@@ -53,24 +53,3 @@ jobs:
 
     - name: Print AAD users
       run: terraform output all_users
-
-    - name: Retrieve Azure AD User Object IDs
-      run: az ad user list --query "[].objectId" -o tsv > user-ids.txt
-
-    - name: Import Users into Terraform State
-      run: |
-        cat user-ids.txt | while read user_id; do
-          terraform import azuread_user.user["${user_id}"] "${user_id}"
-        done
-      working-directory: ./terraform
-
-    - name: Terraform Apply
-      env:
-        ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
-      run: terraform apply -auto-approve
-      working-directory: ./terraform
-
-    - name: Push Terraform State to Azure Blob Storage
-      uses: Azure/github-actions/storage@v1
-      with:
-        args: "upload -c -t TerraformState --account-name <your-storage-account-name> --account-key ${{ secrets.AZURE_STORAGE_ACCESS_KEY }} --destination <your-container-name>/terraform.tfstate --source ./terraform/terraform.tfstate"
