@@ -1,7 +1,7 @@
 name: 'Terraform'
 
 on:
-  pull_request
+  [workflow_dispatch]
 
 env:
   ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
@@ -19,7 +19,8 @@ jobs:
     name: Plan Terraform
     runs-on: ubuntu-latest
     strategy:
-      matrix: { folder: [ 'terraform/azure/tier0/guest_users', 'terraform/azure/tier0/common_services' ] }
+      matrix: { folder: [ 'terraform/azure/tier0/guest_users' ] }
+      #matrix: { folder: [ 'terraform/azure/tier0/guest_users', 'terraform/azure/tier0/common_services' ] }
     defaults:
       run:
         shell: bash

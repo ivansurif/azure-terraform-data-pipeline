@@ -1,0 +1,60 @@
+name: Terraform Destroy
+
+on:
+  workflow_dispatch:
+    inputs:
+      destruction_target:
+        description: 'provide target for destruction'
+        required: true
+
+env:
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+  ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
+  GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
+  GITHUB_OWNER: ${{ secrets.GH_OWNER }}
+
+jobs:
+
+  terraform_destroy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: { folder: [ 'terraform/azure/tier0/guest_users', 'terraform/azure/tier0/common_services' ] }
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ matrix.folder }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Print CWD
+      run: pwd
+
+    - name: Get Terraform state
+      run: terraform init
+
+    - name: Print AAD users
+        run: terraform output user_display_names
+
+    - name: Configure Terraform
+      uses: hashicorp/terraform-github-actions@v1
+      with:
+        terraform-version: 0.15.x
+        command: terraform destroy -target=${{ github.event.inputs.destruction_target }}
+
+
+    - name: Terraform Apply
+      env:
+        TF_IN_AUTOMATION: "true"
+      run: |
+        terraform init
+        terraform plan
+        echo "Do you want to continue with the apply? [yes/no]"
+        read input
+        if [ "$input" == "yes" ]; then
+          terraform apply -auto-approve
+        fi
