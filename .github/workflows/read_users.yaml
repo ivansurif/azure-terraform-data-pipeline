@@ -1,7 +1,7 @@
 name: Read Users in AAD
 
 on:
-  pull_request
+  workflow_dispatch
 
 env:
   ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
@@ -48,8 +48,8 @@ jobs:
     #- name: Terraform Apply 1
     #  run: terraform apply -target=azuread_user.example -auto-approve -input=false -var 'user_principal_name=$EXAMPLE_USER_AAD_USER_PRINCIPAL_NAME' -var 'user_name=$EXAMPLE_USER_AAD_USER_NAME'
 
-    - name: Terraform Apply 2
-      run: terraform apply -auto-approve -input=false
+    #- name: Terraform Apply 2
+    #  run: terraform apply -auto-approve -input=false
 
     - name: Print AAD users
       run: terraform output all_users
