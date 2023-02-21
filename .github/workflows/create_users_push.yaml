@@ -1,7 +1,11 @@
 name: Create User in AAD
 
 on:
-  pull_request
+  push:
+    branches:
+      - main
+    paths:
+      - 'terraform/azure/guest_users'
 
 env:
   ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
@@ -44,14 +48,11 @@ jobs:
     - name: Get Terraform state
       run: terraform init
 
-    #- name: Import existing user
-    #  run: terraform import azuread_user.example b77e8523-0fed-4396-a2e6-f5b90a87cf79
-
     - name: Terraform Plan
       run: terraform plan -input=false -var 'user_principal_name=${{ env.NEW_USER_AAD_USER_PRINCIPAL_NAME }}' -var 'display_name=${{ env.NEW_USER_AAD_USER_NAME }}' -var 'mail_nickname=${{ env.NEW_USER_AAD_USER_NAME}}' -var 'password=${{ env.NEW_USER_AAD_PASSWORD}}'
 
-    #- name: Terraform Apply 2
-    #  run: terraform apply -auto-approve -input=false
+    - name: Terraform Apply 2
+      run: terraform apply -auto-approve -input=false
 
     - name: Print AAD users
       run: terraform output all_users
