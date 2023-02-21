@@ -5,6 +5,6 @@
 #
 #}
 
-data "azuread_users" "return_all_users" {
+data "azuread_users" "return_all_users_" {
   return_all = true
 }
