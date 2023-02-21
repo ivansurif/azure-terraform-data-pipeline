@@ -6,6 +6,4 @@ resource "azuread_user" "new_user" {
   password = var.password
   force_password_change = false
   account_enabled = true
-  password_policies = "DisablePasswordExpiration"
-  usage_location = "US"
 }
