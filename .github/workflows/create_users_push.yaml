@@ -22,7 +22,7 @@ env:
 
 jobs:
 
-  Terraform Plan:
+  Terraform_Plan:
     environment: ad-hoc
     name: Create User in AAD - Plan
     runs-on: ubuntu-latest
@@ -51,8 +51,8 @@ jobs:
     - name: Terraform Plan
       run: terraform plan -input=false -var 'user_principal_name=${{ env.NEW_USER_AAD_USER_PRINCIPAL_NAME }}' -var 'display_name=${{ env.NEW_USER_AAD_USER_NAME }}' -var 'mail_nickname=${{ env.NEW_USER_AAD_USER_NAME}}' -var 'password=${{ env.NEW_USER_AAD_PASSWORD}}'
 
-  Terraform Apply:
-    needs: Terraform Plan
+  Terraform_Apply:
+    needs: Terraform_Plan
     environment: ad-hoc
     name: Create User in AAD - Plan
     runs-on: ubuntu-latest
