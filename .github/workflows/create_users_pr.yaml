@@ -1,7 +1,9 @@
 name: Create User in AAD
 
 on:
-  pull_request
+  pull_request:
+    paths:
+      - 'terraform/azure/tier0/guest_users'
 
 
 env:
