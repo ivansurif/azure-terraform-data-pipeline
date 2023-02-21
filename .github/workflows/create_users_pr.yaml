@@ -2,10 +2,9 @@ name: Create User in AAD
 
 on:
   pull_request:
-    branches:
-      - main
     paths:
       - 'terraform/azure/guest_users'
+
 
 env:
   ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
