@@ -20,7 +20,7 @@ jobs:
 
   read_users:
     environment: ad-hoc
-    name: Read Users in AAD
+    name: Create User in AAD
     runs-on: ubuntu-latest
     strategy:
       matrix: { folder: [ 'terraform/azure/tier0/guest_users' ] }
