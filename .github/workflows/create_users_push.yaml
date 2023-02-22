@@ -54,7 +54,7 @@ jobs:
   Terraform_Apply:
     needs: Terraform_Plan
     environment: ad-hoc
-    name: Create User in AAD - Plan
+    name: Create User in AAD - Apply
     runs-on: ubuntu-latest
     strategy:
       matrix: { folder: [ 'terraform/azure/tier0/guest_users' ] }
@@ -63,8 +63,19 @@ jobs:
         shell: bash
         working-directory: ${{ matrix.folder }}
     steps:
-    - name: Terraform Apply
-      run: terraform apply -auto-approve -input=false -var 'user_principal_name=${{ env.NEW_USER_AAD_USER_PRINCIPAL_NAME }}' -var 'display_name=${{ env.NEW_USER_AAD_USER_NAME }}' -var 'mail_nickname=${{ env.NEW_USER_AAD_USER_NAME}}' -var 'password=${{ env.NEW_USER_AAD_PASSWORD}}'
+        - name: Checkout code
+          uses: actions/checkout@v2
 
-    - name: Print AAD users
-      run: terraform output all_users
+        - name: Configure Terraform
+          uses: hashicorp/setup-terraform@v1
+          with:
+            terraform_version: 0.15.0
+
+        - name: Get Terraform state
+          run: terraform init
+
+        - name: Terraform Apply
+          run: terraform apply -auto-approve -input=false -var 'user_principal_name=${{ env.NEW_USER_AAD_USER_PRINCIPAL_NAME }}' -var 'display_name=${{ env.NEW_USER_AAD_USER_NAME }}' -var 'mail_nickname=${{ env.NEW_USER_AAD_USER_NAME}}' -var 'password=${{ env.NEW_USER_AAD_PASSWORD}}'
+
+        - name: Print AAD users
+          run: terraform output all_users
