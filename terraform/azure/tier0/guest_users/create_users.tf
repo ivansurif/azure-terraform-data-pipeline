@@ -9,8 +9,8 @@
 #}
 locals {
   guest_users = {
-    var.display_name : var.user_principal_name
-    # ADD MORE USERS IS NECESSARY
+    "${var.display_name}" : var.user_principal_name
+    # ADD MORE USERS IF NECESSARY
   }
 }
 
