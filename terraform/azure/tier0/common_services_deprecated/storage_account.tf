@@ -8,7 +8,7 @@ resource "random_string" "random" {
 
 ## Azure Storage Accounts requires a globally unique names
 ## https://docs.microsoft.com/en-us/azure/storage/common/storage-account-overview
-## Create a Storage Account
+## Create a File Storage Account
 resource "azurerm_storage_account" "storage" {
   name                     = "stor${random_string.random.id}"
   resource_group_name      = azurerm_resource_group.common.name
