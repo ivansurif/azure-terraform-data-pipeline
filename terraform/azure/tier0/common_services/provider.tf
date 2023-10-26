@@ -1,10 +1,10 @@
-# A backend defines where Terraform stores its state data files.
 terraform {
   backend "azurerm" {
-    storage_account_name = "sandbox4terraform"
+    storage_account_name = "terra4mstate"
     container_name       = "tfstate"
     key                  = "azure.tier0.common_services"
     # Access Key set as environment variable ARM_ACCESS_KEY
+
   }
   required_providers {
     azurerm = {
