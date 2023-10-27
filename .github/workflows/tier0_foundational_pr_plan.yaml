@@ -45,4 +45,4 @@ jobs:
     - name: Print Terraform Outputs
       run: |
         echo "Tier 0 Resource Group ID: $(terraform output resource_group_id)"
-        echo "Resource Group Name: $(terraform output resource_group_name)""
+        echo "Resource Group Name: $(terraform output resource_group_name)"
