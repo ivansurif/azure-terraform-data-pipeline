@@ -19,7 +19,7 @@ jobs:
     name: Create Tier 0 Common Services Resources - Plan
     runs-on: ubuntu-latest
     strategy:
-      matrix: { folder: [ 'terraform/azure/tier0_foundational' ] }
+      matrix: { folder: [ 'terraform/azure/tiers/tier0_foundational' ] }
     defaults:
       run:
         shell: bash
