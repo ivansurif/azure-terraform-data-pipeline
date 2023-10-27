@@ -18,8 +18,8 @@ jobs:
     environment: ad-hoc
     name: Create Tier 0 Common Services Resources - Plan
     runs-on: ubuntu-latest
-    strategy:
-      matrix: { folder: [ 'terraform/azure/tiers/tier0_foundational' ] }
+    #strategy:
+      #matrix: { folder: [ 'terraform/azure/tiers/tier0_foundational' ] }
     defaults:
       run:
         shell: bash
