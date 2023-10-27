@@ -11,10 +11,6 @@ env:
   ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
   GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
   GITHUB_OWNER: ${{ secrets.GH_OWNER }}
-  # EXAMPLE_USER_AAD_USER_OBJECT_ID: ${{ secrets.EXAMPLE_USER_AAD_USER_OBJECT_ID }}
-  # NEW_USER_AAD_USER_PRINCIPAL_NAME: ${{ secrets.NEW_USER_AAD_USER_PRINCIPAL_NAME }}
-  # NEW_USER_AAD_USER_NAME: ${{ secrets.NEW_USER_AAD_USER_NAME }}
-  # NEW_USER_AAD_PASSWORD: ${{ secrets.NEW_USER_AAD_PASSWORD }}
 
 jobs:
 
@@ -23,7 +19,7 @@ jobs:
     name: Create Tier 0 Common Services Resources - Plan
     runs-on: ubuntu-latest
     strategy:
-      matrix: { folder: [ 'terraform/azure/tier0/common_services' ] }
+      matrix: { folder: [ 'terraform/azure/tier0_foundational' ] }
     defaults:
       run:
         shell: bash
@@ -45,4 +41,9 @@ jobs:
       run: terraform init
 
     - name: Terraform Plan
-      run: terraform plan -input=false
+      run: terraform plan -input=false -var-file=config.tfvars
+
+    - name: Print Terraform Outputs
+      run: |
+        echo "Tier 0 Resource Group ID: $(terraform output resource_group_id)"
+        echo "Resource Group Name: $(terraform output resource_group_name)""

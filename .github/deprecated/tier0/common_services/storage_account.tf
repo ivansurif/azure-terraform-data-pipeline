@@ -13,7 +13,7 @@ resource "azurerm_storage_account" "storage" {
   name                     = "stor${random_string.random.id}"
   resource_group_name      = azurerm_resource_group.common.name
   location                 = azurerm_resource_group.common.location
-  account_tier             = "Premium"
-  account_replication_type = "LRS"
-  account_kind             = "FileStorage"
+  account_tier             = "Premium" # TODO: CHANGE THIS
+  account_replication_type = "LRS" # TODO: CHANGE THIS
+  account_kind             = "FileStorage" # TODO: CHANGE THIS
 }
