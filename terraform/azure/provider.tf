@@ -1,8 +1,8 @@
 terraform {
   backend "azurerm" {
     storage_account_name = "terra4mstate"
-    container_name       = "tfstate_slack_toolbox"
-    key                  = "azure.tier0.common_services"
+    container_name       = "tfstate"
+    key                  = "azure.tier0.slack_toolbox"
     # Access Key set as environment variable ARM_ACCESS_KEY
 
   }
