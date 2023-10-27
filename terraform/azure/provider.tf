@@ -26,5 +26,5 @@ provider "azurerm" {
   #tenant_id       = "b8c39159-a389-4b78-993a-0c4d467c6229"
   
   features {}
-  skip_provider_registration = false
+  skip_provider_registration = true
 }
