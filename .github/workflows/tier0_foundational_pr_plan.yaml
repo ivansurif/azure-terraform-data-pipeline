@@ -4,7 +4,10 @@ on:
   pull_request
 
 env:
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
   ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
   ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
   GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
   GITHUB_OWNER: ${{ secrets.GH_OWNER }}
@@ -37,7 +40,7 @@ jobs:
       run: terraform init
 
     - name: Terraform Plan
-      run: terraform plan -var-file=config.tfvars
+      run: terraform plan -input=false -var-file=config.tfvars
 
     - name: Print Terraform Outputs
       run: |
