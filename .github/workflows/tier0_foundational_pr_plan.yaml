@@ -37,7 +37,7 @@ jobs:
       run: terraform init
 
     - name: Terraform Plan
-      run: terraform plan -input=false -var-file=config.tfvars
+      run: terraform plan -var-file=config.tfvars
 
     - name: Print Terraform Outputs
       run: |
