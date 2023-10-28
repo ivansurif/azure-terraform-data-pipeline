@@ -61,6 +61,3 @@ jobs:
 
         - name: Terraform Apply
           run: terraform apply -auto-approve -input=false -var-file=config.tfvars
-
-        - name: Print AAD users
-          run: terraform output all_users
