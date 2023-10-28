@@ -4,10 +4,7 @@ Terraform based Azure Deployment
 ## Repo setup
 
 1. Create these **secrets** in your repo:
-- `ARM_CLIENT_ID`
 - `ARM_CLIENT_SECRET`
-- `ARM_SUBSCRIPTION_ID`
-- `ARM_TENANT_ID`
 - `ARM_ACCESS_KEY` => See explanation below
 
 2. Make sure that your `GH Actions` workflow permissions are permissive: _Settings > Actions > Workflow permissions >_ 
