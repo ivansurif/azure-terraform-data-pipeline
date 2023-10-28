@@ -19,10 +19,14 @@ module "tier0_foundational" {
 }
 
 # Uncomment when module is creataed
-# module "tier1_core" {
-#   source             = "./tiers/tier1_core"
-#   # ... pass other necessary variables
-    # depends_on = [module.tier0_foundational]
+module "tier1_core" {
+  source             = "./tiers/tier1_core"
 
-# }
+  resource_group_name= var.resource_group_name
+  resource_group_location = var.resource_group_location
+  custom_topic_name = var.custom_topic_name
+  
+  depends_on = [module.tier0_foundational]
+
+}
 
