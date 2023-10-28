@@ -2,14 +2,14 @@ terraform {
   backend "azurerm" {
     storage_account_name = "terra4mstate"
     container_name       = "tfstate"
-    key                  = "azure.tier0.guest_users"
+    key                  = "azure.tier0.slack_toolbox"
     # Access Key set as environment variable ARM_ACCESS_KEY
 
   }
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "2.82.0"
+      version = "3.77.0"
     }
   }
 
@@ -18,11 +18,13 @@ terraform {
 
 provider "azurerm" {
   # Requires the following environment variables
-  # ARM_CLIENT_ID
   # ARM_CLIENT_SECRET
-  # ARM_SUBSCRIPTION_ID
-  # ARM_TENANT_ID
-  skip_provider_registration = true
 
+  client_id       = "d2e51d5d-9851-4045-bb80-f75cda8c4a14"
+  # client_secret   = "" Uses default variable name ARM_CLIENT_SECRET
+  subscription_id = "2152bb9e-3b7e-4eef-a07d-36e8897d34aa"
+  tenant_id       = "b8c39159-a389-4b78-993a-0c4d467c6229"
+  
   features {}
+  skip_provider_registration = true
 }

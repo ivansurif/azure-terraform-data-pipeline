@@ -1,4 +1,4 @@
-Terraform Deployment Template
+Terraform based Azure Deployment
 ===
 
 ## Repo setup
@@ -58,15 +58,14 @@ terraform {
 ```
 In the above code, `key` is a parameter used to specify the name of the Terraform state file within the Azure Storage Account. The key parameter can be used to specify a prefix for the state file name or the full path of the state file.
 
-In this case, the key parameter value is set to "azure.tier0.common_services", which means that the Terraform state file for this configuration will be stored in a container named "tfstate" within the "terra4mstate" storage account with the name "azure.tier0.common_services".
+In this case, the key parameter value is set to `azure.tier0.common_services`, which means that the Terraform state file for this configuration will be stored in a container named "tfstate" within the "terra4mstate" storage account with the name "azure.tier0.common_services".
 
 The key parameter is optional, and if it is not specified, Terraform will use a default naming convention to create the state file name.
 
 
 
 
-And, as mentioned in the code comment, repo secret `ARM_ACCESS_KEY` is necessary for the repo to be able to write to
-that container.
+And, as mentioned in the code comment, repo secret `ARM_ACCESS_KEY` is necessary for the repo to be able to write to that container.
 
 
 The code in the repo runs assuming these resources exist, and will return an error when deploying if they don't.</br>

@@ -7,3 +7,4 @@ terraform/.DS_Store
 /not_ready_to_apply
 /internal_comments.md
 .gitignore
+.github/deprecated

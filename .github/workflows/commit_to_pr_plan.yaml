@@ -1,0 +1,42 @@
+name: Terraform Plan
+
+on:
+  pull_request
+
+env:
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
+  GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
+  GITHUB_OWNER: ${{ secrets.GH_OWNER }}
+
+jobs:
+
+  Terraform_Plan:
+    environment: ad-hoc
+    name: Terraform - Plan
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: terraform/azure
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Print CWD
+      run: pwd
+
+    - name: Configure Terraform
+      uses: hashicorp/setup-terraform@v2
+
+    - name: Get Terraform state
+      run: terraform init
+
+    - name: Terraform Plan
+      run: terraform plan -input=false -var-file=config.tfvars
+
+    - name: Print Terraform Outputs
+      run: |
+        echo "Tier 0 Resource Group ID: $(terraform output resource_group_id)"
+        echo "Resource Group Name: $(terraform output resource_group_name)"
