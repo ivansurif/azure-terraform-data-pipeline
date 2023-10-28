@@ -1,4 +1,4 @@
-name: Create User in AAD
+name: Terraform Apply
 
 on:
   push:

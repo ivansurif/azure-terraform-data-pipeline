@@ -1,4 +1,4 @@
-name: Create Tier 0 Common Services Resources
+name: Terraform Plan
 
 on:
   pull_request
