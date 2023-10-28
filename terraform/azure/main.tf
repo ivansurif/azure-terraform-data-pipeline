@@ -22,5 +22,7 @@ module "tier0_foundational" {
 # module "tier1_core" {
 #   source             = "./tiers/tier1_core"
 #   # ... pass other necessary variables
+    # depends_on = [module.tier0_foundational]
+
 # }
 

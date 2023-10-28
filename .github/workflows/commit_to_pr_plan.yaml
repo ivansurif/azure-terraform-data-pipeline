@@ -4,27 +4,21 @@ on:
   pull_request
 
 env:
-  #ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
   ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-  #ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-  #ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
   ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
   GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
   GITHUB_OWNER: ${{ secrets.GH_OWNER }}
 
 jobs:
 
-  read_users:
+  Terraform_Plan:
     environment: ad-hoc
-    name: Create Tier 0 Common Services Resources - Plan
+    name: Terraform - Plan
     runs-on: ubuntu-latest
-    #strategy:
-      #matrix: { folder: [ 'terraform/azure/tiers/tier0_foundational' ] }
     defaults:
       run:
         shell: bash
         working-directory: terraform/azure
-        #working-directory: ${{ matrix.folder }}
 
     steps:
     - name: Checkout code
