@@ -1,10 +1,10 @@
 variable "resource_group_name" {
-  description = "Desired name for the resource group"
+  description = "Name of the Resource Group"
   type        = string
 }
 
 variable "resource_group_location" {
-  description = "Desired Azure location for resources"
+  description = "Azure region for the Resource Group"
   type        = string
 }
 
