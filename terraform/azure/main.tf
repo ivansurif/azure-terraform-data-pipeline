@@ -21,9 +21,9 @@ module "tier0" {
 module "tier1" {
   source             = "./tiers/tier1"
   resource_group_name = module.tier0.resource_group_name
-  resource_group_location = module.tier0.resource_group_location
+  location = module.tier0.resource_group_location
   custom_topic_name = var.custom_topic_name
+  storage_account_name = var.storage_account_name
   depends_on = [module.tier0]
-
 }
 

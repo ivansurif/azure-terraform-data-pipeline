@@ -6,6 +6,6 @@ variable "location" {
   type        = string
 }
 
-variable "custom_topic_name" {
+variable "storage_account_name" {
   type        = string
 }
