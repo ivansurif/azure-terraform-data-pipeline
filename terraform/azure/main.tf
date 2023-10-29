@@ -12,21 +12,18 @@
 # }
 
 
-module "tier0_foundational" {
-  source             = "./tiers/tier0_foundational"
+module "tier0" {
+  source             = "./tiers/tier0"
   resource_group_name= var.resource_group_name
   resource_group_location = var.resource_group_location
 }
 
-# Uncomment when module is creataed
-module "tier1_core" {
-  source             = "./tiers/tier1_core"
-
-  resource_group_name= var.resource_group_name
-  resource_group_location = var.resource_group_location
+module "tier1" {
+  source             = "./tiers/tier1"
+  resource_group_name = module.tier0.resource_group_name
+  resource_group_location = module.tier0.resource_group_location
   custom_topic_name = var.custom_topic_name
-  
-  depends_on = [module.tier0_foundational]
+  depends_on = [module.tier0]
 
 }
 
