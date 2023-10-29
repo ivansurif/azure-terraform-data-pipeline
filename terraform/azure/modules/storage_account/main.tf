@@ -6,3 +6,10 @@ resource "azurerm_storage_account" "az_sa" {
   account_replication_type = "LRS"
 
 }
+
+
+resource "azurerm_storage_queue" "az_saq" {
+  name                  = var.storage_account_queue_name
+  storage_account_name  = var.storage_account_name
+}
+
