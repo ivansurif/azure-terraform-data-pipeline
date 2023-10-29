@@ -1,4 +1,4 @@
-resource_group_name = "slack-stalker"
+resource_group_name = "slack-toolbox"
 resource_group_location = "East US"
 custom_topic_name = "selected-users-messages"
-#storage_account_name = "slack_messages_queue"
+storage_account_name = "slacktoolboxmessages"
