@@ -1,6 +1,10 @@
 Terraform based Azure Deployment
 ===
 
+## Deployment Process
+
+![alt text](deployment_workflow.png)
+
 ## Repo setup
 
 1. Create these **secrets** in your repo:
